@@ -19,6 +19,6 @@ export interface CreateServerRequest {
     userId: string;
     /** The name of the platform associated with the user. */
     platformName: string;
-    /** The connection type to use for the MCP server. Default is SSE. */
+    /** The connection type to use for the MCP server. Default is STREAMABLE_HTTP. */
     connectionType?: Klavis.ConnectionType;
 }

@@ -18,6 +18,6 @@ export interface CallToolRequest {
     toolName: string;
     /** The input parameters for the tool */
     toolArgs?: Record<string, unknown>;
-    /** The connection type to use for the MCP server. Default is SSE. */
+    /** The connection type to use for the MCP server. Default is STREAMABLE_HTTP. */
     connectionType?: Klavis.ConnectionType;
 }

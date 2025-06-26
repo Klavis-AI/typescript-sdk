@@ -13,7 +13,7 @@ import * as Klavis from "../../../../index.js";
 export interface ListToolsRequest {
     /** The full URL for connecting to the MCP server */
     serverUrl: string;
-    /** The connection type to use for the MCP server. Default is SSE. */
+    /** The connection type to use for the MCP server. Default is STREAMABLE_HTTP. */
     connectionType?: Klavis.ConnectionType;
     /** The format to return tools in. Default is MCP Native format for maximum compatibility. */
     format?: Klavis.ToolFormat;
