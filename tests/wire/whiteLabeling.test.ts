@@ -9,7 +9,7 @@ describe("WhiteLabeling", () => {
     test("createWhiteLabeling", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { client_id: "client_id", client_secret: "client_secret", server_name: "Slack" };
+        const rawRequestBody = { client_id: "client_id", client_secret: "client_secret", server_name: "Airtable" };
         const rawResponseBody = { success: true, data: { key: "value" }, message: "message" };
         server
             .mockEndpoint()
@@ -23,7 +23,7 @@ describe("WhiteLabeling", () => {
         const response = await client.whiteLabeling.createWhiteLabeling({
             client_id: "client_id",
             client_secret: "client_secret",
-            server_name: "Slack",
+            server_name: "Airtable",
         });
         expect(response).toEqual({
             success: true,

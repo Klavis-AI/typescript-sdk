@@ -3,41 +3,45 @@
  */
 
 export type OAuthServerName =
+    | "Airtable"
+    | "Asana"
+    | "Attio"
+    | "ClickUp"
+    | "Close"
+    | "Confluence"
+    | "GitHub"
+    | "Gmail"
+    | "Google Calendar"
+    | "Google Docs"
+    | "Google Drive"
+    | "Google Sheets"
+    | "HubSpot"
+    | "Jira"
+    | "Linear"
+    | "Notion"
+    | "Salesforce"
     | "Slack"
     | "Supabase"
-    | "Notion"
-    | "GitHub"
-    | "Jira"
-    | "Confluence"
-    | "WordPress"
-    | "Gmail"
-    | "Google Drive"
-    | "Google Calendar"
-    | "Google Sheets"
-    | "Google Docs"
-    | "Attio"
-    | "Salesforce"
-    | "Linear"
-    | "Asana"
-    | "Close"
-    | "ClickUp";
+    | "WordPress";
 export const OAuthServerName = {
+    Airtable: "Airtable",
+    Asana: "Asana",
+    Attio: "Attio",
+    ClickUp: "ClickUp",
+    Close: "Close",
+    Confluence: "Confluence",
+    GitHub: "GitHub",
+    Gmail: "Gmail",
+    GoogleCalendar: "Google Calendar",
+    GoogleDocs: "Google Docs",
+    GoogleDrive: "Google Drive",
+    GoogleSheets: "Google Sheets",
+    HubSpot: "HubSpot",
+    Jira: "Jira",
+    Linear: "Linear",
+    Notion: "Notion",
+    Salesforce: "Salesforce",
     Slack: "Slack",
     Supabase: "Supabase",
-    Notion: "Notion",
-    GitHub: "GitHub",
-    Jira: "Jira",
-    Confluence: "Confluence",
     WordPress: "WordPress",
-    Gmail: "Gmail",
-    GoogleDrive: "Google Drive",
-    GoogleCalendar: "Google Calendar",
-    GoogleSheets: "Google Sheets",
-    GoogleDocs: "Google Docs",
-    Attio: "Attio",
-    Salesforce: "Salesforce",
-    Linear: "Linear",
-    Asana: "Asana",
-    Close: "Close",
-    ClickUp: "ClickUp",
 } as const;

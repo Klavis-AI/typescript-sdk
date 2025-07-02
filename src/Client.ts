@@ -26,6 +26,8 @@ import { AsanaOauth } from "./api/resources/asanaOauth/client/Client.js";
 import { LinearOauth } from "./api/resources/linearOauth/client/Client.js";
 import { CloseOauth } from "./api/resources/closeOauth/client/Client.js";
 import { ClickupOauth } from "./api/resources/clickupOauth/client/Client.js";
+import { AirtableOauth } from "./api/resources/airtableOauth/client/Client.js";
+import { HubspotOauth } from "./api/resources/hubspotOauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -73,6 +75,8 @@ export class KlavisClient {
     protected _linearOauth: LinearOauth | undefined;
     protected _closeOauth: CloseOauth | undefined;
     protected _clickupOauth: ClickupOauth | undefined;
+    protected _airtableOauth: AirtableOauth | undefined;
+    protected _hubspotOauth: HubspotOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -81,8 +85,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "0.2.1",
-                    "User-Agent": "klavis/0.2.1",
+                    "X-Fern-SDK-Version": "0.3.1",
+                    "User-Agent": "klavis/0.3.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -173,5 +177,13 @@ export class KlavisClient {
 
     public get clickupOauth(): ClickupOauth {
         return (this._clickupOauth ??= new ClickupOauth(this._options));
+    }
+
+    public get airtableOauth(): AirtableOauth {
+        return (this._airtableOauth ??= new AirtableOauth(this._options));
+    }
+
+    public get hubspotOauth(): HubspotOauth {
+        return (this._hubspotOauth ??= new HubspotOauth(this._options));
     }
 }

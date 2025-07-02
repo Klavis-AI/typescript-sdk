@@ -51,7 +51,7 @@ export class WhiteLabeling {
      *     await client.whiteLabeling.createWhiteLabeling({
      *         client_id: "client_id",
      *         client_secret: "client_secret",
-     *         server_name: "Slack"
+     *         server_name: "Airtable"
      *     })
      */
     public createWhiteLabeling(

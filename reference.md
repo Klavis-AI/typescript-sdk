@@ -170,7 +170,7 @@ If OAuth is configured for the server, also returns the base OAuth authorization
 
 ```typescript
 await client.mcpServer.createServerInstance({
-    serverName: "Markdown2doc",
+    serverName: "Affinity",
     userId: "userId",
     platformName: "platformName",
 });
@@ -428,7 +428,7 @@ Mainly used for querying metadata about the MCP server.
 <dd>
 
 ```typescript
-await client.mcpServer.getTools("Markdown2doc");
+await client.mcpServer.getTools("Affinity");
 ```
 
 </dd>
@@ -615,7 +615,7 @@ Returns the complete OAuth URL with the instance ID as a query parameter.
 
 ```typescript
 await client.mcpServer.getOAuthUrl({
-    serverName: "Markdown2doc",
+    serverName: "Affinity",
     instanceId: "instanceId",
 });
 ```
@@ -685,7 +685,7 @@ Saves OAuth white labeling information, or updates existing information if the `
 await client.whiteLabeling.createWhiteLabeling({
     client_id: "client_id",
     client_secret: "client_secret",
-    server_name: "Slack",
+    server_name: "Airtable",
 });
 ```
 
@@ -4216,6 +4216,422 @@ await client.clickupOauth.clickUpOAuthCallback();
 <dd>
 
 **requestOptions:** `ClickupOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## AirtableOauth
+
+<details><summary><code>client.airtableOauth.<a href="/src/api/resources/airtableOauth/client/Client.ts">authorizeAirtable</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Airtable OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.airtableOauth.authorizeAirtable({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeAirtableRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AirtableOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.airtableOauth.<a href="/src/api/resources/airtableOauth/client/Client.ts">airtableOAuthCallback</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Handles the callback from Airtable OAuth authorization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.airtableOauth.airtableOAuthCallback();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AirtableOAuthCallbackRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AirtableOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.airtableOauth.<a href="/src/api/resources/airtableOauth/client/Client.ts">refreshAirtableToken</a>({ ...params }) -> Klavis.AirtableOAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh an expired Airtable access token using the stored refresh token
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting token refresh
+
+Returns:
+
+- Success response if token was refreshed successfully, error response otherwise
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.airtableOauth.refreshAirtableToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshAirtableTokenOauthAirtableRefreshTokenPostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `AirtableOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## HubspotOauth
+
+<details><summary><code>client.hubspotOauth.<a href="/src/api/resources/hubspotOauth/client/Client.ts">authorizeHubspot</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start HubSpot OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.hubspotOauth.authorizeHubspot({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeHubspotRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HubspotOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.hubspotOauth.<a href="/src/api/resources/hubspotOauth/client/Client.ts">hubspotOAuthCallback</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Handles the callback from HubSpot OAuth authorization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.hubspotOauth.hubspotOAuthCallback();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.HubspotOAuthCallbackRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HubspotOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.hubspotOauth.<a href="/src/api/resources/hubspotOauth/client/Client.ts">refreshHubspotToken</a>({ ...params }) -> Klavis.HubSpotOAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh an expired HubSpot access token using the stored refresh token
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting token refresh
+
+Returns:
+
+- Success response if token was refreshed successfully, error response otherwise
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.hubspotOauth.refreshHubspotToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshHubspotTokenOauthHubspotRefreshTokenPostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HubspotOauth.RequestOptions`
 
 </dd>
 </dl>

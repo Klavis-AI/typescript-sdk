@@ -9,7 +9,7 @@ import * as Klavis from "../../../../index.js";
  *     {
  *         client_id: "client_id",
  *         client_secret: "client_secret",
- *         server_name: "Slack"
+ *         server_name: "Airtable"
  *     }
  */
 export interface CreateWhiteLabelingRequest {

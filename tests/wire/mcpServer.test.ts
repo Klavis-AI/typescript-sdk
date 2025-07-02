@@ -74,7 +74,7 @@ describe("McpServer", () => {
     test("createServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { serverName: "Markdown2doc", userId: "userId", platformName: "platformName" };
+        const rawRequestBody = { serverName: "Affinity", userId: "userId", platformName: "platformName" };
         const rawResponseBody = { serverUrl: "serverUrl", instanceId: "instanceId", oauthUrl: "oauthUrl" };
         server
             .mockEndpoint()
@@ -86,7 +86,7 @@ describe("McpServer", () => {
             .build();
 
         const response = await client.mcpServer.createServerInstance({
-            serverName: "Markdown2doc",
+            serverName: "Affinity",
             userId: "userId",
             platformName: "platformName",
         });
@@ -175,13 +175,13 @@ describe("McpServer", () => {
         const rawResponseBody = { tools: [{ name: "name", description: "description" }] };
         server
             .mockEndpoint()
-            .get("/mcp-server/tools/Markdown2doc")
+            .get("/mcp-server/tools/Affinity")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getTools("Markdown2doc");
+        const response = await client.mcpServer.getTools("Affinity");
         expect(response).toEqual({
             tools: [
                 {
@@ -261,7 +261,7 @@ describe("McpServer", () => {
     test("getOAuthUrl", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { serverName: "Markdown2doc", instanceId: "instanceId" };
+        const rawRequestBody = { serverName: "Affinity", instanceId: "instanceId" };
         const rawResponseBody = { oauthUrl: "oauthUrl" };
         server
             .mockEndpoint()
@@ -273,7 +273,7 @@ describe("McpServer", () => {
             .build();
 
         const response = await client.mcpServer.getOAuthUrl({
-            serverName: "Markdown2doc",
+            serverName: "Affinity",
             instanceId: "instanceId",
         });
         expect(response).toEqual({

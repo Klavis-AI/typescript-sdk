@@ -7,7 +7,7 @@ import * as Klavis from "../../../../index.js";
 /**
  * @example
  *     {
- *         serverName: "Markdown2doc",
+ *         serverName: "Affinity",
  *         userId: "userId",
  *         platformName: "platformName"
  *     }

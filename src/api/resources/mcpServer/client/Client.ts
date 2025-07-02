@@ -220,7 +220,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.createServerInstance({
-     *         serverName: "Markdown2doc",
+     *         serverName: "Affinity",
      *         userId: "userId",
      *         platformName: "platformName"
      *     })
@@ -539,7 +539,7 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getTools("Markdown2doc")
+     *     await client.mcpServer.getTools("Affinity")
      */
     public getTools(
         serverName: Klavis.McpServerName,
@@ -767,7 +767,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.getOAuthUrl({
-     *         serverName: "Markdown2doc",
+     *         serverName: "Affinity",
      *         instanceId: "instanceId"
      *     })
      */

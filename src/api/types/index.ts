@@ -1,3 +1,5 @@
+export * from "./AirtableOAuthErrorResponse.js";
+export * from "./AirtableOAuthSuccessResponse.js";
 export * from "./AsanaOAuthErrorResponse.js";
 export * from "./AsanaOAuthSuccessResponse.js";
 export * from "./AttioOAuthErrorResponse.js";
@@ -30,6 +32,8 @@ export * from "./GitHubOAuthErrorResponse.js";
 export * from "./GmailOAuthErrorResponse.js";
 export * from "./GmailOAuthSuccessResponse.js";
 export * from "./HttpValidationError.js";
+export * from "./HubSpotOAuthErrorResponse.js";
+export * from "./HubSpotOAuthSuccessResponse.js";
 export * from "./JiraOAuthErrorResponse.js";
 export * from "./JiraOAuthSuccessResponse.js";
 export * from "./LinearOAuthErrorResponse.js";

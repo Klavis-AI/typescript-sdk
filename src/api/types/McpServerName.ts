@@ -3,61 +3,71 @@
  */
 
 export type McpServerName =
-    | "Markdown2doc"
-    | "Slack"
-    | "Supabase"
-    | "Postgres"
-    | "YouTube"
-    | "Doc2markdown"
-    | "Klavis ReportGen"
-    | "Resend"
+    | "Affinity"
+    | "Airtable"
+    | "Asana"
+    | "Attio"
+    | "ClickUp"
+    | "Close"
+    | "Confluence"
     | "Discord"
+    | "Doc2markdown"
+    | "Firecrawl Deep Research"
     | "Firecrawl Web Search"
     | "GitHub"
-    | "Firecrawl Deep Research"
-    | "Jira"
-    | "Confluence"
-    | "WordPress"
-    | "Notion"
     | "Gmail"
-    | "Google Drive"
-    | "Google Calendar"
-    | "Google Sheets"
-    | "Google Docs"
-    | "Attio"
-    | "Salesforce"
-    | "Linear"
-    | "Asana"
-    | "Close"
     | "Gong"
-    | "ClickUp";
+    | "Google Calendar"
+    | "Google Docs"
+    | "Google Drive"
+    | "Google Sheets"
+    | "HubSpot"
+    | "Jira"
+    | "Klavis ReportGen"
+    | "Linear"
+    | "Markdown2doc"
+    | "Notion"
+    | "Plai"
+    | "Postgres"
+    | "Resend"
+    | "Salesforce"
+    | "Slack"
+    | "Supabase"
+    | "WhatsApp"
+    | "WordPress"
+    | "YouTube";
 export const McpServerName = {
-    Markdown2Doc: "Markdown2doc",
-    Slack: "Slack",
-    Supabase: "Supabase",
-    Postgres: "Postgres",
-    Youtube: "YouTube",
-    Doc2Markdown: "Doc2markdown",
-    KlavisReportGen: "Klavis ReportGen",
-    Resend: "Resend",
+    Affinity: "Affinity",
+    Airtable: "Airtable",
+    Asana: "Asana",
+    Attio: "Attio",
+    ClickUp: "ClickUp",
+    Close: "Close",
+    Confluence: "Confluence",
     Discord: "Discord",
+    Doc2Markdown: "Doc2markdown",
+    FirecrawlDeepResearch: "Firecrawl Deep Research",
     FirecrawlWebSearch: "Firecrawl Web Search",
     Github: "GitHub",
-    FirecrawlDeepResearch: "Firecrawl Deep Research",
-    Jira: "Jira",
-    Confluence: "Confluence",
-    WordPress: "WordPress",
-    Notion: "Notion",
     Gmail: "Gmail",
-    GoogleDrive: "Google Drive",
-    GoogleCalendar: "Google Calendar",
-    GoogleSheets: "Google Sheets",
-    GoogleDocs: "Google Docs",
-    Attio: "Attio",
-    Salesforce: "Salesforce",
-    Linear: "Linear",
-    Asana: "Asana",
-    Close: "Close",
     Gong: "Gong",
-    ClickUp: "ClickUp",
+    GoogleCalendar: "Google Calendar",
+    GoogleDocs: "Google Docs",
+    GoogleDrive: "Google Drive",
+    GoogleSheets: "Google Sheets",
+    HubSpot: "HubSpot",
+    Jira: "Jira",
+    KlavisReportGen: "Klavis ReportGen",
+    Linear: "Linear",
+    Markdown2Doc: "Markdown2doc",
+    Notion: "Notion",
+    Plai: "Plai",
+    Postgres: "Postgres",
+    Resend: "Resend",
+    Salesforce: "Salesforce",
+    Slack: "Slack",
+    Supabase: "Supabase",
+    WhatsApp: "WhatsApp",
+    WordPress: "WordPress",
+    Youtube: "YouTube",
 } as const;
