@@ -23,6 +23,7 @@ export * from "./GDriveOAuthErrorResponse.js";
 export * from "./GDriveOAuthSuccessResponse.js";
 export * from "./GSheetsOAuthErrorResponse.js";
 export * from "./GSheetsOAuthSuccessResponse.js";
+export * from "./GetAuthMetadataResponse.js";
 export * from "./GetInstanceResponse.js";
 export * from "./GetMcpServersResponse.js";
 export * from "./GetOAuthUrlResponse.js";

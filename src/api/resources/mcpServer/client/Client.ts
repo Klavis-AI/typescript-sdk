@@ -533,7 +533,7 @@ export class McpServer {
      * Get list of tool names for a specific MCP server.
      * Mainly used for querying metadata about the MCP server.
      *
-     * @param {Klavis.McpServerName} serverName - The name of the target MCP server.
+     * @param {Klavis.McpServerName} serverName - The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
@@ -747,6 +747,88 @@ export class McpServer {
             case "timeout":
                 throw new errors.KlavisTimeoutError(
                     "Timeout exceeded when calling POST /mcp-server/instance/set-auth-token.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Retrieves the auth metadata for a specific instance that the API key owner controls.
+     * Includes access token, refresh token, and other authentication metadata.
+     *
+     * This endpoint includes proper ownership verification to ensure users can only access
+     * authentication data for instances they own. It also handles token refresh if needed.
+     *
+     * @param {string} instanceId - The ID of the connection instance to get auth metadata for.
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.getInstanceAuthMetadata("instance_id")
+     */
+    public getInstanceAuthMetadata(
+        instanceId: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.GetAuthMetadataResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getInstanceAuthMetadata(instanceId, requestOptions));
+    }
+
+    private async __getInstanceAuthMetadata(
+        instanceId: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.GetAuthMetadataResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/instance/get-auth/${encodeURIComponent(instanceId)}`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.GetAuthMetadataResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /mcp-server/instance/get-auth/{instance_id}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({

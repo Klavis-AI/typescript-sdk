@@ -12,7 +12,7 @@ import * as Klavis from "../../../../index.js";
  *     }
  */
 export interface GetOAuthUrlRequest {
-    /** The name of the target MCP server. */
+    /** The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid). */
     serverName: Klavis.McpServerName;
     /** The unique identifier for the connection instance. */
     instanceId: string;

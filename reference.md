@@ -444,7 +444,7 @@ await client.mcpServer.getTools("Affinity");
 <dl>
 <dd>
 
-**serverName:** `Klavis.McpServerName` — The name of the target MCP server.
+**serverName:** `Klavis.McpServerName` — The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
 
 </dd>
 </dl>
@@ -567,6 +567,73 @@ await client.mcpServer.setInstanceAuthToken({
 <dd>
 
 **request:** `Klavis.SetAuthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getInstanceAuthMetadata</a>(instanceId) -> Klavis.GetAuthMetadataResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the auth metadata for a specific instance that the API key owner controls.
+Includes access token, refresh token, and other authentication metadata.
+
+This endpoint includes proper ownership verification to ensure users can only access
+authentication data for instances they own. It also handles token refresh if needed.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.getInstanceAuthMetadata("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string` — The ID of the connection instance to get auth metadata for.
 
 </dd>
 </dl>
