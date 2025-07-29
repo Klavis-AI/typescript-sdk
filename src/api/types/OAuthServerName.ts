@@ -6,6 +6,7 @@ export type OAuthServerName =
     | "Airtable"
     | "Asana"
     | "Attio"
+    | "Canva"
     | "ClickUp"
     | "Close"
     | "Confluence"
@@ -18,15 +19,18 @@ export type OAuthServerName =
     | "HubSpot"
     | "Jira"
     | "Linear"
+    | "LinkedIn"
     | "Notion"
     | "Salesforce"
     | "Slack"
     | "Supabase"
+    | "Xero"
     | "WordPress";
 export const OAuthServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
     Attio: "Attio",
+    Canva: "Canva",
     ClickUp: "ClickUp",
     Close: "Close",
     Confluence: "Confluence",
@@ -39,9 +43,11 @@ export const OAuthServerName = {
     HubSpot: "HubSpot",
     Jira: "Jira",
     Linear: "Linear",
+    LinkedIn: "LinkedIn",
     Notion: "Notion",
     Salesforce: "Salesforce",
     Slack: "Slack",
     Supabase: "Supabase",
+    Xero: "Xero",
     WordPress: "WordPress",
 } as const;

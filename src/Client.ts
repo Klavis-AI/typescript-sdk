@@ -28,6 +28,9 @@ import { CloseOauth } from "./api/resources/closeOauth/client/Client.js";
 import { ClickupOauth } from "./api/resources/clickupOauth/client/Client.js";
 import { AirtableOauth } from "./api/resources/airtableOauth/client/Client.js";
 import { HubspotOauth } from "./api/resources/hubspotOauth/client/Client.js";
+import { LinkedinOauth } from "./api/resources/linkedinOauth/client/Client.js";
+import { CanvaOauth } from "./api/resources/canvaOauth/client/Client.js";
+import { XeroOauth } from "./api/resources/xeroOauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -77,6 +80,9 @@ export class KlavisClient {
     protected _clickupOauth: ClickupOauth | undefined;
     protected _airtableOauth: AirtableOauth | undefined;
     protected _hubspotOauth: HubspotOauth | undefined;
+    protected _linkedinOauth: LinkedinOauth | undefined;
+    protected _canvaOauth: CanvaOauth | undefined;
+    protected _xeroOauth: XeroOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -85,8 +91,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "0.4.1",
-                    "User-Agent": "klavis/0.4.1",
+                    "X-Fern-SDK-Version": "0.5.1",
+                    "User-Agent": "klavis/0.5.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -185,5 +191,17 @@ export class KlavisClient {
 
     public get hubspotOauth(): HubspotOauth {
         return (this._hubspotOauth ??= new HubspotOauth(this._options));
+    }
+
+    public get linkedinOauth(): LinkedinOauth {
+        return (this._linkedinOauth ??= new LinkedinOauth(this._options));
+    }
+
+    public get canvaOauth(): CanvaOauth {
+        return (this._canvaOauth ??= new CanvaOauth(this._options));
+    }
+
+    public get xeroOauth(): XeroOauth {
+        return (this._xeroOauth ??= new XeroOauth(this._options));
     }
 }

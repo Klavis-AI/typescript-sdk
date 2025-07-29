@@ -25,6 +25,7 @@ export type McpServerName =
     | "Jira"
     | "Klavis ReportGen"
     | "Linear"
+    | "LinkedIn"
     | "Markdown2doc"
     | "Notion"
     | "Plai"
@@ -59,6 +60,7 @@ export const McpServerName = {
     Jira: "Jira",
     KlavisReportGen: "Klavis ReportGen",
     Linear: "Linear",
+    LinkedIn: "LinkedIn",
     Markdown2Doc: "Markdown2doc",
     Notion: "Notion",
     Plai: "Plai",
