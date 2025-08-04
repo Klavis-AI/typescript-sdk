@@ -26,24 +26,4 @@ describe("WordpressOauth", () => {
             key: "value",
         });
     });
-
-    test("wordpressOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .get("/oauth/wordpress/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.wordpressOauth.wordpressOAuthCallback();
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
 });

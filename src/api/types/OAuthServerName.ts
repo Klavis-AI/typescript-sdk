@@ -25,7 +25,8 @@ export type OAuthServerName =
     | "Slack"
     | "Supabase"
     | "Xero"
-    | "WordPress";
+    | "WordPress"
+    | "Dropbox";
 export const OAuthServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
@@ -50,4 +51,5 @@ export const OAuthServerName = {
     Supabase: "Supabase",
     Xero: "Xero",
     WordPress: "WordPress",
+    Dropbox: "Dropbox",
 } as const;

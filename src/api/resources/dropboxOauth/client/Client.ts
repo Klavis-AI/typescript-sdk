@@ -9,7 +9,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
-export declare namespace GdriveOauth {
+export declare namespace DropboxOauth {
     export interface Options {
         environment?: core.Supplier<environments.KlavisEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -32,42 +32,42 @@ export declare namespace GdriveOauth {
     }
 }
 
-export class GdriveOauth {
-    protected readonly _options: GdriveOauth.Options;
+export class DropboxOauth {
+    protected readonly _options: DropboxOauth.Options;
 
-    constructor(_options: GdriveOauth.Options = {}) {
+    constructor(_options: DropboxOauth.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * Start Google Drive OAuth flow
+     * Start Dropbox OAuth flow
      *
      * Parameters:
      * - instance_id: Identifier for the instance requesting authorization
      * - client_id: Optional client ID for white labeling
-     * - scope: Optional scopes to request (comma-separated)
+     * - scope: Optional scopes to request (space-separated)
      * - redirect_url: Optional URL to redirect to after authorization completes
      *
-     * @param {Klavis.AuthorizeGDriveRequest} request
-     * @param {GdriveOauth.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Klavis.AuthorizeDropboxRequest} request
+     * @param {DropboxOauth.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.gdriveOauth.authorizeGDrive({
+     *     await client.dropboxOauth.authorizeDropbox({
      *         instance_id: "instance_id"
      *     })
      */
-    public authorizeGDrive(
-        request: Klavis.AuthorizeGDriveRequest,
-        requestOptions?: GdriveOauth.RequestOptions,
+    public authorizeDropbox(
+        request: Klavis.AuthorizeDropboxRequest,
+        requestOptions?: DropboxOauth.RequestOptions,
     ): core.HttpResponsePromise<unknown> {
-        return core.HttpResponsePromise.fromPromise(this.__authorizeGDrive(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__authorizeDropbox(request, requestOptions));
     }
 
-    private async __authorizeGDrive(
-        request: Klavis.AuthorizeGDriveRequest,
-        requestOptions?: GdriveOauth.RequestOptions,
+    private async __authorizeDropbox(
+        request: Klavis.AuthorizeDropboxRequest,
+        requestOptions?: DropboxOauth.RequestOptions,
     ): Promise<core.WithRawResponse<unknown>> {
         const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -89,7 +89,7 @@ export class GdriveOauth {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "oauth/gdrive/authorize",
+                "oauth/dropbox/authorize",
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -130,7 +130,7 @@ export class GdriveOauth {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/gdrive/authorize.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/dropbox/authorize.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

@@ -5,21 +5,21 @@
 import { mockServerPool } from "../mock-server/MockServerPool.js";
 import { KlavisClient } from "../../src/Client";
 
-describe("AttioOauth", () => {
-    test("authorizeAttio", async () => {
+describe("DropboxOauth", () => {
+    test("authorizeDropbox", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { key: "value" };
         server
             .mockEndpoint()
-            .get("/oauth/attio/authorize")
+            .get("/oauth/dropbox/authorize")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.attioOauth.authorizeAttio({
+        const response = await client.dropboxOauth.authorizeDropbox({
             instance_id: "instance_id",
         });
         expect(response).toEqual({

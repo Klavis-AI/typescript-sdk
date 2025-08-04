@@ -26,46 +26,4 @@ describe("SupabaseOauth", () => {
             key: "value",
         });
     });
-
-    test("supabaseOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .get("/oauth/supabase/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.supabaseOauth.supabaseOAuthCallback();
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
-
-    test("refreshSupabaseToken", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .post("/oauth/supabase/refresh_token")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.supabaseOauth.refreshSupabaseToken({
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
 });

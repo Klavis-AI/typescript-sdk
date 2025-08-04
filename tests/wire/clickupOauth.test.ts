@@ -26,27 +26,4 @@ describe("ClickupOauth", () => {
             key: "value",
         });
     });
-
-    test("clickUpOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message", data: { key: "value" } };
-        server
-            .mockEndpoint()
-            .get("/oauth/clickup/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.clickupOauth.clickUpOAuthCallback();
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-            data: {
-                key: "value",
-            },
-        });
-    });
 });

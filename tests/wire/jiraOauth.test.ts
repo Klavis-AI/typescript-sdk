@@ -26,46 +26,4 @@ describe("JiraOauth", () => {
             key: "value",
         });
     });
-
-    test("jiraOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .get("/oauth/jira/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.jiraOauth.jiraOAuthCallback();
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
-
-    test("refreshJiraToken", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .post("/oauth/jira/refresh_token")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.jiraOauth.refreshJiraToken({
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
 });

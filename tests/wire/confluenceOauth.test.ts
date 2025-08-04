@@ -26,46 +26,4 @@ describe("ConfluenceOauth", () => {
             key: "value",
         });
     });
-
-    test("confluenceOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .get("/oauth/confluence/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.confluenceOauth.confluenceOAuthCallback();
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
-
-    test("refreshConfluenceToken", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .post("/oauth/confluence/refresh_token")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.confluenceOauth.refreshConfluenceToken({
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
 });

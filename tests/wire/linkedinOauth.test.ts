@@ -26,23 +26,4 @@ describe("LinkedinOauth", () => {
             key: "value",
         });
     });
-
-    test("linkedinOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .get("/oauth/linkedin/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.linkedinOauth.linkedinOAuthCallback();
-        expect(response).toEqual({
-            key: "value",
-        });
-    });
 });

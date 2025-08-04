@@ -26,48 +26,4 @@ describe("AirtableOauth", () => {
             key: "value",
         });
     });
-
-    test("airtableOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .get("/oauth/airtable/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.airtableOauth.airtableOAuthCallback();
-        expect(response).toEqual({
-            key: "value",
-        });
-    });
-
-    test("refreshAirtableToken", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message", data: { key: "value" } };
-        server
-            .mockEndpoint()
-            .post("/oauth/airtable/refresh_token")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.airtableOauth.refreshAirtableToken({
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-            data: {
-                key: "value",
-            },
-        });
-    });
 });

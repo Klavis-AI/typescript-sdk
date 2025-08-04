@@ -294,6 +294,92 @@ export class McpServer {
     }
 
     /**
+     * Creates a URL for the Unified MCP server,
+     * validating the request with an API key and user details.
+     * Returns the existing server URL if it already exists for the user.
+     *
+     * @param {Klavis.CreateUnifiedServerRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.createUnifiedMcpServerInstance({
+     *         userId: "userId",
+     *         platformName: "platformName"
+     *     })
+     */
+    public createUnifiedMcpServerInstance(
+        request: Klavis.CreateUnifiedServerRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.CreateServerResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createUnifiedMcpServerInstance(request, requestOptions));
+    }
+
+    private async __createUnifiedMcpServerInstance(
+        request: Klavis.CreateUnifiedServerRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.CreateServerResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/unified/instance/create",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.CreateServerResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /mcp-server/unified/instance/create.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Checks the details of a specific server connection instance using its unique ID and API key,
      * returning server details like authentication status and associated server/platform info.
      *

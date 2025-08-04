@@ -7,6 +7,7 @@ export type McpServerName =
     | "Airtable"
     | "Asana"
     | "Attio"
+    | "Brave Search"
     | "ClickUp"
     | "Close"
     | "Confluence"
@@ -27,6 +28,7 @@ export type McpServerName =
     | "Linear"
     | "LinkedIn"
     | "Markdown2doc"
+    | "Motion"
     | "Notion"
     | "Plai"
     | "Postgres"
@@ -42,6 +44,7 @@ export const McpServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
     Attio: "Attio",
+    BraveSearch: "Brave Search",
     ClickUp: "ClickUp",
     Close: "Close",
     Confluence: "Confluence",
@@ -62,6 +65,7 @@ export const McpServerName = {
     Linear: "Linear",
     LinkedIn: "LinkedIn",
     Markdown2Doc: "Markdown2doc",
+    Motion: "Motion",
     Notion: "Notion",
     Plai: "Plai",
     Postgres: "Postgres",

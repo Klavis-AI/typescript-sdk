@@ -97,6 +97,31 @@ describe("McpServer", () => {
         });
     });
 
+    test("createUnifiedMCPServerInstance", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { userId: "userId", platformName: "platformName" };
+        const rawResponseBody = { serverUrl: "serverUrl", instanceId: "instanceId", oauthUrl: "oauthUrl" };
+        server
+            .mockEndpoint()
+            .post("/mcp-server/unified/instance/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.createUnifiedMcpServerInstance({
+            userId: "userId",
+            platformName: "platformName",
+        });
+        expect(response).toEqual({
+            serverUrl: "serverUrl",
+            instanceId: "instanceId",
+            oauthUrl: "oauthUrl",
+        });
+    });
+
     test("getServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });

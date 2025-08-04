@@ -26,27 +26,4 @@ describe("LinearOauth", () => {
             key: "value",
         });
     });
-
-    test("linearOAuthCallback", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message", data: { key: "value" } };
-        server
-            .mockEndpoint()
-            .get("/oauth/linear/callback")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.linearOauth.linearOAuthCallback();
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-            data: {
-                key: "value",
-            },
-        });
-    });
 });
