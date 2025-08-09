@@ -32,6 +32,7 @@ import { LinkedinOauth } from "./api/resources/linkedinOauth/client/Client.js";
 import { CanvaOauth } from "./api/resources/canvaOauth/client/Client.js";
 import { XeroOauth } from "./api/resources/xeroOauth/client/Client.js";
 import { DropboxOauth } from "./api/resources/dropboxOauth/client/Client.js";
+import { QuickbooksOauth } from "./api/resources/quickbooksOauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -85,6 +86,7 @@ export class KlavisClient {
     protected _canvaOauth: CanvaOauth | undefined;
     protected _xeroOauth: XeroOauth | undefined;
     protected _dropboxOauth: DropboxOauth | undefined;
+    protected _quickbooksOauth: QuickbooksOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -93,8 +95,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "0.6.1",
-                    "User-Agent": "klavis/0.6.1",
+                    "X-Fern-SDK-Version": "0.7.1",
+                    "User-Agent": "klavis/0.7.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -209,5 +211,9 @@ export class KlavisClient {
 
     public get dropboxOauth(): DropboxOauth {
         return (this._dropboxOauth ??= new DropboxOauth(this._options));
+    }
+
+    public get quickbooksOauth(): QuickbooksOauth {
+        return (this._quickbooksOauth ??= new QuickbooksOauth(this._options));
     }
 }

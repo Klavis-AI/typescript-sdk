@@ -2,6 +2,7 @@ export * from "./CallToolResponse.js";
 export * from "./CallToolResult.js";
 export * from "./ConnectionType.js";
 export * from "./CreateServerResponse.js";
+export * from "./DeleteUserResponse.js";
 export * from "./ExtendedMcpServer.js";
 export * from "./GetAuthMetadataResponse.js";
 export * from "./GetInstanceResponse.js";

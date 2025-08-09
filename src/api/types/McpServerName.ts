@@ -32,6 +32,7 @@ export type McpServerName =
     | "Notion"
     | "Plai"
     | "Postgres"
+    | "QuickBooks"
     | "Resend"
     | "Salesforce"
     | "Slack"
@@ -69,6 +70,7 @@ export const McpServerName = {
     Notion: "Notion",
     Plai: "Plai",
     Postgres: "Postgres",
+    QuickBooks: "QuickBooks",
     Resend: "Resend",
     Salesforce: "Salesforce",
     Slack: "Slack",

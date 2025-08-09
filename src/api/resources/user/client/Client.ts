@@ -123,6 +123,84 @@ export class User {
         }
     }
 
+    /**
+     * Delete a user and all associated data by user_id.
+     * Users cannot delete their own accounts.
+     * This operation will permanently remove all user data.
+     *
+     * @param {string} userId - The identifier for the user to delete.
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.user.deleteUserByUserId("user_id")
+     */
+    public deleteUserByUserId(
+        userId: string,
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DeleteUserResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteUserByUserId(userId, requestOptions));
+    }
+
+    private async __deleteUserByUserId(
+        userId: string,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DeleteUserResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `user/delete/${encodeURIComponent(userId)}`,
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DeleteUserResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /user/delete/{user_id}.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getAuthorizationHeader(): Promise<string | undefined> {
         const bearer = await core.Supplier.get(this._options.apiKey);
         if (bearer != null) {

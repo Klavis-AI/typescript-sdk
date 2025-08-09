@@ -46,4 +46,24 @@ describe("User", () => {
             ],
         });
     });
+
+    test("deleteUserByUserId", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true, message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/user/delete/user_id")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.deleteUserByUserId("user_id");
+        expect(response).toEqual({
+            success: true,
+            message: "message",
+        });
+    });
 });

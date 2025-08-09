@@ -987,6 +987,71 @@ await client.user.getServerInstancesByUser({
 </dl>
 </details>
 
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">deleteUserByUserId</a>(userId) -> Klavis.DeleteUserResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete a user and all associated data by user_id.
+Users cannot delete their own accounts.
+This operation will permanently remove all user data.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.deleteUserByUserId("user_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — The identifier for the user to delete.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## SlackOauth
 
 <details><summary><code>client.slackOauth.<a href="/src/api/resources/slackOauth/client/Client.ts">authorizeSlack</a>({ ...params }) -> unknown</code></summary>
@@ -2728,6 +2793,79 @@ await client.dropboxOauth.authorizeDropbox({
 <dd>
 
 **requestOptions:** `DropboxOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## QuickbooksOauth
+
+<details><summary><code>client.quickbooksOauth.<a href="/src/api/resources/quickbooksOauth/client/Client.ts">authorizeQuickBooks</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start QuickBooks OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated). Default is 'com.intuit.quickbooks.accounting'
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.quickbooksOauth.authorizeQuickBooks({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeQuickBooksRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `QuickbooksOauth.RequestOptions`
 
 </dd>
 </dl>
