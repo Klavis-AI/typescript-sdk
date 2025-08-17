@@ -10,33 +10,48 @@ export type McpServerName =
     | "Brave Search"
     | "ClickUp"
     | "Close"
+    | "Coinbase"
     | "Confluence"
     | "Discord"
+    | "Dropbox"
     | "Doc2markdown"
+    | "Exa"
     | "Firecrawl Deep Research"
     | "Firecrawl Web Search"
+    | "Freshdesk"
     | "GitHub"
     | "Gmail"
     | "Gong"
     | "Google Calendar"
     | "Google Docs"
     | "Google Drive"
+    | "Google Jobs"
     | "Google Sheets"
+    | "Hacker News"
+    | "Heygen"
     | "HubSpot"
     | "Jira"
     | "Klavis ReportGen"
     | "Linear"
     | "LinkedIn"
     | "Markdown2doc"
+    | "Mem0"
+    | "Mixpanel"
+    | "Monday"
+    | "Moneybird"
     | "Motion"
     | "Notion"
+    | "Onedrive"
+    | "Openrouter"
     | "Plai"
     | "Postgres"
     | "QuickBooks"
     | "Resend"
     | "Salesforce"
+    | "Shopify"
     | "Slack"
     | "Supabase"
+    | "Tavily"
     | "WhatsApp"
     | "WordPress"
     | "YouTube";
@@ -48,33 +63,48 @@ export const McpServerName = {
     BraveSearch: "Brave Search",
     ClickUp: "ClickUp",
     Close: "Close",
+    Coinbase: "Coinbase",
     Confluence: "Confluence",
     Discord: "Discord",
+    Dropbox: "Dropbox",
     Doc2Markdown: "Doc2markdown",
+    Exa: "Exa",
     FirecrawlDeepResearch: "Firecrawl Deep Research",
     FirecrawlWebSearch: "Firecrawl Web Search",
+    Freshdesk: "Freshdesk",
     Github: "GitHub",
     Gmail: "Gmail",
     Gong: "Gong",
     GoogleCalendar: "Google Calendar",
     GoogleDocs: "Google Docs",
     GoogleDrive: "Google Drive",
+    GoogleJobs: "Google Jobs",
     GoogleSheets: "Google Sheets",
+    HackerNews: "Hacker News",
+    Heygen: "Heygen",
     HubSpot: "HubSpot",
     Jira: "Jira",
     KlavisReportGen: "Klavis ReportGen",
     Linear: "Linear",
     LinkedIn: "LinkedIn",
     Markdown2Doc: "Markdown2doc",
+    Mem0: "Mem0",
+    Mixpanel: "Mixpanel",
+    Monday: "Monday",
+    Moneybird: "Moneybird",
     Motion: "Motion",
     Notion: "Notion",
+    Onedrive: "Onedrive",
+    Openrouter: "Openrouter",
     Plai: "Plai",
     Postgres: "Postgres",
     QuickBooks: "QuickBooks",
     Resend: "Resend",
     Salesforce: "Salesforce",
+    Shopify: "Shopify",
     Slack: "Slack",
     Supabase: "Supabase",
+    Tavily: "Tavily",
     WhatsApp: "WhatsApp",
     WordPress: "WordPress",
     Youtube: "YouTube",

@@ -95,8 +95,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "0.7.1",
-                    "User-Agent": "klavis/0.7.1",
+                    "X-Fern-SDK-Version": "0.8.1",
+                    "User-Agent": "klavis/0.8.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },

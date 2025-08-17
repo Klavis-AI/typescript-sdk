@@ -276,6 +276,76 @@ await client.mcpServer.createUnifiedMcpServerInstance({
 </dl>
 </details>
 
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">createSelfHostedServerInstance</a>({ ...params }) -> Klavis.CreateSelfHostedServerResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Creates an instance id for a self-hosted MCP server,
+validating the request with an API key and user details.
+The main purpose of this endpoint is to create an instance id for a self-hosted MCP server.
+The instance id is used to identify and store the auth metadata in the database.
+Returns the existing instance id if it already exists for the user.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.createSelfHostedServerInstance({
+    serverName: "Affinity",
+    userId: "userId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.CreateSelfHostedServerRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getServerInstance</a>(instanceId) -> Klavis.GetInstanceResponse</code></summary>
 <dl>
 <dd>
@@ -352,7 +422,7 @@ await client.mcpServer.getServerInstance("instance_id");
 <dl>
 <dd>
 
-Deletes authentication metadata for a specific server connection instance.
+Deletes authentication data for a specific server connection instance.
 
 </dd>
 </dl>
@@ -653,7 +723,7 @@ await client.mcpServer.setInstanceAuthToken({
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getInstanceAuthMetadata</a>(instanceId) -> Klavis.GetAuthMetadataResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getInstanceAuthData</a>(instanceId) -> Klavis.GetAuthDataResponse</code></summary>
 <dl>
 <dd>
 
@@ -665,8 +735,8 @@ await client.mcpServer.setInstanceAuthToken({
 <dl>
 <dd>
 
-Retrieves the auth metadata for a specific instance that the API key owner controls.
-Includes access token, refresh token, and other authentication metadata.
+Retrieves the auth data for a specific instance that the API key owner controls.
+Includes access token, refresh token, and other authentication data.
 
 This endpoint includes proper ownership verification to ensure users can only access
 authentication data for instances they own. It also handles token refresh if needed.
@@ -685,7 +755,7 @@ authentication data for instances they own. It also handles token refresh if nee
 <dd>
 
 ```typescript
-await client.mcpServer.getInstanceAuthMetadata("instance_id");
+await client.mcpServer.getInstanceAuthData("instance_id");
 ```
 
 </dd>
@@ -701,7 +771,7 @@ await client.mcpServer.getInstanceAuthMetadata("instance_id");
 <dl>
 <dd>
 
-**instanceId:** `string` — The ID of the connection instance to get auth metadata for.
+**instanceId:** `string` — The ID of the connection instance to get auth data for.
 
 </dd>
 </dl>

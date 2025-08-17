@@ -380,6 +380,97 @@ export class McpServer {
     }
 
     /**
+     * Creates an instance id for a self-hosted MCP server,
+     * validating the request with an API key and user details.
+     * The main purpose of this endpoint is to create an instance id for a self-hosted MCP server.
+     * The instance id is used to identify and store the auth metadata in the database.
+     * Returns the existing instance id if it already exists for the user.
+     *
+     * @param {Klavis.CreateSelfHostedServerRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.createSelfHostedServerInstance({
+     *         serverName: "Affinity",
+     *         userId: "userId"
+     *     })
+     */
+    public createSelfHostedServerInstance(
+        request: Klavis.CreateSelfHostedServerRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.CreateSelfHostedServerResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createSelfHostedServerInstance(request, requestOptions));
+    }
+
+    private async __createSelfHostedServerInstance(
+        request: Klavis.CreateSelfHostedServerRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.CreateSelfHostedServerResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/self-hosted/instance/create",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.CreateSelfHostedServerResponse,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /mcp-server/self-hosted/instance/create.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Checks the details of a specific server connection instance using its unique ID and API key,
      * returning server details like authentication status and associated server/platform info.
      *
@@ -459,7 +550,7 @@ export class McpServer {
     }
 
     /**
-     * Deletes authentication metadata for a specific server connection instance.
+     * Deletes authentication data for a specific server connection instance.
      *
      * @param {string} instanceId - The ID of the connection instance to delete auth for.
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
@@ -843,31 +934,31 @@ export class McpServer {
     }
 
     /**
-     * Retrieves the auth metadata for a specific instance that the API key owner controls.
-     * Includes access token, refresh token, and other authentication metadata.
+     * Retrieves the auth data for a specific instance that the API key owner controls.
+     * Includes access token, refresh token, and other authentication data.
      *
      * This endpoint includes proper ownership verification to ensure users can only access
      * authentication data for instances they own. It also handles token refresh if needed.
      *
-     * @param {string} instanceId - The ID of the connection instance to get auth metadata for.
+     * @param {string} instanceId - The ID of the connection instance to get auth data for.
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getInstanceAuthMetadata("instance_id")
+     *     await client.mcpServer.getInstanceAuthData("instance_id")
      */
-    public getInstanceAuthMetadata(
+    public getInstanceAuthData(
         instanceId: string,
         requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.GetAuthMetadataResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getInstanceAuthMetadata(instanceId, requestOptions));
+    ): core.HttpResponsePromise<Klavis.GetAuthDataResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getInstanceAuthData(instanceId, requestOptions));
     }
 
-    private async __getInstanceAuthMetadata(
+    private async __getInstanceAuthData(
         instanceId: string,
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.GetAuthMetadataResponse>> {
+    ): Promise<core.WithRawResponse<Klavis.GetAuthDataResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -886,7 +977,7 @@ export class McpServer {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Klavis.GetAuthMetadataResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Klavis.GetAuthDataResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

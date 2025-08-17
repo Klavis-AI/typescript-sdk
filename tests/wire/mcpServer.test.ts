@@ -122,6 +122,30 @@ describe("McpServer", () => {
         });
     });
 
+    test("createSelfHostedServerInstance", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { serverName: "Affinity", userId: "userId" };
+        const rawResponseBody = { instanceId: "instanceId", oauthUrl: "oauthUrl" };
+        server
+            .mockEndpoint()
+            .post("/mcp-server/self-hosted/instance/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.createSelfHostedServerInstance({
+            serverName: "Affinity",
+            userId: "userId",
+        });
+        expect(response).toEqual({
+            instanceId: "instanceId",
+            oauthUrl: "oauthUrl",
+        });
+    });
+
     test("getServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
@@ -283,7 +307,7 @@ describe("McpServer", () => {
         });
     });
 
-    test("getInstanceAuthMetadata", async () => {
+    test("getInstanceAuthData", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -296,7 +320,7 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getInstanceAuthMetadata("instance_id");
+        const response = await client.mcpServer.getInstanceAuthData("instance_id");
         expect(response).toEqual({
             success: true,
             authData: {

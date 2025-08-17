@@ -20,7 +20,10 @@ export type OAuthServerName =
     | "Jira"
     | "Linear"
     | "LinkedIn"
+    | "Monday"
+    | "Moneybird"
     | "Notion"
+    | "Onedrive"
     | "Salesforce"
     | "Slack"
     | "Supabase"
@@ -46,7 +49,10 @@ export const OAuthServerName = {
     Jira: "Jira",
     Linear: "Linear",
     LinkedIn: "LinkedIn",
+    Monday: "Monday",
+    Moneybird: "Moneybird",
     Notion: "Notion",
+    Onedrive: "Onedrive",
     Salesforce: "Salesforce",
     Slack: "Slack",
     Supabase: "Supabase",
