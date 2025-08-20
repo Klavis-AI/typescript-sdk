@@ -1,3 +1,4 @@
+export * from "./ApiKeyAuth.js";
 export * from "./CallToolResponse.js";
 export * from "./CallToolResult.js";
 export * from "./ConnectionType.js";
@@ -5,6 +6,7 @@ export * from "./CreateSelfHostedServerResponse.js";
 export * from "./CreateServerResponse.js";
 export * from "./DeleteUserResponse.js";
 export * from "./ExtendedMcpServer.js";
+export * from "./GeneralAuth.js";
 export * from "./GetAuthDataResponse.js";
 export * from "./GetInstanceResponse.js";
 export * from "./GetMcpServersResponse.js";

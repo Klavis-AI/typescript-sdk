@@ -849,29 +849,32 @@ export class McpServer {
     }
 
     /**
-     * Sets an authentication token for a specific instance.
+     * Sets authentication data for a specific instance.
+     * Accepts either API key authentication or general authentication data.
      * This updates the auth_metadata for the specified instance.
      *
-     * @param {Klavis.SetAuthTokenRequest} request
+     * @param {Klavis.SetAuthRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.setInstanceAuthToken({
+     *     await client.mcpServer.setInstanceAuth({
      *         instanceId: "instanceId",
-     *         authToken: "authToken"
+     *         authData: {
+     *             token: "token"
+     *         }
      *     })
      */
-    public setInstanceAuthToken(
-        request: Klavis.SetAuthTokenRequest,
+    public setInstanceAuth(
+        request: Klavis.SetAuthRequest,
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.StatusResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__setInstanceAuthToken(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__setInstanceAuth(request, requestOptions));
     }
 
-    private async __setInstanceAuthToken(
-        request: Klavis.SetAuthTokenRequest,
+    private async __setInstanceAuth(
+        request: Klavis.SetAuthRequest,
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -879,7 +882,7 @@ export class McpServer {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "mcp-server/instance/set-auth-token",
+                "mcp-server/instance/set-auth",
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -923,7 +926,7 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling POST /mcp-server/instance/set-auth-token.",
+                    "Timeout exceeded when calling POST /mcp-server/instance/set-auth.",
                 );
             case "unknown":
                 throw new errors.KlavisError({

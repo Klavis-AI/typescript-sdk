@@ -656,7 +656,7 @@ await client.mcpServer.getAllMcpServers();
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">setInstanceAuthToken</a>({ ...params }) -> Klavis.StatusResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">setInstanceAuth</a>({ ...params }) -> Klavis.StatusResponse</code></summary>
 <dl>
 <dd>
 
@@ -668,7 +668,8 @@ await client.mcpServer.getAllMcpServers();
 <dl>
 <dd>
 
-Sets an authentication token for a specific instance.
+Sets authentication data for a specific instance.
+Accepts either API key authentication or general authentication data.
 This updates the auth_metadata for the specified instance.
 
 </dd>
@@ -685,9 +686,11 @@ This updates the auth_metadata for the specified instance.
 <dd>
 
 ```typescript
-await client.mcpServer.setInstanceAuthToken({
+await client.mcpServer.setInstanceAuth({
     instanceId: "instanceId",
-    authToken: "authToken",
+    authData: {
+        token: "token",
+    },
 });
 ```
 
@@ -704,7 +707,7 @@ await client.mcpServer.setInstanceAuthToken({
 <dl>
 <dd>
 
-**request:** `Klavis.SetAuthTokenRequest`
+**request:** `Klavis.SetAuthRequest`
 
 </dd>
 </dl>

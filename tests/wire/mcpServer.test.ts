@@ -283,23 +283,25 @@ describe("McpServer", () => {
         });
     });
 
-    test("setInstanceAuthToken", async () => {
+    test("setInstanceAuth", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { instanceId: "instanceId", authToken: "authToken" };
+        const rawRequestBody = { instanceId: "instanceId", authData: { token: "token" } };
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .post("/mcp-server/instance/set-auth-token")
+            .post("/mcp-server/instance/set-auth")
             .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.setInstanceAuthToken({
+        const response = await client.mcpServer.setInstanceAuth({
             instanceId: "instanceId",
-            authToken: "authToken",
+            authData: {
+                token: "token",
+            },
         });
         expect(response).toEqual({
             success: true,

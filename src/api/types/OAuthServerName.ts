@@ -25,6 +25,7 @@ export type OAuthServerName =
     | "Notion"
     | "Onedrive"
     | "Salesforce"
+    | "Shopify"
     | "Slack"
     | "Supabase"
     | "Xero"
@@ -54,6 +55,7 @@ export const OAuthServerName = {
     Notion: "Notion",
     Onedrive: "Onedrive",
     Salesforce: "Salesforce",
+    Shopify: "Shopify",
     Slack: "Slack",
     Supabase: "Supabase",
     Xero: "Xero",
