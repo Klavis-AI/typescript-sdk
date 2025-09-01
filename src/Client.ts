@@ -10,6 +10,7 @@ import { WhiteLabeling } from "./api/resources/whiteLabeling/client/Client.js";
 import { User } from "./api/resources/user/client/Client.js";
 import { SlackOauth } from "./api/resources/slackOauth/client/Client.js";
 import { GithubOauth } from "./api/resources/githubOauth/client/Client.js";
+import { GitlabOauth } from "./api/resources/gitlabOauth/client/Client.js";
 import { SupabaseOauth } from "./api/resources/supabaseOauth/client/Client.js";
 import { NotionOauth } from "./api/resources/notionOauth/client/Client.js";
 import { JiraOauth } from "./api/resources/jiraOauth/client/Client.js";
@@ -32,7 +33,19 @@ import { LinkedinOauth } from "./api/resources/linkedinOauth/client/Client.js";
 import { CanvaOauth } from "./api/resources/canvaOauth/client/Client.js";
 import { XeroOauth } from "./api/resources/xeroOauth/client/Client.js";
 import { DropboxOauth } from "./api/resources/dropboxOauth/client/Client.js";
+import { BoxOauth } from "./api/resources/boxOauth/client/Client.js";
 import { QuickbooksOauth } from "./api/resources/quickbooksOauth/client/Client.js";
+import { ZendeskOauth } from "./api/resources/zendeskOauth/client/Client.js";
+import { StripeConnectOauth } from "./api/resources/stripeConnectOauth/client/Client.js";
+import { CalcomOauth } from "./api/resources/calcomOauth/client/Client.js";
+import { VercelOauth } from "./api/resources/vercelOauth/client/Client.js";
+import { PipedriveOauth } from "./api/resources/pipedriveOauth/client/Client.js";
+import { FigmaOauth } from "./api/resources/figmaOauth/client/Client.js";
+import { TwitterOauth } from "./api/resources/twitterOauth/client/Client.js";
+import { KlaviyoOauth } from "./api/resources/klaviyoOauth/client/Client.js";
+import { PagerdutyOauth } from "./api/resources/pagerdutyOauth/client/Client.js";
+import { DocusignOauth } from "./api/resources/docusignOauth/client/Client.js";
+import { DialpadOauth } from "./api/resources/dialpadOauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -64,6 +77,7 @@ export class KlavisClient {
     protected _user: User | undefined;
     protected _slackOauth: SlackOauth | undefined;
     protected _githubOauth: GithubOauth | undefined;
+    protected _gitlabOauth: GitlabOauth | undefined;
     protected _supabaseOauth: SupabaseOauth | undefined;
     protected _notionOauth: NotionOauth | undefined;
     protected _jiraOauth: JiraOauth | undefined;
@@ -86,7 +100,19 @@ export class KlavisClient {
     protected _canvaOauth: CanvaOauth | undefined;
     protected _xeroOauth: XeroOauth | undefined;
     protected _dropboxOauth: DropboxOauth | undefined;
+    protected _boxOauth: BoxOauth | undefined;
     protected _quickbooksOauth: QuickbooksOauth | undefined;
+    protected _zendeskOauth: ZendeskOauth | undefined;
+    protected _stripeConnectOauth: StripeConnectOauth | undefined;
+    protected _calcomOauth: CalcomOauth | undefined;
+    protected _vercelOauth: VercelOauth | undefined;
+    protected _pipedriveOauth: PipedriveOauth | undefined;
+    protected _figmaOauth: FigmaOauth | undefined;
+    protected _twitterOauth: TwitterOauth | undefined;
+    protected _klaviyoOauth: KlaviyoOauth | undefined;
+    protected _pagerdutyOauth: PagerdutyOauth | undefined;
+    protected _docusignOauth: DocusignOauth | undefined;
+    protected _dialpadOauth: DialpadOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -95,8 +121,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "0.9.1",
-                    "User-Agent": "klavis/0.9.1",
+                    "X-Fern-SDK-Version": "1.0.1",
+                    "User-Agent": "klavis/1.0.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -123,6 +149,10 @@ export class KlavisClient {
 
     public get githubOauth(): GithubOauth {
         return (this._githubOauth ??= new GithubOauth(this._options));
+    }
+
+    public get gitlabOauth(): GitlabOauth {
+        return (this._gitlabOauth ??= new GitlabOauth(this._options));
     }
 
     public get supabaseOauth(): SupabaseOauth {
@@ -213,7 +243,55 @@ export class KlavisClient {
         return (this._dropboxOauth ??= new DropboxOauth(this._options));
     }
 
+    public get boxOauth(): BoxOauth {
+        return (this._boxOauth ??= new BoxOauth(this._options));
+    }
+
     public get quickbooksOauth(): QuickbooksOauth {
         return (this._quickbooksOauth ??= new QuickbooksOauth(this._options));
+    }
+
+    public get zendeskOauth(): ZendeskOauth {
+        return (this._zendeskOauth ??= new ZendeskOauth(this._options));
+    }
+
+    public get stripeConnectOauth(): StripeConnectOauth {
+        return (this._stripeConnectOauth ??= new StripeConnectOauth(this._options));
+    }
+
+    public get calcomOauth(): CalcomOauth {
+        return (this._calcomOauth ??= new CalcomOauth(this._options));
+    }
+
+    public get vercelOauth(): VercelOauth {
+        return (this._vercelOauth ??= new VercelOauth(this._options));
+    }
+
+    public get pipedriveOauth(): PipedriveOauth {
+        return (this._pipedriveOauth ??= new PipedriveOauth(this._options));
+    }
+
+    public get figmaOauth(): FigmaOauth {
+        return (this._figmaOauth ??= new FigmaOauth(this._options));
+    }
+
+    public get twitterOauth(): TwitterOauth {
+        return (this._twitterOauth ??= new TwitterOauth(this._options));
+    }
+
+    public get klaviyoOauth(): KlaviyoOauth {
+        return (this._klaviyoOauth ??= new KlaviyoOauth(this._options));
+    }
+
+    public get pagerdutyOauth(): PagerdutyOauth {
+        return (this._pagerdutyOauth ??= new PagerdutyOauth(this._options));
+    }
+
+    public get docusignOauth(): DocusignOauth {
+        return (this._docusignOauth ??= new DocusignOauth(this._options));
+    }
+
+    public get dialpadOauth(): DialpadOauth {
+        return (this._dialpadOauth ??= new DialpadOauth(this._options));
     }
 }

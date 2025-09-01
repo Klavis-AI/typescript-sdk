@@ -172,7 +172,6 @@ If OAuth is configured for the server, also returns the base OAuth authorization
 await client.mcpServer.createServerInstance({
     serverName: "Affinity",
     userId: "userId",
-    platformName: "platformName",
 });
 ```
 
@@ -240,7 +239,6 @@ Returns the existing server URL if it already exists for the user.
 ```typescript
 await client.mcpServer.createUnifiedMcpServerInstance({
     userId: "userId",
-    platformName: "platformName",
 });
 ```
 
@@ -537,7 +535,7 @@ await client.mcpServer.deleteServerInstance("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName) -> Klavis.GetToolsResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName, { ...params }) -> Klavis.ListToolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -549,8 +547,7 @@ await client.mcpServer.deleteServerInstance("instance_id");
 <dl>
 <dd>
 
-Get list of tool names for a specific MCP server.
-Mainly used for querying metadata about the MCP server.
+Get tools information for any MCP server.
 
 </dd>
 </dl>
@@ -583,6 +580,14 @@ await client.mcpServer.getTools("Affinity");
 <dd>
 
 **serverName:** `Klavis.McpServerName` — The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GetToolsRequest`
 
 </dd>
 </dl>
@@ -1024,7 +1029,6 @@ Get all MCP server instances information by user ID and platform name.
 ```typescript
 await client.user.getServerInstancesByUser({
     user_id: "user_id",
-    platform_name: "platform_name",
 });
 ```
 
@@ -1262,6 +1266,79 @@ await client.githubOauth.authorizeGithub({
 <dd>
 
 **requestOptions:** `GithubOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## GitlabOauth
+
+<details><summary><code>client.gitlabOauth.<a href="/src/api/resources/gitlabOauth/client/Client.ts">authorizeGitlab</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start GitLab OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.gitlabOauth.authorizeGitlab({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeGitlabRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GitlabOauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2876,6 +2953,73 @@ await client.dropboxOauth.authorizeDropbox({
 </dl>
 </details>
 
+## BoxOauth
+
+<details><summary><code>client.boxOauth.<a href="/src/api/resources/boxOauth/client/Client.ts">authorizeBox</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Box OAuth 2.0 flow
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.boxOauth.authorizeBox({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeBoxRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `BoxOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## QuickbooksOauth
 
 <details><summary><code>client.quickbooksOauth.<a href="/src/api/resources/quickbooksOauth/client/Client.ts">authorizeQuickBooks</a>({ ...params }) -> unknown</code></summary>
@@ -2939,6 +3083,868 @@ await client.quickbooksOauth.authorizeQuickBooks({
 <dd>
 
 **requestOptions:** `QuickbooksOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## ZendeskOauth
+
+<details><summary><code>client.zendeskOauth.<a href="/src/api/resources/zendeskOauth/client/Client.ts">authorizeZendesk</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Zendesk OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.zendeskOauth.authorizeZendesk({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeZendeskRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ZendeskOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## StripeConnectOauth
+
+<details><summary><code>client.stripeConnectOauth.<a href="/src/api/resources/stripeConnectOauth/client/Client.ts">authorizeStripeConnect</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Stripe Connect OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.stripeConnectOauth.authorizeStripeConnect({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeStripeConnectRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `StripeConnectOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## CalcomOauth
+
+<details><summary><code>client.calcomOauth.<a href="/src/api/resources/calcomOauth/client/Client.ts">authorizeCalcom</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Cal.com OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calcomOauth.authorizeCalcom({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeCalcomRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CalcomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.calcomOauth.<a href="/src/api/resources/calcomOauth/client/Client.ts">calcomClientCredentialsAuth</a>({ ...params }) -> Klavis.CalcomOAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Authenticate using Cal.com OAuth client credentials flow for platform-level API access
+
+This endpoint is used for:
+
+- Managing managed users
+- Creating OAuth client webhooks
+- Refreshing managed user tokens
+- Managing organization teams and memberships
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authentication
+- x-cal-client-id: OAuth client ID (header)
+- x-cal-secret-key: OAuth client secret (header)
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.calcomOauth.calcomClientCredentialsAuth({
+    "x-cal-client-id": "x-cal-client-id",
+    "x-cal-secret-key": "x-cal-secret-key",
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.CalcomClientCredentialsAuthOauthCalcomClientCredentialsGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `CalcomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## VercelOauth
+
+<details><summary><code>client.vercelOauth.<a href="/src/api/resources/vercelOauth/client/Client.ts">authorizeVercel</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Vercel OAuth flow using integration pattern
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- client_slug: Vercel integration slug (required for integration-based OAuth)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.vercelOauth.authorizeVercel({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeVercelRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `VercelOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## PipedriveOauth
+
+<details><summary><code>client.pipedriveOauth.<a href="/src/api/resources/pipedriveOauth/client/Client.ts">authorizePipedrive</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Pipedrive OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pipedriveOauth.authorizePipedrive({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizePipedriveRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PipedriveOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## FigmaOauth
+
+<details><summary><code>client.figmaOauth.<a href="/src/api/resources/figmaOauth/client/Client.ts">authorizeFigma</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Figma OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.figmaOauth.authorizeFigma({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeFigmaRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `FigmaOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## TwitterOauth
+
+<details><summary><code>client.twitterOauth.<a href="/src/api/resources/twitterOauth/client/Client.ts">authorizeTwitter</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Twitter OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.twitterOauth.authorizeTwitter({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeTwitterRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TwitterOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## KlaviyoOauth
+
+<details><summary><code>client.klaviyoOauth.<a href="/src/api/resources/klaviyoOauth/client/Client.ts">authorizeKlaviyo</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.klaviyoOauth.authorizeKlaviyo({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeKlaviyoRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `KlaviyoOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## PagerdutyOauth
+
+<details><summary><code>client.pagerdutyOauth.<a href="/src/api/resources/pagerdutyOauth/client/Client.ts">authorizePagerDuty</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start PagerDuty OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.pagerdutyOauth.authorizePagerDuty({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizePagerDutyRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PagerdutyOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## DocusignOauth
+
+<details><summary><code>client.docusignOauth.<a href="/src/api/resources/docusignOauth/client/Client.ts">authorizeDocuSign</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start DocuSign OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.docusignOauth.authorizeDocuSign({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeDocuSignRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DocusignOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## DialpadOauth
+
+<details><summary><code>client.dialpadOauth.<a href="/src/api/resources/dialpadOauth/client/Client.ts">authorizeDialpad</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Dialpad OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+- code_challenge: PKCE code challenge for enhanced security
+- code_challenge_method: PKCE code challenge method
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.dialpadOauth.authorizeDialpad({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeDialpadRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `DialpadOauth.RequestOptions`
 
 </dd>
 </dl>

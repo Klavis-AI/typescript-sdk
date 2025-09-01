@@ -8,6 +8,7 @@ export type McpServerName =
     | "Asana"
     | "Attio"
     | "Brave Search"
+    | "Cal.com"
     | "ClickUp"
     | "Close"
     | "Coinbase"
@@ -20,6 +21,7 @@ export type McpServerName =
     | "Firecrawl Web Search"
     | "Freshdesk"
     | "GitHub"
+    | "GitLab"
     | "Gmail"
     | "Gong"
     | "Google Calendar"
@@ -52,6 +54,7 @@ export type McpServerName =
     | "Slack"
     | "Supabase"
     | "Tavily"
+    | "Vercel"
     | "WhatsApp"
     | "WordPress"
     | "YouTube";
@@ -61,6 +64,7 @@ export const McpServerName = {
     Asana: "Asana",
     Attio: "Attio",
     BraveSearch: "Brave Search",
+    CalCom: "Cal.com",
     ClickUp: "ClickUp",
     Close: "Close",
     Coinbase: "Coinbase",
@@ -73,6 +77,7 @@ export const McpServerName = {
     FirecrawlWebSearch: "Firecrawl Web Search",
     Freshdesk: "Freshdesk",
     Github: "GitHub",
+    GitLab: "GitLab",
     Gmail: "Gmail",
     Gong: "Gong",
     GoogleCalendar: "Google Calendar",
@@ -105,6 +110,7 @@ export const McpServerName = {
     Slack: "Slack",
     Supabase: "Supabase",
     Tavily: "Tavily",
+    Vercel: "Vercel",
     WhatsApp: "WhatsApp",
     WordPress: "WordPress",
     Youtube: "YouTube",

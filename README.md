@@ -3,7 +3,7 @@
 [![fern shield](https://img.shields.io/badge/%F0%9F%8C%BF-Built%20with%20Fern-brightgreen)](https://buildwithfern.com?utm_source=github&utm_medium=github&utm_campaign=readme&utm_source=https%3A%2F%2Fgithub.com%2FKlavis-AI%2Ftypescript-sdk)
 [![npm shield](https://img.shields.io/npm/v/klavis)](https://www.npmjs.com/package/klavis)
 
-The Klavis TypeScript library provides convenient access to the Klavis API from TypeScript.
+The Klavis TypeScript library provides convenient access to the Klavis APIs from TypeScript.
 
 ## Installation
 

@@ -49,8 +49,7 @@ export class User {
      *
      * @example
      *     await client.user.getServerInstancesByUser({
-     *         user_id: "user_id",
-     *         platform_name: "platform_name"
+     *         user_id: "user_id"
      *     })
      */
     public getServerInstancesByUser(
@@ -67,7 +66,10 @@ export class User {
         const { user_id: userId, platform_name: platformName } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["user_id"] = userId;
-        _queryParams["platform_name"] = platformName;
+        if (platformName != null) {
+            _queryParams["platform_name"] = platformName;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??

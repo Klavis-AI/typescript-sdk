@@ -6,11 +6,17 @@ export type OAuthServerName =
     | "Airtable"
     | "Asana"
     | "Attio"
+    | "Box"
+    | "Cal.com"
     | "Canva"
     | "ClickUp"
     | "Close"
     | "Confluence"
+    | "Dialpad"
+    | "DocuSign"
+    | "Figma"
     | "GitHub"
+    | "GitLab"
     | "Gmail"
     | "Google Calendar"
     | "Google Docs"
@@ -18,16 +24,20 @@ export type OAuthServerName =
     | "Google Sheets"
     | "HubSpot"
     | "Jira"
+    | "Klaviyo"
     | "Linear"
     | "LinkedIn"
     | "Monday"
     | "Moneybird"
     | "Notion"
     | "Onedrive"
+    | "PagerDuty"
     | "Salesforce"
     | "Shopify"
     | "Slack"
+    | "Stripe"
     | "Supabase"
+    | "Vercel"
     | "Xero"
     | "WordPress"
     | "Dropbox"
@@ -36,11 +46,17 @@ export const OAuthServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
     Attio: "Attio",
+    Box: "Box",
+    CalCom: "Cal.com",
     Canva: "Canva",
     ClickUp: "ClickUp",
     Close: "Close",
     Confluence: "Confluence",
+    Dialpad: "Dialpad",
+    DocuSign: "DocuSign",
+    Figma: "Figma",
     GitHub: "GitHub",
+    GitLab: "GitLab",
     Gmail: "Gmail",
     GoogleCalendar: "Google Calendar",
     GoogleDocs: "Google Docs",
@@ -48,16 +64,20 @@ export const OAuthServerName = {
     GoogleSheets: "Google Sheets",
     HubSpot: "HubSpot",
     Jira: "Jira",
+    Klaviyo: "Klaviyo",
     Linear: "Linear",
     LinkedIn: "LinkedIn",
     Monday: "Monday",
     Moneybird: "Moneybird",
     Notion: "Notion",
     Onedrive: "Onedrive",
+    PagerDuty: "PagerDuty",
     Salesforce: "Salesforce",
     Shopify: "Shopify",
     Slack: "Slack",
+    Stripe: "Stripe",
     Supabase: "Supabase",
+    Vercel: "Vercel",
     Xero: "Xero",
     WordPress: "WordPress",
     Dropbox: "Dropbox",

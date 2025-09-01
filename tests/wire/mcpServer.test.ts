@@ -74,7 +74,7 @@ describe("McpServer", () => {
     test("createServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { serverName: "Affinity", userId: "userId", platformName: "platformName" };
+        const rawRequestBody = { serverName: "Affinity", userId: "userId" };
         const rawResponseBody = { serverUrl: "serverUrl", instanceId: "instanceId", oauthUrl: "oauthUrl" };
         server
             .mockEndpoint()
@@ -88,7 +88,6 @@ describe("McpServer", () => {
         const response = await client.mcpServer.createServerInstance({
             serverName: "Affinity",
             userId: "userId",
-            platformName: "platformName",
         });
         expect(response).toEqual({
             serverUrl: "serverUrl",
@@ -100,7 +99,7 @@ describe("McpServer", () => {
     test("createUnifiedMCPServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { userId: "userId", platformName: "platformName" };
+        const rawRequestBody = { userId: "userId" };
         const rawResponseBody = { serverUrl: "serverUrl", instanceId: "instanceId", oauthUrl: "oauthUrl" };
         server
             .mockEndpoint()
@@ -113,7 +112,6 @@ describe("McpServer", () => {
 
         const response = await client.mcpServer.createUnifiedMcpServerInstance({
             userId: "userId",
-            platformName: "platformName",
         });
         expect(response).toEqual({
             serverUrl: "serverUrl",
@@ -221,7 +219,7 @@ describe("McpServer", () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { tools: [{ name: "name", description: "description" }] };
+        const rawResponseBody = { success: true, tools: [{ key: "value" }], format: "openai", error: "error" };
         server
             .mockEndpoint()
             .get("/mcp-server/tools/Affinity")
@@ -232,12 +230,14 @@ describe("McpServer", () => {
 
         const response = await client.mcpServer.getTools("Affinity");
         expect(response).toEqual({
+            success: true,
             tools: [
                 {
-                    name: "name",
-                    description: "description",
+                    key: "value",
                 },
             ],
+            format: "openai",
+            error: "error",
         });
     });
 

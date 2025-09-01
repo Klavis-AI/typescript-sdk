@@ -7,15 +7,16 @@ import * as Klavis from "../../../../index.js";
 /**
  * @example
  *     {
- *         userId: "userId",
- *         platformName: "platformName"
+ *         userId: "userId"
  *     }
  */
 export interface CreateUnifiedServerRequest {
     /** The identifier for the user requesting the server URL. */
     userId: string;
-    /** The name of the platform associated with the user. */
-    platformName: string;
+    /** The name of the platform associated with the user. Optional. */
+    platformName?: string;
     /** The connection type to use for the MCP server. Default is STREAMABLE_HTTP. */
     connectionType?: Klavis.ConnectionType;
+    /** Whether the server is hierarchical. Default is False. */
+    isHierarchical?: boolean;
 }

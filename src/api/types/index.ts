@@ -1,4 +1,6 @@
 export * from "./ApiKeyAuth.js";
+export * from "./CalcomOAuthErrorResponse.js";
+export * from "./CalcomOAuthSuccessResponse.js";
 export * from "./CallToolResponse.js";
 export * from "./CallToolResult.js";
 export * from "./ConnectionType.js";
@@ -12,7 +14,6 @@ export * from "./GetInstanceResponse.js";
 export * from "./GetMcpServersResponse.js";
 export * from "./GetOAuthUrlResponse.js";
 export * from "./GetServerInstancesResponse.js";
-export * from "./GetToolsResponse.js";
 export * from "./HttpValidationError.js";
 export * from "./ListToolsResponse.js";
 export * from "./McpServer.js";

@@ -5,8 +5,7 @@
 /**
  * @example
  *     {
- *         user_id: "user_id",
- *         platform_name: "platform_name"
+ *         user_id: "user_id"
  *     }
  */
 export interface GetServerInstancesByUserRequest {
@@ -15,7 +14,7 @@ export interface GetServerInstancesByUserRequest {
      */
     user_id: string;
     /**
-     * The platform name
+     * The platform name (optional)
      */
-    platform_name: string;
+    platform_name?: string;
 }

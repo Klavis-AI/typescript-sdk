@@ -19,6 +19,7 @@ describe("User", () => {
                     tools: [{ name: "name", description: "description" }],
                     authNeeded: true,
                     isAuthenticated: true,
+                    serverUrl: "serverUrl",
                 },
             ],
         };
@@ -26,7 +27,6 @@ describe("User", () => {
 
         const response = await client.user.getServerInstancesByUser({
             user_id: "user_id",
-            platform_name: "platform_name",
         });
         expect(response).toEqual({
             instances: [
@@ -42,6 +42,7 @@ describe("User", () => {
                     ],
                     authNeeded: true,
                     isAuthenticated: true,
+                    serverUrl: "serverUrl",
                 },
             ],
         });

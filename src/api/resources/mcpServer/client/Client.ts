@@ -221,8 +221,7 @@ export class McpServer {
      * @example
      *     await client.mcpServer.createServerInstance({
      *         serverName: "Affinity",
-     *         userId: "userId",
-     *         platformName: "platformName"
+     *         userId: "userId"
      *     })
      */
     public createServerInstance(
@@ -305,8 +304,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.createUnifiedMcpServerInstance({
-     *         userId: "userId",
-     *         platformName: "platformName"
+     *         userId: "userId"
      *     })
      */
     public createUnifiedMcpServerInstance(
@@ -707,10 +705,10 @@ export class McpServer {
     }
 
     /**
-     * Get list of tool names for a specific MCP server.
-     * Mainly used for querying metadata about the MCP server.
+     * Get tools information for any MCP server.
      *
      * @param {Klavis.McpServerName} serverName - The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
+     * @param {Klavis.GetToolsRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
@@ -720,15 +718,23 @@ export class McpServer {
      */
     public getTools(
         serverName: Klavis.McpServerName,
+        request: Klavis.GetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.GetToolsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getTools(serverName, requestOptions));
+    ): core.HttpResponsePromise<Klavis.ListToolsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getTools(serverName, request, requestOptions));
     }
 
     private async __getTools(
         serverName: Klavis.McpServerName,
+        request: Klavis.GetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.GetToolsResponse>> {
+    ): Promise<core.WithRawResponse<Klavis.ListToolsResponse>> {
+        const { format } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (format != null) {
+            _queryParams["format"] = format;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -742,12 +748,13 @@ export class McpServer {
                 mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
                 requestOptions?.headers,
             ),
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Klavis.GetToolsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Klavis.ListToolsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {

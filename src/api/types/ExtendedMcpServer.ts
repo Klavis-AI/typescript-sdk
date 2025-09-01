@@ -11,4 +11,5 @@ export interface ExtendedMcpServer {
     tools?: Klavis.ServerTool[];
     authNeeded?: boolean;
     isAuthenticated?: boolean;
+    serverUrl?: string;
 }
