@@ -41,7 +41,6 @@ import { CalcomOauth } from "./api/resources/calcomOauth/client/Client.js";
 import { VercelOauth } from "./api/resources/vercelOauth/client/Client.js";
 import { PipedriveOauth } from "./api/resources/pipedriveOauth/client/Client.js";
 import { FigmaOauth } from "./api/resources/figmaOauth/client/Client.js";
-import { TwitterOauth } from "./api/resources/twitterOauth/client/Client.js";
 import { KlaviyoOauth } from "./api/resources/klaviyoOauth/client/Client.js";
 import { PagerdutyOauth } from "./api/resources/pagerdutyOauth/client/Client.js";
 import { DocusignOauth } from "./api/resources/docusignOauth/client/Client.js";
@@ -108,7 +107,6 @@ export class KlavisClient {
     protected _vercelOauth: VercelOauth | undefined;
     protected _pipedriveOauth: PipedriveOauth | undefined;
     protected _figmaOauth: FigmaOauth | undefined;
-    protected _twitterOauth: TwitterOauth | undefined;
     protected _klaviyoOauth: KlaviyoOauth | undefined;
     protected _pagerdutyOauth: PagerdutyOauth | undefined;
     protected _docusignOauth: DocusignOauth | undefined;
@@ -273,10 +271,6 @@ export class KlavisClient {
 
     public get figmaOauth(): FigmaOauth {
         return (this._figmaOauth ??= new FigmaOauth(this._options));
-    }
-
-    public get twitterOauth(): TwitterOauth {
-        return (this._twitterOauth ??= new TwitterOauth(this._options));
     }
 
     public get klaviyoOauth(): KlaviyoOauth {

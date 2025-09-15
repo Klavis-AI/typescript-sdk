@@ -43,7 +43,7 @@ export type McpServerName =
     | "Moneybird"
     | "Motion"
     | "Notion"
-    | "Onedrive"
+    | "OneDrive"
     | "Openrouter"
     | "Plai"
     | "Postgres"
@@ -57,7 +57,19 @@ export type McpServerName =
     | "Vercel"
     | "WhatsApp"
     | "WordPress"
-    | "YouTube";
+    | "YouTube"
+    | "Cloudflare"
+    | "Stripe"
+    | "Figma"
+    | "Pipedrive"
+    | "Klaviyo"
+    | "Box"
+    | "Dialpad"
+    | "DocuSign"
+    | "ElevenLabs"
+    | "PagerDuty"
+    | "PostHog"
+    | "SendGrid";
 export const McpServerName = {
     Affinity: "Affinity",
     Airtable: "Airtable",
@@ -99,7 +111,7 @@ export const McpServerName = {
     Moneybird: "Moneybird",
     Motion: "Motion",
     Notion: "Notion",
-    Onedrive: "Onedrive",
+    OneDrive: "OneDrive",
     Openrouter: "Openrouter",
     Plai: "Plai",
     Postgres: "Postgres",
@@ -114,4 +126,16 @@ export const McpServerName = {
     WhatsApp: "WhatsApp",
     WordPress: "WordPress",
     Youtube: "YouTube",
+    Cloudflare: "Cloudflare",
+    Stripe: "Stripe",
+    Figma: "Figma",
+    Pipedrive: "Pipedrive",
+    Klaviyo: "Klaviyo",
+    Box: "Box",
+    Dialpad: "Dialpad",
+    DocuSign: "DocuSign",
+    ElevenLabs: "ElevenLabs",
+    PagerDuty: "PagerDuty",
+    PostHog: "PostHog",
+    SendGrid: "SendGrid",
 } as const;

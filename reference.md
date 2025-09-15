@@ -138,6 +138,273 @@ await client.mcpServer.listTools({
 </dl>
 </details>
 
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">createStrataServer</a>({ ...params }) -> Klavis.StrataCreateResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Create a Strata MCP server.
+
+Parameters:
+
+- servers: Can be 'ALL' to add all available Klavis MCP servers, a list of specific server names, or null to add no servers
+- externalServers: Optional list of external MCP servers to validate and add
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.createStrataServer({
+    userId: "userId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.StrataCreateRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">addServersToStrata</a>({ ...params }) -> Klavis.StrataAddServersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Add servers to an existing Strata MCP server.
+
+Parameters:
+
+- servers: Can be 'ALL' to add all available servers, a list of specific server names, or null to add no servers
+- externalServers: Optional list of external MCP servers to validate and add
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.addServersToStrata({
+    strataId: "strataId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.StrataAddServersRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteServersFromStrata</a>({ ...params }) -> Klavis.StrataDeleteServersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Delete servers from an existing Strata MCP server.
+
+Parameters:
+
+- servers: Can be 'ALL' to delete all Klavis MCP servers, a list of specific server names, or null to delete no servers
+- externalServers: Optional list of external server names to delete
+
+Returns separate lists for deleted Klavis servers and deleted external servers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.deleteServersFromStrata({
+    strataId: "strataId",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.StrataDeleteServersRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataInstance</a>() -> Klavis.StrataGetResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get information about an existing Strata MCP server instance.
+Returns the strata URL, connected klavis servers, connected external servers (with URLs),
+and authentication URLs for klavis servers.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.getStrataInstance();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">createServerInstance</a>({ ...params }) -> Klavis.CreateServerResponse</code></summary>
 <dl>
 <dd>
@@ -189,73 +456,6 @@ await client.mcpServer.createServerInstance({
 <dd>
 
 **request:** `Klavis.CreateServerRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `McpServer.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">createUnifiedMcpServerInstance</a>({ ...params }) -> Klavis.CreateServerResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Creates a URL for the Unified MCP server,
-validating the request with an API key and user details.
-Returns the existing server URL if it already exists for the user.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.mcpServer.createUnifiedMcpServerInstance({
-    userId: "userId",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.CreateUnifiedServerRequest`
 
 </dd>
 </dl>
@@ -3599,79 +3799,6 @@ await client.figmaOauth.authorizeFigma({
 <dd>
 
 **requestOptions:** `FigmaOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-## TwitterOauth
-
-<details><summary><code>client.twitterOauth.<a href="/src/api/resources/twitterOauth/client/Client.ts">authorizeTwitter</a>({ ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Start Twitter OAuth flow
-
-Parameters:
-
-- instance_id: Identifier for the instance requesting authorization
-- client_id: Optional client ID for white labeling
-- scope: Optional scopes to request (space-separated)
-- redirect_url: Optional URL to redirect to after authorization completes
-  </dd>
-  </dl>
-  </dd>
-  </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.twitterOauth.authorizeTwitter({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.AuthorizeTwitterRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `TwitterOauth.RequestOptions`
 
 </dd>
 </dl>

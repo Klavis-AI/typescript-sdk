@@ -71,6 +71,154 @@ describe("McpServer", () => {
         });
     });
 
+    test("createStrataServer", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { userId: "userId" };
+        const rawResponseBody = {
+            strataServerUrl: "strataServerUrl",
+            strataId: "strataId",
+            addedServers: ["addedServers"],
+            addedExternalServers: [{ name: "name", url: "url" }],
+            oauthUrls: { key: "value" },
+            apiKeyUrls: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .post("/mcp-server/strata/create")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.createStrataServer({
+            userId: "userId",
+        });
+        expect(response).toEqual({
+            strataServerUrl: "strataServerUrl",
+            strataId: "strataId",
+            addedServers: ["addedServers"],
+            addedExternalServers: [
+                {
+                    name: "name",
+                    url: "url",
+                },
+            ],
+            oauthUrls: {
+                key: "value",
+            },
+            apiKeyUrls: {
+                key: "value",
+            },
+        });
+    });
+
+    test("addServersToStrata", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { strataId: "strataId" };
+        const rawResponseBody = {
+            addedServers: ["addedServers"],
+            addedExternalServers: [{ name: "name", url: "url" }],
+            oauthUrls: { key: "value" },
+            apiKeyUrls: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .post("/mcp-server/strata/add")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.addServersToStrata({
+            strataId: "strataId",
+        });
+        expect(response).toEqual({
+            addedServers: ["addedServers"],
+            addedExternalServers: [
+                {
+                    name: "name",
+                    url: "url",
+                },
+            ],
+            oauthUrls: {
+                key: "value",
+            },
+            apiKeyUrls: {
+                key: "value",
+            },
+        });
+    });
+
+    test("deleteServersFromStrata", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { strataId: "strataId" };
+        const rawResponseBody = {
+            deletedServers: ["deletedServers"],
+            deletedExternalServers: ["deletedExternalServers"],
+        };
+        server
+            .mockEndpoint()
+            .delete("/mcp-server/strata/delete")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.deleteServersFromStrata({
+            strataId: "strataId",
+        });
+        expect(response).toEqual({
+            deletedServers: ["deletedServers"],
+            deletedExternalServers: ["deletedExternalServers"],
+        });
+    });
+
+    test("getStrataInstance", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            strataServerUrl: "strataServerUrl",
+            strataId: "strataId",
+            connectedServers: ["connectedServers"],
+            connectedExternalServers: [{ name: "name", url: "url" }],
+            oauthUrls: { key: "value" },
+            apiKeyUrls: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/mcp-server/strata/get")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.getStrataInstance();
+        expect(response).toEqual({
+            strataServerUrl: "strataServerUrl",
+            strataId: "strataId",
+            connectedServers: ["connectedServers"],
+            connectedExternalServers: [
+                {
+                    name: "name",
+                    url: "url",
+                },
+            ],
+            oauthUrls: {
+                key: "value",
+            },
+            apiKeyUrls: {
+                key: "value",
+            },
+        });
+    });
+
     test("createServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
@@ -87,30 +235,6 @@ describe("McpServer", () => {
 
         const response = await client.mcpServer.createServerInstance({
             serverName: "Affinity",
-            userId: "userId",
-        });
-        expect(response).toEqual({
-            serverUrl: "serverUrl",
-            instanceId: "instanceId",
-            oauthUrl: "oauthUrl",
-        });
-    });
-
-    test("createUnifiedMCPServerInstance", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { userId: "userId" };
-        const rawResponseBody = { serverUrl: "serverUrl", instanceId: "instanceId", oauthUrl: "oauthUrl" };
-        server
-            .mockEndpoint()
-            .post("/mcp-server/unified/instance/create")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.mcpServer.createUnifiedMcpServerInstance({
             userId: "userId",
         });
         expect(response).toEqual({

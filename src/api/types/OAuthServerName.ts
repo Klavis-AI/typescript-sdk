@@ -32,6 +32,7 @@ export type OAuthServerName =
     | "Notion"
     | "Onedrive"
     | "PagerDuty"
+    | "Pipedrive"
     | "Salesforce"
     | "Shopify"
     | "Slack"
@@ -72,6 +73,7 @@ export const OAuthServerName = {
     Notion: "Notion",
     Onedrive: "Onedrive",
     PagerDuty: "PagerDuty",
+    Pipedrive: "Pipedrive",
     Salesforce: "Salesforce",
     Shopify: "Shopify",
     Slack: "Slack",

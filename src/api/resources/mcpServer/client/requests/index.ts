@@ -1,7 +1,9 @@
 export { type CallToolRequest } from "./CallToolRequest.js";
 export { type ListToolsRequest } from "./ListToolsRequest.js";
+export { type StrataCreateRequest } from "./StrataCreateRequest.js";
+export { type StrataAddServersRequest } from "./StrataAddServersRequest.js";
+export { type StrataDeleteServersRequest } from "./StrataDeleteServersRequest.js";
 export { type CreateServerRequest } from "./CreateServerRequest.js";
-export { type CreateUnifiedServerRequest } from "./CreateUnifiedServerRequest.js";
 export { type CreateSelfHostedServerRequest } from "./CreateSelfHostedServerRequest.js";
 export { type GetToolsRequest } from "./GetToolsRequest.js";
 export { type SetAuthRequest } from "./SetAuthRequest.js";

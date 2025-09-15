@@ -208,6 +208,338 @@ export class McpServer {
     }
 
     /**
+     * Create a Strata MCP server.
+     *
+     * Parameters:
+     * - servers: Can be 'ALL' to add all available Klavis MCP servers, a list of specific server names, or null to add no servers
+     * - externalServers: Optional list of external MCP servers to validate and add
+     *
+     * @param {Klavis.StrataCreateRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.createStrataServer({
+     *         userId: "userId"
+     *     })
+     */
+    public createStrataServer(
+        request: Klavis.StrataCreateRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StrataCreateResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__createStrataServer(request, requestOptions));
+    }
+
+    private async __createStrataServer(
+        request: Klavis.StrataCreateRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StrataCreateResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/strata/create",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StrataCreateResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /mcp-server/strata/create.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Add servers to an existing Strata MCP server.
+     *
+     * Parameters:
+     * - servers: Can be 'ALL' to add all available servers, a list of specific server names, or null to add no servers
+     * - externalServers: Optional list of external MCP servers to validate and add
+     *
+     * @param {Klavis.StrataAddServersRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.addServersToStrata({
+     *         strataId: "strataId"
+     *     })
+     */
+    public addServersToStrata(
+        request: Klavis.StrataAddServersRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StrataAddServersResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__addServersToStrata(request, requestOptions));
+    }
+
+    private async __addServersToStrata(
+        request: Klavis.StrataAddServersRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StrataAddServersResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/strata/add",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StrataAddServersResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /mcp-server/strata/add.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Delete servers from an existing Strata MCP server.
+     *
+     * Parameters:
+     * - servers: Can be 'ALL' to delete all Klavis MCP servers, a list of specific server names, or null to delete no servers
+     * - externalServers: Optional list of external server names to delete
+     *
+     * Returns separate lists for deleted Klavis servers and deleted external servers.
+     *
+     * @param {Klavis.StrataDeleteServersRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.deleteServersFromStrata({
+     *         strataId: "strataId"
+     *     })
+     */
+    public deleteServersFromStrata(
+        request: Klavis.StrataDeleteServersRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StrataDeleteServersResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteServersFromStrata(request, requestOptions));
+    }
+
+    private async __deleteServersFromStrata(
+        request: Klavis.StrataDeleteServersRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StrataDeleteServersResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/strata/delete",
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StrataDeleteServersResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /mcp-server/strata/delete.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Get information about an existing Strata MCP server instance.
+     * Returns the strata URL, connected klavis servers, connected external servers (with URLs),
+     * and authentication URLs for klavis servers.
+     *
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.getStrataInstance()
+     */
+    public getStrataInstance(
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StrataGetResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getStrataInstance(requestOptions));
+    }
+
+    private async __getStrataInstance(
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StrataGetResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/strata/get",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StrataGetResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /mcp-server/strata/get.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Creates a URL for a specified MCP server,
      * validating the request with an API key and user details.
      * Returns the existing server URL if it already exists for the user.
@@ -284,91 +616,6 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /mcp-server/instance/create.");
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Creates a URL for the Unified MCP server,
-     * validating the request with an API key and user details.
-     * Returns the existing server URL if it already exists for the user.
-     *
-     * @param {Klavis.CreateUnifiedServerRequest} request
-     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.mcpServer.createUnifiedMcpServerInstance({
-     *         userId: "userId"
-     *     })
-     */
-    public createUnifiedMcpServerInstance(
-        request: Klavis.CreateUnifiedServerRequest,
-        requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.CreateServerResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createUnifiedMcpServerInstance(request, requestOptions));
-    }
-
-    private async __createUnifiedMcpServerInstance(
-        request: Klavis.CreateUnifiedServerRequest,
-        requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.CreateServerResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                "mcp-server/unified/instance/create",
-            ),
-            method: "POST",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            contentType: "application/json",
-            requestType: "json",
-            body: request,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Klavis.CreateServerResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling POST /mcp-server/unified/instance/create.",
-                );
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
