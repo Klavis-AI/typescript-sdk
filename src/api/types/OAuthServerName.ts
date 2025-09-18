@@ -42,7 +42,8 @@ export type OAuthServerName =
     | "Xero"
     | "WordPress"
     | "Dropbox"
-    | "QuickBooks";
+    | "QuickBooks"
+    | "Zendesk";
 export const OAuthServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
@@ -84,4 +85,5 @@ export const OAuthServerName = {
     WordPress: "WordPress",
     Dropbox: "Dropbox",
     QuickBooks: "QuickBooks",
+    Zendesk: "Zendesk",
 } as const;

@@ -20,4 +20,6 @@ export interface CallToolRequest {
     toolArgs?: Record<string, unknown>;
     /** The connection type to use for the MCP server. Default is STREAMABLE_HTTP. */
     connectionType?: Klavis.ConnectionType;
+    /** Optional HTTP headers to include when connecting to the server */
+    headers?: Record<string, string | undefined>;
 }

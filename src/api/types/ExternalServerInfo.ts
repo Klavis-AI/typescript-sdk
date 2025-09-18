@@ -7,4 +7,6 @@ export interface ExternalServerInfo {
     name: string;
     /** The URL of the external MCP server */
     url: string;
+    /** Optional HTTP headers used when connecting to the external server */
+    headers?: Record<string, string | undefined>;
 }

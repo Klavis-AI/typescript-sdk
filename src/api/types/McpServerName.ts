@@ -69,7 +69,8 @@ export type McpServerName =
     | "ElevenLabs"
     | "PagerDuty"
     | "PostHog"
-    | "SendGrid";
+    | "SendGrid"
+    | "Zendesk";
 export const McpServerName = {
     Affinity: "Affinity",
     Airtable: "Airtable",
@@ -138,4 +139,5 @@ export const McpServerName = {
     PagerDuty: "PagerDuty",
     PostHog: "PostHog",
     SendGrid: "SendGrid",
+    Zendesk: "Zendesk",
 } as const;

@@ -17,4 +17,6 @@ export interface ListToolsRequest {
     connectionType?: Klavis.ConnectionType;
     /** The format to return tools in. Default is MCP Native format for maximum compatibility. */
     format?: Klavis.ToolFormat;
+    /** Optional HTTP headers to include when connecting to the server */
+    headers?: Record<string, string | undefined>;
 }
