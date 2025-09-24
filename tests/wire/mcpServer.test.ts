@@ -156,23 +156,20 @@ describe("McpServer", () => {
     test("deleteServersFromStrata", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { strataId: "strataId" };
+
         const rawResponseBody = {
             deletedServers: ["deletedServers"],
             deletedExternalServers: ["deletedExternalServers"],
         };
         server
             .mockEndpoint()
-            .delete("/mcp-server/strata/delete")
-            .jsonBody(rawRequestBody)
+            .delete("/mcp-server/strata/strataId/servers")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.deleteServersFromStrata({
-            strataId: "strataId",
-        });
+        const response = await client.mcpServer.deleteServersFromStrata("strataId");
         expect(response).toEqual({
             deletedServers: ["deletedServers"],
             deletedExternalServers: ["deletedExternalServers"],
@@ -193,13 +190,13 @@ describe("McpServer", () => {
         };
         server
             .mockEndpoint()
-            .get("/mcp-server/strata/get")
+            .get("/mcp-server/strata/strataId")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getStrataInstance();
+        const response = await client.mcpServer.getStrataInstance("strataId");
         expect(response).toEqual({
             strataServerUrl: "strataServerUrl",
             strataId: "strataId",

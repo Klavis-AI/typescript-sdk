@@ -7,16 +7,22 @@ export type McpServerName =
     | "Airtable"
     | "Asana"
     | "Attio"
+    | "Box"
     | "Brave Search"
     | "Cal.com"
     | "ClickUp"
     | "Close"
+    | "Cloudflare"
     | "Coinbase"
     | "Confluence"
+    | "Dialpad"
     | "Discord"
-    | "Dropbox"
     | "Doc2markdown"
+    | "DocuSign"
+    | "Dropbox"
+    | "ElevenLabs"
     | "Exa"
+    | "Figma"
     | "Firecrawl Deep Research"
     | "Firecrawl Web Search"
     | "Freshdesk"
@@ -33,6 +39,7 @@ export type McpServerName =
     | "Heygen"
     | "HubSpot"
     | "Jira"
+    | "Klaviyo"
     | "Klavis ReportGen"
     | "Linear"
     | "LinkedIn"
@@ -45,47 +52,46 @@ export type McpServerName =
     | "Notion"
     | "OneDrive"
     | "Openrouter"
+    | "PagerDuty"
+    | "Pipedrive"
     | "Plai"
     | "Postgres"
+    | "PostHog"
     | "QuickBooks"
     | "Resend"
     | "Salesforce"
+    | "SendGrid"
     | "Shopify"
     | "Slack"
+    | "Stripe"
     | "Supabase"
     | "Tavily"
     | "Vercel"
     | "WhatsApp"
     | "WordPress"
     | "YouTube"
-    | "Cloudflare"
-    | "Stripe"
-    | "Figma"
-    | "Pipedrive"
-    | "Klaviyo"
-    | "Box"
-    | "Dialpad"
-    | "DocuSign"
-    | "ElevenLabs"
-    | "PagerDuty"
-    | "PostHog"
-    | "SendGrid"
     | "Zendesk";
 export const McpServerName = {
     Affinity: "Affinity",
     Airtable: "Airtable",
     Asana: "Asana",
     Attio: "Attio",
+    Box: "Box",
     BraveSearch: "Brave Search",
     CalCom: "Cal.com",
     ClickUp: "ClickUp",
     Close: "Close",
+    Cloudflare: "Cloudflare",
     Coinbase: "Coinbase",
     Confluence: "Confluence",
+    Dialpad: "Dialpad",
     Discord: "Discord",
-    Dropbox: "Dropbox",
     Doc2Markdown: "Doc2markdown",
+    DocuSign: "DocuSign",
+    Dropbox: "Dropbox",
+    ElevenLabs: "ElevenLabs",
     Exa: "Exa",
+    Figma: "Figma",
     FirecrawlDeepResearch: "Firecrawl Deep Research",
     FirecrawlWebSearch: "Firecrawl Web Search",
     Freshdesk: "Freshdesk",
@@ -102,6 +108,7 @@ export const McpServerName = {
     Heygen: "Heygen",
     HubSpot: "HubSpot",
     Jira: "Jira",
+    Klaviyo: "Klaviyo",
     KlavisReportGen: "Klavis ReportGen",
     Linear: "Linear",
     LinkedIn: "LinkedIn",
@@ -114,30 +121,23 @@ export const McpServerName = {
     Notion: "Notion",
     OneDrive: "OneDrive",
     Openrouter: "Openrouter",
+    PagerDuty: "PagerDuty",
+    Pipedrive: "Pipedrive",
     Plai: "Plai",
     Postgres: "Postgres",
+    PostHog: "PostHog",
     QuickBooks: "QuickBooks",
     Resend: "Resend",
     Salesforce: "Salesforce",
+    SendGrid: "SendGrid",
     Shopify: "Shopify",
     Slack: "Slack",
+    Stripe: "Stripe",
     Supabase: "Supabase",
     Tavily: "Tavily",
     Vercel: "Vercel",
     WhatsApp: "WhatsApp",
     WordPress: "WordPress",
     Youtube: "YouTube",
-    Cloudflare: "Cloudflare",
-    Stripe: "Stripe",
-    Figma: "Figma",
-    Pipedrive: "Pipedrive",
-    Klaviyo: "Klaviyo",
-    Box: "Box",
-    Dialpad: "Dialpad",
-    DocuSign: "DocuSign",
-    ElevenLabs: "ElevenLabs",
-    PagerDuty: "PagerDuty",
-    PostHog: "PostHog",
-    SendGrid: "SendGrid",
     Zendesk: "Zendesk",
 } as const;

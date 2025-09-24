@@ -26,7 +26,6 @@ export * from "./StatusResponse.js";
 export * from "./StrataAddServersResponse.js";
 export * from "./StrataCreateResponse.js";
 export * from "./StrataDeleteServersResponse.js";
-export * from "./StrataGetRequest.js";
 export * from "./StrataGetResponse.js";
 export * from "./ToolFormat.js";
 export * from "./ValidationError.js";

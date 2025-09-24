@@ -14,6 +14,7 @@ export type OAuthServerName =
     | "Confluence"
     | "Dialpad"
     | "DocuSign"
+    | "Dropbox"
     | "Figma"
     | "GitHub"
     | "GitLab"
@@ -33,16 +34,15 @@ export type OAuthServerName =
     | "Onedrive"
     | "PagerDuty"
     | "Pipedrive"
+    | "QuickBooks"
     | "Salesforce"
     | "Shopify"
     | "Slack"
     | "Stripe"
     | "Supabase"
     | "Vercel"
-    | "Xero"
     | "WordPress"
-    | "Dropbox"
-    | "QuickBooks"
+    | "Xero"
     | "Zendesk";
 export const OAuthServerName = {
     Airtable: "Airtable",
@@ -56,6 +56,7 @@ export const OAuthServerName = {
     Confluence: "Confluence",
     Dialpad: "Dialpad",
     DocuSign: "DocuSign",
+    Dropbox: "Dropbox",
     Figma: "Figma",
     GitHub: "GitHub",
     GitLab: "GitLab",
@@ -75,15 +76,14 @@ export const OAuthServerName = {
     Onedrive: "Onedrive",
     PagerDuty: "PagerDuty",
     Pipedrive: "Pipedrive",
+    QuickBooks: "QuickBooks",
     Salesforce: "Salesforce",
     Shopify: "Shopify",
     Slack: "Slack",
     Stripe: "Stripe",
     Supabase: "Supabase",
     Vercel: "Vercel",
-    Xero: "Xero",
     WordPress: "WordPress",
-    Dropbox: "Dropbox",
-    QuickBooks: "QuickBooks",
+    Xero: "Xero",
     Zendesk: "Zendesk",
 } as const;

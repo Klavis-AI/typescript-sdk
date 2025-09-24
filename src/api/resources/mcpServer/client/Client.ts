@@ -8,6 +8,7 @@ import * as Klavis from "../../../index.js";
 import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.js";
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
+import { toJson } from "../../../../core/json.js";
 
 export declare namespace McpServer {
     export interface Options {
@@ -295,6 +296,8 @@ export class McpServer {
     /**
      * Add servers to an existing Strata MCP server.
      *
+     * Note: After adding servers, you need to reconnect the MCP server so that list_tool can be updated with the new servers.
+     *
      * Parameters:
      * - servers: Can be 'ALL' to add all available servers, a list of specific server names, or null to add no servers
      * - externalServers: Optional list of external MCP servers to validate and add
@@ -380,39 +383,57 @@ export class McpServer {
     /**
      * Delete servers from an existing Strata MCP server.
      *
+     * Note: After deleting servers, you need to reconnect the MCP server so that list_tool can be updated to reflect the removed servers.
+     *
      * Parameters:
-     * - servers: Can be 'ALL' to delete all Klavis MCP servers, a list of specific server names, or null to delete no servers
-     * - externalServers: Optional list of external server names to delete
+     * - strataId: The strata server ID (path parameter)
+     * - servers: Can be 'ALL' to delete all available Klavis MCP servers, a list of specific server names, or null to delete no servers
+     * - externalServers: Query parameter - comma-separated list of external server names to delete
      *
      * Returns separate lists for deleted Klavis servers and deleted external servers.
      *
-     * @param {Klavis.StrataDeleteServersRequest} request
+     * @param {string} strataId
+     * @param {Klavis.DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.deleteServersFromStrata({
-     *         strataId: "strataId"
-     *     })
+     *     await client.mcpServer.deleteServersFromStrata("strataId")
      */
     public deleteServersFromStrata(
-        request: Klavis.StrataDeleteServersRequest,
+        strataId: string,
+        request: Klavis.DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.StrataDeleteServersResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteServersFromStrata(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__deleteServersFromStrata(strataId, request, requestOptions));
     }
 
     private async __deleteServersFromStrata(
-        request: Klavis.StrataDeleteServersRequest,
+        strataId: string,
+        request: Klavis.DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.StrataDeleteServersResponse>> {
+        const { servers, externalServers } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (servers != null) {
+            if (Array.isArray(servers)) {
+                _queryParams["servers"] = servers.map((item) => (typeof item === "string" ? item : toJson(item)));
+            } else {
+                _queryParams["servers"] = typeof servers === "string" ? servers : toJson(servers);
+            }
+        }
+
+        if (externalServers != null) {
+            _queryParams["externalServers"] = externalServers;
+        }
+
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "mcp-server/strata/delete",
+                `mcp-server/strata/${encodeURIComponent(strataId)}/servers`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -420,9 +441,7 @@ export class McpServer {
                 mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
                 requestOptions?.headers,
             ),
-            contentType: "application/json",
-            requestType: "json",
-            body: request,
+            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -455,7 +474,9 @@ export class McpServer {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /mcp-server/strata/delete.");
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strataId}/servers.",
+                );
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -469,20 +490,23 @@ export class McpServer {
      * Returns the strata URL, connected klavis servers, connected external servers (with URLs),
      * and authentication URLs for klavis servers.
      *
+     * @param {string} strataId
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getStrataInstance()
+     *     await client.mcpServer.getStrataInstance("strataId")
      */
     public getStrataInstance(
+        strataId: string,
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.StrataGetResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getStrataInstance(requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getStrataInstance(strataId, requestOptions));
     }
 
     private async __getStrataInstance(
+        strataId: string,
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.StrataGetResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -490,7 +514,7 @@ export class McpServer {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "mcp-server/strata/get",
+                `mcp-server/strata/${encodeURIComponent(strataId)}`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -530,7 +554,7 @@ export class McpServer {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /mcp-server/strata/get.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /mcp-server/strata/{strataId}.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

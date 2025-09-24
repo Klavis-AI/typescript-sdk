@@ -21,7 +21,7 @@ export interface StrataAddServersRequest {
 
 export namespace StrataAddServersRequest {
     /**
-     * List of Klavis MCP servers to delete (e.g., 'jira', 'linear'), 'ALL' to delete all Klavis MCP servers, or null to delete no servers.
+     * List of Klavis MCP servers to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis MCP servers, or null to add no servers.
      */
     export type Servers = Klavis.McpServerName[] | "ALL";
 }

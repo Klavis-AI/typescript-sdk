@@ -14,7 +14,7 @@ import * as Klavis from "../../../../index.js";
 export interface CreateServerRequest {
     /** The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid). */
     serverName: Klavis.McpServerName;
-    /** The identifier for the user requesting the server URL. */
+    /** The unique identifier for the user. The server instance along with the all the authentication data will belong to that specific user only. It can be a UUID from the database, a unique email address from the user, etc. */
     userId: string;
     /** The name of the platform associated with the user. Optional. */
     platformName?: string;

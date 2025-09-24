@@ -11,17 +11,19 @@ import * as Klavis from "../../../../index.js";
  *     }
  */
 export interface StrataCreateRequest {
-    /** The identifier for the user */
+    /** The unique identifier for the user. The server instance along with the all the authentication data will belong to that specific user only. It can be a UUID from the database, a unique email address from the user, etc. */
     userId: string;
     /** List of Klavis MCP servers to enable (e.g., 'jira', 'linear'), 'ALL' to add all Klavis MCP servers, or null to add no servers. */
     servers?: StrataCreateRequest.Servers;
     /** Optional list of external MCP servers to add with their URLs. Each server will be validated before being added. */
     externalServers?: Klavis.ExternalServerRequest[];
+    /** Whether to enable authentication handling. Default is True. */
+    enable_auth_handling?: boolean;
 }
 
 export namespace StrataCreateRequest {
     /**
-     * List of Klavis MCP servers to delete (e.g., 'jira', 'linear'), 'ALL' to delete all Klavis MCP servers, or null to delete no servers.
+     * List of Klavis MCP servers to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis MCP servers, or null to add no servers.
      */
     export type Servers = Klavis.McpServerName[] | "ALL";
 }

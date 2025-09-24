@@ -1,4 +1,5 @@
 export * as mcpServer from "./mcpServer/index.js";
+export * from "./mcpServer/types/index.js";
 export * as whiteLabeling from "./whiteLabeling/index.js";
 export * as user from "./user/index.js";
 export * as slackOauth from "./slackOauth/index.js";

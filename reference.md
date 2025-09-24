@@ -221,6 +221,8 @@ await client.mcpServer.createStrataServer({
 
 Add servers to an existing Strata MCP server.
 
+Note: After adding servers, you need to reconnect the MCP server so that list_tool can be updated with the new servers.
+
 Parameters:
 
 - servers: Can be 'ALL' to add all available servers, a list of specific server names, or null to add no servers
@@ -276,7 +278,7 @@ await client.mcpServer.addServersToStrata({
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteServersFromStrata</a>({ ...params }) -> Klavis.StrataDeleteServersResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteServersFromStrata</a>(strataId, { ...params }) -> Klavis.StrataDeleteServersResponse</code></summary>
 <dl>
 <dd>
 
@@ -290,10 +292,13 @@ await client.mcpServer.addServersToStrata({
 
 Delete servers from an existing Strata MCP server.
 
+Note: After deleting servers, you need to reconnect the MCP server so that list_tool can be updated to reflect the removed servers.
+
 Parameters:
 
-- servers: Can be 'ALL' to delete all Klavis MCP servers, a list of specific server names, or null to delete no servers
-- externalServers: Optional list of external server names to delete
+- strataId: The strata server ID (path parameter)
+- servers: Can be 'ALL' to delete all available Klavis MCP servers, a list of specific server names, or null to delete no servers
+- externalServers: Query parameter - comma-separated list of external server names to delete
 
 Returns separate lists for deleted Klavis servers and deleted external servers.
 
@@ -311,9 +316,7 @@ Returns separate lists for deleted Klavis servers and deleted external servers.
 <dd>
 
 ```typescript
-await client.mcpServer.deleteServersFromStrata({
-    strataId: "strataId",
-});
+await client.mcpServer.deleteServersFromStrata("strataId");
 ```
 
 </dd>
@@ -329,7 +332,15 @@ await client.mcpServer.deleteServersFromStrata({
 <dl>
 <dd>
 
-**request:** `Klavis.StrataDeleteServersRequest`
+**strataId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest`
 
 </dd>
 </dl>
@@ -348,7 +359,7 @@ await client.mcpServer.deleteServersFromStrata({
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataInstance</a>() -> Klavis.StrataGetResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataInstance</a>(strataId) -> Klavis.StrataGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -378,7 +389,7 @@ and authentication URLs for klavis servers.
 <dd>
 
 ```typescript
-await client.mcpServer.getStrataInstance();
+await client.mcpServer.getStrataInstance("strataId");
 ```
 
 </dd>
@@ -390,6 +401,14 @@ await client.mcpServer.getStrataInstance();
 
 <dl>
 <dd>
+
+<dl>
+<dd>
+
+**strataId:** `string`
+
+</dd>
+</dl>
 
 <dl>
 <dd>
