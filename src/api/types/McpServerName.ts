@@ -52,6 +52,7 @@ export type McpServerName =
     | "Notion"
     | "OneDrive"
     | "Openrouter"
+    | "Outlook"
     | "PagerDuty"
     | "Pipedrive"
     | "Plai"
@@ -121,6 +122,7 @@ export const McpServerName = {
     Notion: "Notion",
     OneDrive: "OneDrive",
     Openrouter: "Openrouter",
+    Outlook: "Outlook",
     PagerDuty: "PagerDuty",
     Pipedrive: "Pipedrive",
     Plai: "Plai",

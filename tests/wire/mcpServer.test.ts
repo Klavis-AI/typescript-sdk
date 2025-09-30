@@ -216,6 +216,33 @@ describe("McpServer", () => {
         });
     });
 
+    test("setStrataAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { strataId: "strataId", serverName: "Affinity", authData: { token: "token" } };
+        const rawResponseBody = { success: true, message: "message" };
+        server
+            .mockEndpoint()
+            .post("/mcp-server/strata/set-auth")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.setStrataAuth({
+            strataId: "strataId",
+            serverName: "Affinity",
+            authData: {
+                token: "token",
+            },
+        });
+        expect(response).toEqual({
+            success: true,
+            message: "message",
+        });
+    });
+
     test("createServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });

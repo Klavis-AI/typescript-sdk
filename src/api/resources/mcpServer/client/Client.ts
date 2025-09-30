@@ -487,6 +487,7 @@ export class McpServer {
 
     /**
      * Get information about an existing Strata MCP server instance.
+     *
      * Returns the strata URL, connected klavis servers, connected external servers (with URLs),
      * and authentication URLs for klavis servers.
      *
@@ -555,6 +556,93 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /mcp-server/strata/{strataId}.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Sets authentication data for a specific integration within a Strata MCP server.
+     *
+     * Accepts either API key authentication or general authentication data.
+     *
+     * @param {Klavis.StrataSetAuthRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.setStrataAuth({
+     *         strataId: "strataId",
+     *         serverName: "Affinity",
+     *         authData: {
+     *             token: "token"
+     *         }
+     *     })
+     */
+    public setStrataAuth(
+        request: Klavis.StrataSetAuthRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StatusResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__setStrataAuth(request, requestOptions));
+    }
+
+    private async __setStrataAuth(
+        request: Klavis.StrataSetAuthRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "mcp-server/strata/set-auth",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /mcp-server/strata/set-auth.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

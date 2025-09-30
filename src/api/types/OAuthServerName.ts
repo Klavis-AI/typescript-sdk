@@ -32,6 +32,7 @@ export type OAuthServerName =
     | "Moneybird"
     | "Notion"
     | "Onedrive"
+    | "Outlook"
     | "PagerDuty"
     | "Pipedrive"
     | "QuickBooks"
@@ -74,6 +75,7 @@ export const OAuthServerName = {
     Moneybird: "Moneybird",
     Notion: "Notion",
     Onedrive: "Onedrive",
+    Outlook: "Outlook",
     PagerDuty: "PagerDuty",
     Pipedrive: "Pipedrive",
     QuickBooks: "QuickBooks",

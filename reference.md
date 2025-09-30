@@ -372,6 +372,7 @@ await client.mcpServer.deleteServersFromStrata("strataId");
 <dd>
 
 Get information about an existing Strata MCP server instance.
+
 Returns the strata URL, connected klavis servers, connected external servers (with URLs),
 and authentication URLs for klavis servers.
 
@@ -406,6 +407,77 @@ await client.mcpServer.getStrataInstance("strataId");
 <dd>
 
 **strataId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">setStrataAuth</a>({ ...params }) -> Klavis.StatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sets authentication data for a specific integration within a Strata MCP server.
+
+Accepts either API key authentication or general authentication data.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.setStrataAuth({
+    strataId: "strataId",
+    serverName: "Affinity",
+    authData: {
+        token: "token",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.StrataSetAuthRequest`
 
 </dd>
 </dl>
@@ -4091,6 +4163,185 @@ await client.dialpadOauth.authorizeDialpad({
 <dd>
 
 **requestOptions:** `DialpadOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## ShopifyOauth
+
+<details><summary><code>client.shopifyOauth.<a href="/src/api/resources/shopifyOauth/client/Client.ts">authorizeShopify</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Shopify OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- shop: Shopify shop domain (e.g., mystore.myshopify.com)
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.shopifyOauth.authorizeShopify({
+    instance_id: "instance_id",
+    shop: "shop",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeShopifyRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ShopifyOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## OnedriveOauth
+
+<details><summary><code>client.onedriveOauth.<a href="/src/api/resources/onedriveOauth/client/Client.ts">authorizeOneDrive</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.onedriveOauth.authorizeOneDrive({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeOneDriveRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `OnedriveOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## OutlookOauth
+
+<details><summary><code>client.outlookOauth.<a href="/src/api/resources/outlookOauth/client/Client.ts">authorizeOutlook</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.outlookOauth.authorizeOutlook({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeOutlookRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `OutlookOauth.RequestOptions`
 
 </dd>
 </dl>

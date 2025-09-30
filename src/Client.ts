@@ -45,6 +45,9 @@ import { KlaviyoOauth } from "./api/resources/klaviyoOauth/client/Client.js";
 import { PagerdutyOauth } from "./api/resources/pagerdutyOauth/client/Client.js";
 import { DocusignOauth } from "./api/resources/docusignOauth/client/Client.js";
 import { DialpadOauth } from "./api/resources/dialpadOauth/client/Client.js";
+import { ShopifyOauth } from "./api/resources/shopifyOauth/client/Client.js";
+import { OnedriveOauth } from "./api/resources/onedriveOauth/client/Client.js";
+import { OutlookOauth } from "./api/resources/outlookOauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -111,6 +114,9 @@ export class KlavisClient {
     protected _pagerdutyOauth: PagerdutyOauth | undefined;
     protected _docusignOauth: DocusignOauth | undefined;
     protected _dialpadOauth: DialpadOauth | undefined;
+    protected _shopifyOauth: ShopifyOauth | undefined;
+    protected _onedriveOauth: OnedriveOauth | undefined;
+    protected _outlookOauth: OutlookOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -119,8 +125,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "1.1.2",
-                    "User-Agent": "klavis/1.1.2",
+                    "X-Fern-SDK-Version": "1.2.1",
+                    "User-Agent": "klavis/1.2.1",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -287,5 +293,17 @@ export class KlavisClient {
 
     public get dialpadOauth(): DialpadOauth {
         return (this._dialpadOauth ??= new DialpadOauth(this._options));
+    }
+
+    public get shopifyOauth(): ShopifyOauth {
+        return (this._shopifyOauth ??= new ShopifyOauth(this._options));
+    }
+
+    public get onedriveOauth(): OnedriveOauth {
+        return (this._onedriveOauth ??= new OnedriveOauth(this._options));
+    }
+
+    public get outlookOauth(): OutlookOauth {
+        return (this._outlookOauth ??= new OutlookOauth(this._options));
     }
 }
