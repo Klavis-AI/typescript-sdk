@@ -45,6 +45,7 @@ export class QuickbooksOauth {
      * Parameters:
      * - instance_id: Identifier for the instance requesting authorization
      * - client_id: Optional client ID for white labeling
+     * - environment: QuickBooks environment to authorize ('sandbox' default)
      * - scope: Optional scopes to request (space-separated). Default is 'com.intuit.quickbooks.accounting'
      * - redirect_url: Optional URL to redirect to after authorization completes
      *
@@ -69,11 +70,15 @@ export class QuickbooksOauth {
         request: Klavis.AuthorizeQuickBooksRequest,
         requestOptions?: QuickbooksOauth.RequestOptions,
     ): Promise<core.WithRawResponse<unknown>> {
-        const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
+        const { instance_id: instanceId, client_id: clientId, environment, scope, redirect_url: redirectUrl } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["instance_id"] = instanceId;
         if (clientId != null) {
             _queryParams["client_id"] = clientId;
+        }
+
+        if (environment != null) {
+            _queryParams["environment"] = environment;
         }
 
         if (scope != null) {

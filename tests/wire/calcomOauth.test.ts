@@ -26,30 +26,4 @@ describe("CalcomOauth", () => {
             key: "value",
         });
     });
-
-    test("calcomClientCredentialsAuth", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .get("/oauth/calcom/client-credentials")
-            .header("x-cal-client-id", "x-cal-client-id")
-            .header("x-cal-secret-key", "x-cal-secret-key")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.calcomOauth.calcomClientCredentialsAuth({
-            "x-cal-client-id": "x-cal-client-id",
-            "x-cal-secret-key": "x-cal-secret-key",
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
 });

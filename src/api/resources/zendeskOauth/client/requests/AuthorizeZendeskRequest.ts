@@ -5,7 +5,8 @@
 /**
  * @example
  *     {
- *         instance_id: "instance_id"
+ *         instance_id: "instance_id",
+ *         subdomain: "subdomain"
  *     }
  */
 export interface AuthorizeZendeskRequest {
@@ -13,6 +14,10 @@ export interface AuthorizeZendeskRequest {
      * Unique identifier for the client instance requesting authorization
      */
     instance_id: string;
+    /**
+     * Zendesk subdomain for the account being connected (e.g., 'mycompany' for mycompany.zendesk.com)
+     */
+    subdomain: string;
     /**
      * Client ID for white labeling, if not provided will use default credentials
      */

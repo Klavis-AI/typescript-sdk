@@ -219,7 +219,7 @@ describe("McpServer", () => {
     test("setStrataAuth", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { strataId: "strataId", serverName: "Affinity", authData: { token: "token" } };
+        const rawRequestBody = { strataId: "strataId", serverName: "Affinity", authData: { api_key: "api_key" } };
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
@@ -234,7 +234,7 @@ describe("McpServer", () => {
             strataId: "strataId",
             serverName: "Affinity",
             authData: {
-                token: "token",
+                api_key: "api_key",
             },
         });
         expect(response).toEqual({
@@ -434,7 +434,7 @@ describe("McpServer", () => {
     test("setInstanceAuth", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { instanceId: "instanceId", authData: { token: "token" } };
+        const rawRequestBody = { instanceId: "instanceId", authData: { api_key: "api_key" } };
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
@@ -448,7 +448,7 @@ describe("McpServer", () => {
         const response = await client.mcpServer.setInstanceAuth({
             instanceId: "instanceId",
             authData: {
-                token: "token",
+                api_key: "api_key",
             },
         });
         expect(response).toEqual({

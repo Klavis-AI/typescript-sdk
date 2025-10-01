@@ -1,6 +1,4 @@
 export * from "./ApiKeyAuth.js";
-export * from "./CalcomOAuthErrorResponse.js";
-export * from "./CalcomOAuthSuccessResponse.js";
 export * from "./CallToolResponse.js";
 export * from "./CallToolResult.js";
 export * from "./ConnectionType.js";

@@ -579,7 +579,7 @@ export class McpServer {
      *         strataId: "strataId",
      *         serverName: "Affinity",
      *         authData: {
-     *             token: "token"
+     *             api_key: "api_key"
      *         }
      *     })
      */
@@ -1228,7 +1228,7 @@ export class McpServer {
      *     await client.mcpServer.setInstanceAuth({
      *         instanceId: "instanceId",
      *         authData: {
-     *             token: "token"
+     *             api_key: "api_key"
      *         }
      *     })
      */

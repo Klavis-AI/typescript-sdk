@@ -1,5 +1,7 @@
 export * as mcpServer from "./mcpServer/index.js";
 export * from "./mcpServer/types/index.js";
+export * as quickbooksOauth from "./quickbooksOauth/index.js";
+export * from "./quickbooksOauth/types/index.js";
 export * as whiteLabeling from "./whiteLabeling/index.js";
 export * as user from "./user/index.js";
 export * as slackOauth from "./slackOauth/index.js";
@@ -28,7 +30,6 @@ export * as canvaOauth from "./canvaOauth/index.js";
 export * as xeroOauth from "./xeroOauth/index.js";
 export * as dropboxOauth from "./dropboxOauth/index.js";
 export * as boxOauth from "./boxOauth/index.js";
-export * as quickbooksOauth from "./quickbooksOauth/index.js";
 export * as zendeskOauth from "./zendeskOauth/index.js";
 export * as stripeConnectOauth from "./stripeConnectOauth/index.js";
 export * as calcomOauth from "./calcomOauth/index.js";

@@ -10,7 +10,7 @@ import * as Klavis from "../../../../index.js";
  *         strataId: "strataId",
  *         serverName: "Affinity",
  *         authData: {
- *             token: "token"
+ *             api_key: "api_key"
  *         }
  *     }
  */

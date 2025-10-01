@@ -9,7 +9,7 @@ import * as Klavis from "../../../../index.js";
  *     {
  *         instanceId: "instanceId",
  *         authData: {
- *             token: "token"
+ *             api_key: "api_key"
  *         }
  *     }
  */

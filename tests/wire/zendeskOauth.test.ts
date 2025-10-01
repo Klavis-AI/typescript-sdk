@@ -21,6 +21,7 @@ describe("ZendeskOauth", () => {
 
         const response = await client.zendeskOauth.authorizeZendesk({
             instance_id: "instance_id",
+            subdomain: "subdomain",
         });
         expect(response).toEqual({
             key: "value",

@@ -459,7 +459,7 @@ await client.mcpServer.setStrataAuth({
     strataId: "strataId",
     serverName: "Affinity",
     authData: {
-        token: "token",
+        api_key: "api_key",
     },
 });
 ```
@@ -985,7 +985,7 @@ This updates the auth_metadata for the specified instance.
 await client.mcpServer.setInstanceAuth({
     instanceId: "instanceId",
     authData: {
-        token: "token",
+        api_key: "api_key",
     },
 });
 ```
@@ -3331,6 +3331,7 @@ Parameters:
 
 - instance_id: Identifier for the instance requesting authorization
 - client_id: Optional client ID for white labeling
+- environment: QuickBooks environment to authorize ('sandbox' default)
 - scope: Optional scopes to request (space-separated). Default is 'com.intuit.quickbooks.accounting'
 - redirect_url: Optional URL to redirect to after authorization completes
   </dd>
@@ -3406,6 +3407,7 @@ Parameters:
 - client_id: Optional client ID for white labeling
 - scope: Optional scopes to request (space-separated)
 - redirect_url: Optional URL to redirect to after authorization completes
+- subdomain: Zendesk subdomain for the account being connected
   </dd>
   </dl>
   </dd>
@@ -3422,6 +3424,7 @@ Parameters:
 ```typescript
 await client.zendeskOauth.authorizeZendesk({
     instance_id: "instance_id",
+    subdomain: "subdomain",
 });
 ```
 
@@ -3584,85 +3587,6 @@ await client.calcomOauth.authorizeCalcom({
 <dd>
 
 **request:** `Klavis.AuthorizeCalcomRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `CalcomOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.calcomOauth.<a href="/src/api/resources/calcomOauth/client/Client.ts">calcomClientCredentialsAuth</a>({ ...params }) -> Klavis.CalcomOAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Authenticate using Cal.com OAuth client credentials flow for platform-level API access
-
-This endpoint is used for:
-
-- Managing managed users
-- Creating OAuth client webhooks
-- Refreshing managed user tokens
-- Managing organization teams and memberships
-
-Parameters:
-
-- instance_id: Identifier for the instance requesting authentication
-- x-cal-client-id: OAuth client ID (header)
-- x-cal-secret-key: OAuth client secret (header)
-  </dd>
-  </dl>
-  </dd>
-  </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.calcomOauth.calcomClientCredentialsAuth({
-    "x-cal-client-id": "x-cal-client-id",
-    "x-cal-secret-key": "x-cal-secret-key",
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.CalcomClientCredentialsAuthOauthCalcomClientCredentialsGetRequest`
 
 </dd>
 </dl>

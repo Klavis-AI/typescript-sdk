@@ -47,6 +47,7 @@ export class ZendeskOauth {
      * - client_id: Optional client ID for white labeling
      * - scope: Optional scopes to request (space-separated)
      * - redirect_url: Optional URL to redirect to after authorization completes
+     * - subdomain: Zendesk subdomain for the account being connected
      *
      * @param {Klavis.AuthorizeZendeskRequest} request
      * @param {ZendeskOauth.RequestOptions} requestOptions - Request-specific configuration.
@@ -55,7 +56,8 @@ export class ZendeskOauth {
      *
      * @example
      *     await client.zendeskOauth.authorizeZendesk({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         subdomain: "subdomain"
      *     })
      */
     public authorizeZendesk(
@@ -69,9 +71,10 @@ export class ZendeskOauth {
         request: Klavis.AuthorizeZendeskRequest,
         requestOptions?: ZendeskOauth.RequestOptions,
     ): Promise<core.WithRawResponse<unknown>> {
-        const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
+        const { instance_id: instanceId, subdomain, client_id: clientId, scope, redirect_url: redirectUrl } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["instance_id"] = instanceId;
+        _queryParams["subdomain"] = subdomain;
         if (clientId != null) {
             _queryParams["client_id"] = clientId;
         }

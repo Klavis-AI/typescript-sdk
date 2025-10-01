@@ -4,5 +4,5 @@
 
 export interface ApiKeyAuth {
     /** The API key to save */
-    token: string;
+    api_key: string;
 }
