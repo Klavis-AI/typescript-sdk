@@ -8,9 +8,7 @@ import * as Klavis from "../../../../index.js";
  * @example
  *     {
  *         instanceId: "instanceId",
- *         authData: {
- *             api_key: "api_key"
- *         }
+ *         authData: {}
  *     }
  */
 export interface SetAuthRequest {

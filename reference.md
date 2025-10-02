@@ -458,9 +458,7 @@ Accepts either API key authentication or general authentication data.
 await client.mcpServer.setStrataAuth({
     strataId: "strataId",
     serverName: "Affinity",
-    authData: {
-        api_key: "api_key",
-    },
+    authData: {},
 });
 ```
 
@@ -984,9 +982,7 @@ This updates the auth_metadata for the specified instance.
 ```typescript
 await client.mcpServer.setInstanceAuth({
     instanceId: "instanceId",
-    authData: {
-        api_key: "api_key",
-    },
+    authData: {},
 });
 ```
 

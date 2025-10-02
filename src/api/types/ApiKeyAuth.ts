@@ -3,6 +3,8 @@
  */
 
 export interface ApiKeyAuth {
-    /** The API key to save */
-    api_key: string;
+    /** The API key to save (token field) */
+    token?: string;
+    /** The API key to save (api_key field) */
+    api_key?: string;
 }
