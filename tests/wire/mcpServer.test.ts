@@ -301,6 +301,7 @@ describe("McpServer", () => {
             serverName: "serverName",
             platform: "platform",
             externalUserId: "externalUserId",
+            oauthUrl: "oauthUrl",
         };
         server
             .mockEndpoint()
@@ -318,6 +319,7 @@ describe("McpServer", () => {
             serverName: "serverName",
             platform: "platform",
             externalUserId: "externalUserId",
+            oauthUrl: "oauthUrl",
         });
     });
 
@@ -479,23 +481,10 @@ describe("McpServer", () => {
     test("get_oauth_url", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { serverName: "Affinity", instanceId: "instanceId" };
-        const rawResponseBody = { oauthUrl: "oauthUrl" };
-        server
-            .mockEndpoint()
-            .post("/mcp-server/oauth-url")
-            .jsonBody(rawRequestBody)
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
 
-        const response = await client.mcpServer.getOauthUrl({
-            serverName: "Affinity",
-            instanceId: "instanceId",
-        });
-        expect(response).toEqual({
-            oauthUrl: "oauthUrl",
-        });
+        server.mockEndpoint().post("/mcp-server/oauth-url").respondWith().statusCode(200).build();
+
+        const response = await client.mcpServer.getOauthUrl();
+        expect(response).toEqual(undefined);
     });
 });

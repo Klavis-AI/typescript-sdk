@@ -154,7 +154,7 @@ Create a Strata MCP server.
 
 Parameters:
 
-- servers: Can be 'ALL' to add all available Klavis MCP servers, a list of specific server names, or null to add no servers
+- servers: Can be 'ALL' to add all available Klavis integration, a list of specific server names, or null to add no servers
 - externalServers: Optional list of external MCP servers to validate and add
   </dd>
   </dl>
@@ -297,7 +297,7 @@ Note: After deleting servers, you need to reconnect the MCP server so that list_
 Parameters:
 
 - strataId: The strata server ID (path parameter)
-- servers: Can be 'ALL' to delete all available Klavis MCP servers, a list of specific server names, or null to delete no servers
+- servers: Can be 'ALL' to delete all available Klavis integration, a list of specific server names, or null to delete no servers
 - externalServers: Query parameter - comma-separated list of external server names to delete
 
 Returns separate lists for deleted Klavis servers and deleted external servers.
@@ -1085,25 +1085,9 @@ await client.mcpServer.getInstanceAuthData("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getOauthUrl</a>({ ...params }) -> Klavis.GetOAuthUrlResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getOauthUrl</a>() -> void</code></summary>
 <dl>
 <dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Gets the OAuth authorization URL for a specific MCP server and instance.
-Returns the complete OAuth URL with the instance ID as a query parameter.
-
-</dd>
-</dl>
-</dd>
-</dl>
 
 #### 🔌 Usage
 
@@ -1114,10 +1098,7 @@ Returns the complete OAuth URL with the instance ID as a query parameter.
 <dd>
 
 ```typescript
-await client.mcpServer.getOauthUrl({
-    serverName: "Affinity",
-    instanceId: "instanceId",
-});
+await client.mcpServer.getOauthUrl();
 ```
 
 </dd>
@@ -1129,14 +1110,6 @@ await client.mcpServer.getOauthUrl({
 
 <dl>
 <dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.GetOAuthUrlRequest`
-
-</dd>
-</dl>
 
 <dl>
 <dd>

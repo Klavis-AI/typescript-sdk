@@ -12,7 +12,6 @@ export * from "./GeneralAuth.js";
 export * from "./GetAuthDataResponse.js";
 export * from "./GetInstanceResponse.js";
 export * from "./GetMcpServersResponse.js";
-export * from "./GetOAuthUrlResponse.js";
 export * from "./GetServerInstancesResponse.js";
 export * from "./HttpValidationError.js";
 export * from "./ListToolsResponse.js";

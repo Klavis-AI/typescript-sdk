@@ -5,12 +5,12 @@
 import * as Klavis from "../index.js";
 
 export interface StrataAddServersResponse {
-    /** List of Klavis MCP servers that were added */
+    /** List of Klavis integration that were added */
     addedServers: string[];
     /** List of external MCP servers that were added with name and URL */
     addedExternalServers?: Klavis.ExternalServerInfo[];
-    /** Mapping of server name to OAuth URL for newly added servers */
+    /** Map of connected integration to OAuth URL, supports white labeling if configured */
     oauthUrls?: Record<string, string>;
-    /** Mapping of server name to API key setup URL for newly added servers */
+    /** Map of connected integration to API key setup URL */
     apiKeyUrls?: Record<string, string>;
 }

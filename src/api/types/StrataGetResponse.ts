@@ -9,12 +9,12 @@ export interface StrataGetResponse {
     strataServerUrl: string;
     /** The strata server ID */
     strataId: string;
-    /** List of Klavis MCP servers currently connected to this strata */
+    /** List of available integration currently connected to this strata */
     connectedServers: string[];
     /** List of external servers with name and URL currently connected to this strata */
     connectedExternalServers: Klavis.ExternalServerInfo[];
-    /** Mapping of Klavis MCP server name to OAuth URL */
+    /** Map of connected integration to OAuth URL, supports white labeling if configured */
     oauthUrls?: Record<string, string>;
-    /** Mapping of Klavis MCP server name to API key setup URL */
+    /** Map of connected integration to API key setup URL */
     apiKeyUrls?: Record<string, string>;
 }

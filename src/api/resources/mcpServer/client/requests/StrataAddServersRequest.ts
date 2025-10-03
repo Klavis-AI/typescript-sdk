@@ -13,7 +13,7 @@ import * as Klavis from "../../../../index.js";
 export interface StrataAddServersRequest {
     /** The strata server ID */
     strataId: string;
-    /** List of Klavis MCP servers to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis MCP servers, or null to add no servers. */
+    /** List of Klavis integration to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis integration, or null to add no servers. */
     servers?: StrataAddServersRequest.Servers;
     /** Optional list of external MCP servers to add with their URLs. Each server will be validated before being added. */
     externalServers?: Klavis.ExternalServerRequest[];
@@ -21,7 +21,7 @@ export interface StrataAddServersRequest {
 
 export namespace StrataAddServersRequest {
     /**
-     * List of Klavis MCP servers to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis MCP servers, or null to add no servers.
+     * List of Klavis integration to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis integration, or null to add no servers.
      */
     export type Servers = Klavis.McpServerName[] | "ALL";
 }

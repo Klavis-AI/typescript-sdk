@@ -3,7 +3,7 @@
  */
 
 export interface StrataDeleteServersResponse {
-    /** List of Klavis MCP server names that were deleted */
+    /** List of integration that were deleted */
     deletedServers: string[];
     /** List of external MCP server names that were deleted */
     deletedExternalServers: string[];

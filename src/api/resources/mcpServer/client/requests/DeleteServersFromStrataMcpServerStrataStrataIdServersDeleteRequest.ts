@@ -10,7 +10,7 @@ import * as Klavis from "../../../../index.js";
  */
 export interface DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest {
     /**
-     * List of Klavis MCP servers to delete (e.g., 'jira', 'linear'), 'ALL' to delete all Klavis MCP servers, or null to delete no servers.
+     * List of Klavis integration to delete (e.g., 'jira', 'linear'), 'ALL' to delete all Klavis integration, or null to delete no servers.
      */
     servers?:
         | Klavis.DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequestServersItem

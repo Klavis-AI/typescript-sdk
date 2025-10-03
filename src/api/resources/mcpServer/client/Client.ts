@@ -212,7 +212,7 @@ export class McpServer {
      * Create a Strata MCP server.
      *
      * Parameters:
-     * - servers: Can be 'ALL' to add all available Klavis MCP servers, a list of specific server names, or null to add no servers
+     * - servers: Can be 'ALL' to add all available Klavis integration, a list of specific server names, or null to add no servers
      * - externalServers: Optional list of external MCP servers to validate and add
      *
      * @param {Klavis.StrataCreateRequest} request
@@ -387,7 +387,7 @@ export class McpServer {
      *
      * Parameters:
      * - strataId: The strata server ID (path parameter)
-     * - servers: Can be 'ALL' to delete all available Klavis MCP servers, a list of specific server names, or null to delete no servers
+     * - servers: Can be 'ALL' to delete all available Klavis integration, a list of specific server names, or null to delete no servers
      * - externalServers: Query parameter - comma-separated list of external server names to delete
      *
      * Returns separate lists for deleted Klavis servers and deleted external servers.
@@ -1381,31 +1381,16 @@ export class McpServer {
     }
 
     /**
-     * Gets the OAuth authorization URL for a specific MCP server and instance.
-     * Returns the complete OAuth URL with the instance ID as a query parameter.
-     *
-     * @param {Klavis.GetOAuthUrlRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
      * @example
-     *     await client.mcpServer.getOauthUrl({
-     *         serverName: "Affinity",
-     *         instanceId: "instanceId"
-     *     })
+     *     await client.mcpServer.getOauthUrl()
      */
-    public getOauthUrl(
-        request: Klavis.GetOAuthUrlRequest,
-        requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.GetOAuthUrlResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getOauthUrl(request, requestOptions));
+    public getOauthUrl(requestOptions?: McpServer.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__getOauthUrl(requestOptions));
     }
 
-    private async __getOauthUrl(
-        request: Klavis.GetOAuthUrlRequest,
-        requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.GetOAuthUrlResponse>> {
+    private async __getOauthUrl(requestOptions?: McpServer.RequestOptions): Promise<core.WithRawResponse<void>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
@@ -1419,31 +1404,20 @@ export class McpServer {
                 mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
                 requestOptions?.headers,
             ),
-            contentType: "application/json",
-            requestType: "json",
-            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Klavis.GetOAuthUrlResponse, rawResponse: _response.rawResponse };
+            return { data: undefined, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
+            throw new errors.KlavisError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
         }
 
         switch (_response.error.reason) {

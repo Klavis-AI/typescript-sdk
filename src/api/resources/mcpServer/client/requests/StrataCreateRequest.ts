@@ -23,7 +23,7 @@ export interface StrataCreateRequest {
 
 export namespace StrataCreateRequest {
     /**
-     * List of Klavis MCP servers to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis MCP servers, or null to add no servers.
+     * List of Klavis integration to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis integration, or null to add no servers.
      */
     export type Servers = Klavis.McpServerName[] | "ALL";
 }

@@ -8,4 +8,3 @@ export { type CreateServerRequest } from "./CreateServerRequest.js";
 export { type CreateSelfHostedServerRequest } from "./CreateSelfHostedServerRequest.js";
 export { type McpServerGetToolsRequest } from "./McpServerGetToolsRequest.js";
 export { type SetAuthRequest } from "./SetAuthRequest.js";
-export { type GetOAuthUrlRequest } from "./GetOAuthUrlRequest.js";

@@ -15,4 +15,6 @@ export interface GetInstanceResponse {
     platform?: string;
     /** The user's identifier on the external platform. */
     externalUserId?: string;
+    /** The OAuth URL for authentication if available, supports white label if configured. */
+    oauthUrl?: string;
 }
