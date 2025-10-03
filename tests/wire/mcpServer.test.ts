@@ -476,7 +476,7 @@ describe("McpServer", () => {
         });
     });
 
-    test("getOAuthUrl", async () => {
+    test("get_oauth_url", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = { serverName: "Affinity", instanceId: "instanceId" };
@@ -490,7 +490,7 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getOAuthUrl({
+        const response = await client.mcpServer.getOauthUrl({
             serverName: "Affinity",
             instanceId: "instanceId",
         });

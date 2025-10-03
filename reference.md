@@ -876,7 +876,7 @@ await client.mcpServer.getTools("Affinity");
 <dl>
 <dd>
 
-**request:** `Klavis.GetToolsRequest`
+**request:** `Klavis.McpServerGetToolsRequest`
 
 </dd>
 </dl>
@@ -1085,7 +1085,7 @@ await client.mcpServer.getInstanceAuthData("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getOAuthUrl</a>({ ...params }) -> Klavis.GetOAuthUrlResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getOauthUrl</a>({ ...params }) -> Klavis.GetOAuthUrlResponse</code></summary>
 <dl>
 <dd>
 
@@ -1114,7 +1114,7 @@ Returns the complete OAuth URL with the instance ID as a query parameter.
 <dd>
 
 ```typescript
-await client.mcpServer.getOAuthUrl({
+await client.mcpServer.getOauthUrl({
     serverName: "Affinity",
     instanceId: "instanceId",
 });
@@ -1416,9 +1416,9 @@ await client.user.deleteUserByUserId("user_id");
 </dl>
 </details>
 
-## SlackOauth
+## Oauth
 
-<details><summary><code>client.slackOauth.<a href="/src/api/resources/slackOauth/client/Client.ts">authorizeSlack</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeSlack</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1453,7 +1453,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.slackOauth.authorizeSlack({
+await client.oauth.authorizeSlack({
     instance_id: "instance_id",
 });
 ```
@@ -1471,7 +1471,7 @@ await client.slackOauth.authorizeSlack({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeSlackRequest`
+**request:** `Klavis.OauthAuthorizeSlackRequest`
 
 </dd>
 </dl>
@@ -1479,7 +1479,7 @@ await client.slackOauth.authorizeSlack({
 <dl>
 <dd>
 
-**requestOptions:** `SlackOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1490,9 +1490,7 @@ await client.slackOauth.authorizeSlack({
 </dl>
 </details>
 
-## GithubOauth
-
-<details><summary><code>client.githubOauth.<a href="/src/api/resources/githubOauth/client/Client.ts">authorizeGithub</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGithub</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1526,7 +1524,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.githubOauth.authorizeGithub({
+await client.oauth.authorizeGithub({
     instance_id: "instance_id",
 });
 ```
@@ -1544,7 +1542,7 @@ await client.githubOauth.authorizeGithub({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGithubRequest`
+**request:** `Klavis.OauthAuthorizeGithubRequest`
 
 </dd>
 </dl>
@@ -1552,7 +1550,7 @@ await client.githubOauth.authorizeGithub({
 <dl>
 <dd>
 
-**requestOptions:** `GithubOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1563,9 +1561,7 @@ await client.githubOauth.authorizeGithub({
 </dl>
 </details>
 
-## GitlabOauth
-
-<details><summary><code>client.gitlabOauth.<a href="/src/api/resources/gitlabOauth/client/Client.ts">authorizeGitlab</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGitlab</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1599,7 +1595,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.gitlabOauth.authorizeGitlab({
+await client.oauth.authorizeGitlab({
     instance_id: "instance_id",
 });
 ```
@@ -1617,7 +1613,7 @@ await client.gitlabOauth.authorizeGitlab({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGitlabRequest`
+**request:** `Klavis.OauthAuthorizeGitlabRequest`
 
 </dd>
 </dl>
@@ -1625,7 +1621,7 @@ await client.gitlabOauth.authorizeGitlab({
 <dl>
 <dd>
 
-**requestOptions:** `GitlabOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1636,9 +1632,7 @@ await client.gitlabOauth.authorizeGitlab({
 </dl>
 </details>
 
-## SupabaseOauth
-
-<details><summary><code>client.supabaseOauth.<a href="/src/api/resources/supabaseOauth/client/Client.ts">authorizeSupabase</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeSupabase</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1671,7 +1665,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.supabaseOauth.authorizeSupabase({
+await client.oauth.authorizeSupabase({
     instance_id: "instance_id",
 });
 ```
@@ -1689,7 +1683,7 @@ await client.supabaseOauth.authorizeSupabase({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeSupabaseRequest`
+**request:** `Klavis.OauthAuthorizeSupabaseRequest`
 
 </dd>
 </dl>
@@ -1697,7 +1691,7 @@ await client.supabaseOauth.authorizeSupabase({
 <dl>
 <dd>
 
-**requestOptions:** `SupabaseOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1708,9 +1702,7 @@ await client.supabaseOauth.authorizeSupabase({
 </dl>
 </details>
 
-## NotionOauth
-
-<details><summary><code>client.notionOauth.<a href="/src/api/resources/notionOauth/client/Client.ts">authorizeNotion</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeNotion</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1744,7 +1736,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.notionOauth.authorizeNotion({
+await client.oauth.authorizeNotion({
     instance_id: "instance_id",
 });
 ```
@@ -1762,7 +1754,7 @@ await client.notionOauth.authorizeNotion({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeNotionRequest`
+**request:** `Klavis.OauthAuthorizeNotionRequest`
 
 </dd>
 </dl>
@@ -1770,7 +1762,7 @@ await client.notionOauth.authorizeNotion({
 <dl>
 <dd>
 
-**requestOptions:** `NotionOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1781,9 +1773,7 @@ await client.notionOauth.authorizeNotion({
 </dl>
 </details>
 
-## JiraOauth
-
-<details><summary><code>client.jiraOauth.<a href="/src/api/resources/jiraOauth/client/Client.ts">authorizeJira</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeJira</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1817,7 +1807,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.jiraOauth.authorizeJira({
+await client.oauth.authorizeJira({
     instance_id: "instance_id",
 });
 ```
@@ -1835,7 +1825,7 @@ await client.jiraOauth.authorizeJira({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeJiraRequest`
+**request:** `Klavis.OauthAuthorizeJiraRequest`
 
 </dd>
 </dl>
@@ -1843,7 +1833,7 @@ await client.jiraOauth.authorizeJira({
 <dl>
 <dd>
 
-**requestOptions:** `JiraOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1854,9 +1844,7 @@ await client.jiraOauth.authorizeJira({
 </dl>
 </details>
 
-## ConfluenceOauth
-
-<details><summary><code>client.confluenceOauth.<a href="/src/api/resources/confluenceOauth/client/Client.ts">authorizeConfluence</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeConfluence</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1890,7 +1878,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.confluenceOauth.authorizeConfluence({
+await client.oauth.authorizeConfluence({
     instance_id: "instance_id",
 });
 ```
@@ -1908,7 +1896,7 @@ await client.confluenceOauth.authorizeConfluence({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeConfluenceRequest`
+**request:** `Klavis.OauthAuthorizeConfluenceRequest`
 
 </dd>
 </dl>
@@ -1916,7 +1904,7 @@ await client.confluenceOauth.authorizeConfluence({
 <dl>
 <dd>
 
-**requestOptions:** `ConfluenceOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -1927,9 +1915,7 @@ await client.confluenceOauth.authorizeConfluence({
 </dl>
 </details>
 
-## WordpressOauth
-
-<details><summary><code>client.wordpressOauth.<a href="/src/api/resources/wordpressOauth/client/Client.ts">authorizeWordpress</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeWordpress</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -1963,7 +1949,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.wordpressOauth.authorizeWordpress({
+await client.oauth.authorizeWordpress({
     instance_id: "instance_id",
 });
 ```
@@ -1981,7 +1967,7 @@ await client.wordpressOauth.authorizeWordpress({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeWordpressRequest`
+**request:** `Klavis.OauthAuthorizeWordpressRequest`
 
 </dd>
 </dl>
@@ -1989,7 +1975,7 @@ await client.wordpressOauth.authorizeWordpress({
 <dl>
 <dd>
 
-**requestOptions:** `WordpressOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2000,9 +1986,7 @@ await client.wordpressOauth.authorizeWordpress({
 </dl>
 </details>
 
-## GmailOauth
-
-<details><summary><code>client.gmailOauth.<a href="/src/api/resources/gmailOauth/client/Client.ts">authorizeGmail</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGmail</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2036,7 +2020,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.gmailOauth.authorizeGmail({
+await client.oauth.authorizeGmail({
     instance_id: "instance_id",
 });
 ```
@@ -2054,7 +2038,7 @@ await client.gmailOauth.authorizeGmail({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGmailRequest`
+**request:** `Klavis.OauthAuthorizeGmailRequest`
 
 </dd>
 </dl>
@@ -2062,7 +2046,7 @@ await client.gmailOauth.authorizeGmail({
 <dl>
 <dd>
 
-**requestOptions:** `GmailOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2073,9 +2057,7 @@ await client.gmailOauth.authorizeGmail({
 </dl>
 </details>
 
-## GdriveOauth
-
-<details><summary><code>client.gdriveOauth.<a href="/src/api/resources/gdriveOauth/client/Client.ts">authorizeGDrive</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGdrive</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2109,7 +2091,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.gdriveOauth.authorizeGDrive({
+await client.oauth.authorizeGdrive({
     instance_id: "instance_id",
 });
 ```
@@ -2127,7 +2109,7 @@ await client.gdriveOauth.authorizeGDrive({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGDriveRequest`
+**request:** `Klavis.OauthAuthorizeGdriveRequest`
 
 </dd>
 </dl>
@@ -2135,7 +2117,7 @@ await client.gdriveOauth.authorizeGDrive({
 <dl>
 <dd>
 
-**requestOptions:** `GdriveOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2146,9 +2128,7 @@ await client.gdriveOauth.authorizeGDrive({
 </dl>
 </details>
 
-## GcalendarOauth
-
-<details><summary><code>client.gcalendarOauth.<a href="/src/api/resources/gcalendarOauth/client/Client.ts">authorizeGCalendar</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGcalendar</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2182,7 +2162,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.gcalendarOauth.authorizeGCalendar({
+await client.oauth.authorizeGcalendar({
     instance_id: "instance_id",
 });
 ```
@@ -2200,7 +2180,7 @@ await client.gcalendarOauth.authorizeGCalendar({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGCalendarRequest`
+**request:** `Klavis.OauthAuthorizeGcalendarRequest`
 
 </dd>
 </dl>
@@ -2208,7 +2188,7 @@ await client.gcalendarOauth.authorizeGCalendar({
 <dl>
 <dd>
 
-**requestOptions:** `GcalendarOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2219,9 +2199,7 @@ await client.gcalendarOauth.authorizeGCalendar({
 </dl>
 </details>
 
-## GsheetsOauth
-
-<details><summary><code>client.gsheetsOauth.<a href="/src/api/resources/gsheetsOauth/client/Client.ts">authorizeGSheets</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGsheets</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2255,7 +2233,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.gsheetsOauth.authorizeGSheets({
+await client.oauth.authorizeGsheets({
     instance_id: "instance_id",
 });
 ```
@@ -2273,7 +2251,7 @@ await client.gsheetsOauth.authorizeGSheets({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGSheetsRequest`
+**request:** `Klavis.OauthAuthorizeGsheetsRequest`
 
 </dd>
 </dl>
@@ -2281,7 +2259,7 @@ await client.gsheetsOauth.authorizeGSheets({
 <dl>
 <dd>
 
-**requestOptions:** `GsheetsOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2292,9 +2270,7 @@ await client.gsheetsOauth.authorizeGSheets({
 </dl>
 </details>
 
-## GdocsOauth
-
-<details><summary><code>client.gdocsOauth.<a href="/src/api/resources/gdocsOauth/client/Client.ts">authorizeGDocs</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeGdocs</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2328,7 +2304,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.gdocsOauth.authorizeGDocs({
+await client.oauth.authorizeGdocs({
     instance_id: "instance_id",
 });
 ```
@@ -2346,7 +2322,7 @@ await client.gdocsOauth.authorizeGDocs({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeGDocsRequest`
+**request:** `Klavis.OauthAuthorizeGdocsRequest`
 
 </dd>
 </dl>
@@ -2354,7 +2330,7 @@ await client.gdocsOauth.authorizeGDocs({
 <dl>
 <dd>
 
-**requestOptions:** `GdocsOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2365,9 +2341,7 @@ await client.gdocsOauth.authorizeGDocs({
 </dl>
 </details>
 
-## AttioOauth
-
-<details><summary><code>client.attioOauth.<a href="/src/api/resources/attioOauth/client/Client.ts">authorizeAttio</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeAttio</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2400,7 +2374,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.attioOauth.authorizeAttio({
+await client.oauth.authorizeAttio({
     instance_id: "instance_id",
 });
 ```
@@ -2418,7 +2392,7 @@ await client.attioOauth.authorizeAttio({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeAttioRequest`
+**request:** `Klavis.OauthAuthorizeAttioRequest`
 
 </dd>
 </dl>
@@ -2426,7 +2400,7 @@ await client.attioOauth.authorizeAttio({
 <dl>
 <dd>
 
-**requestOptions:** `AttioOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2437,9 +2411,7 @@ await client.attioOauth.authorizeAttio({
 </dl>
 </details>
 
-## SalesforceOauth
-
-<details><summary><code>client.salesforceOauth.<a href="/src/api/resources/salesforceOauth/client/Client.ts">authorizeSalesforce</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeSalesforce</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2474,7 +2446,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.salesforceOauth.authorizeSalesforce({
+await client.oauth.authorizeSalesforce({
     instance_id: "instance_id",
 });
 ```
@@ -2492,7 +2464,7 @@ await client.salesforceOauth.authorizeSalesforce({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeSalesforceRequest`
+**request:** `Klavis.OauthAuthorizeSalesforceRequest`
 
 </dd>
 </dl>
@@ -2500,7 +2472,7 @@ await client.salesforceOauth.authorizeSalesforce({
 <dl>
 <dd>
 
-**requestOptions:** `SalesforceOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2511,9 +2483,7 @@ await client.salesforceOauth.authorizeSalesforce({
 </dl>
 </details>
 
-## AsanaOauth
-
-<details><summary><code>client.asanaOauth.<a href="/src/api/resources/asanaOauth/client/Client.ts">authorizeAsana</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeAsana</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2547,7 +2517,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.asanaOauth.authorizeAsana({
+await client.oauth.authorizeAsana({
     instance_id: "instance_id",
 });
 ```
@@ -2565,7 +2535,7 @@ await client.asanaOauth.authorizeAsana({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeAsanaRequest`
+**request:** `Klavis.OauthAuthorizeAsanaRequest`
 
 </dd>
 </dl>
@@ -2573,7 +2543,7 @@ await client.asanaOauth.authorizeAsana({
 <dl>
 <dd>
 
-**requestOptions:** `AsanaOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2584,9 +2554,7 @@ await client.asanaOauth.authorizeAsana({
 </dl>
 </details>
 
-## LinearOauth
-
-<details><summary><code>client.linearOauth.<a href="/src/api/resources/linearOauth/client/Client.ts">authorizeLinear</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeLinear</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2620,7 +2588,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.linearOauth.authorizeLinear({
+await client.oauth.authorizeLinear({
     instance_id: "instance_id",
 });
 ```
@@ -2638,7 +2606,7 @@ await client.linearOauth.authorizeLinear({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeLinearRequest`
+**request:** `Klavis.OauthAuthorizeLinearRequest`
 
 </dd>
 </dl>
@@ -2646,7 +2614,7 @@ await client.linearOauth.authorizeLinear({
 <dl>
 <dd>
 
-**requestOptions:** `LinearOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2657,9 +2625,7 @@ await client.linearOauth.authorizeLinear({
 </dl>
 </details>
 
-## CloseOauth
-
-<details><summary><code>client.closeOauth.<a href="/src/api/resources/closeOauth/client/Client.ts">authorizeClose</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeClose</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2693,7 +2659,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.closeOauth.authorizeClose({
+await client.oauth.authorizeClose({
     instance_id: "instance_id",
 });
 ```
@@ -2711,7 +2677,7 @@ await client.closeOauth.authorizeClose({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeCloseRequest`
+**request:** `Klavis.OauthAuthorizeCloseRequest`
 
 </dd>
 </dl>
@@ -2719,7 +2685,7 @@ await client.closeOauth.authorizeClose({
 <dl>
 <dd>
 
-**requestOptions:** `CloseOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2730,9 +2696,7 @@ await client.closeOauth.authorizeClose({
 </dl>
 </details>
 
-## ClickupOauth
-
-<details><summary><code>client.clickupOauth.<a href="/src/api/resources/clickupOauth/client/Client.ts">authorizeClickUp</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeClickup</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2765,7 +2729,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.clickupOauth.authorizeClickUp({
+await client.oauth.authorizeClickup({
     instance_id: "instance_id",
 });
 ```
@@ -2783,7 +2747,7 @@ await client.clickupOauth.authorizeClickUp({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeClickUpRequest`
+**request:** `Klavis.OauthAuthorizeClickupRequest`
 
 </dd>
 </dl>
@@ -2791,7 +2755,7 @@ await client.clickupOauth.authorizeClickUp({
 <dl>
 <dd>
 
-**requestOptions:** `ClickupOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2802,9 +2766,7 @@ await client.clickupOauth.authorizeClickUp({
 </dl>
 </details>
 
-## AirtableOauth
-
-<details><summary><code>client.airtableOauth.<a href="/src/api/resources/airtableOauth/client/Client.ts">authorizeAirtable</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeAirtable</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2838,7 +2800,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.airtableOauth.authorizeAirtable({
+await client.oauth.authorizeAirtable({
     instance_id: "instance_id",
 });
 ```
@@ -2856,7 +2818,7 @@ await client.airtableOauth.authorizeAirtable({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeAirtableRequest`
+**request:** `Klavis.OauthAuthorizeAirtableRequest`
 
 </dd>
 </dl>
@@ -2864,7 +2826,7 @@ await client.airtableOauth.authorizeAirtable({
 <dl>
 <dd>
 
-**requestOptions:** `AirtableOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2875,9 +2837,7 @@ await client.airtableOauth.authorizeAirtable({
 </dl>
 </details>
 
-## HubspotOauth
-
-<details><summary><code>client.hubspotOauth.<a href="/src/api/resources/hubspotOauth/client/Client.ts">authorizeHubspot</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeHubspot</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2911,7 +2871,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.hubspotOauth.authorizeHubspot({
+await client.oauth.authorizeHubspot({
     instance_id: "instance_id",
 });
 ```
@@ -2929,7 +2889,7 @@ await client.hubspotOauth.authorizeHubspot({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeHubspotRequest`
+**request:** `Klavis.OauthAuthorizeHubspotRequest`
 
 </dd>
 </dl>
@@ -2937,7 +2897,7 @@ await client.hubspotOauth.authorizeHubspot({
 <dl>
 <dd>
 
-**requestOptions:** `HubspotOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -2948,9 +2908,7 @@ await client.hubspotOauth.authorizeHubspot({
 </dl>
 </details>
 
-## LinkedinOauth
-
-<details><summary><code>client.linkedinOauth.<a href="/src/api/resources/linkedinOauth/client/Client.ts">authorizeLinkedIn</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeLinkedin</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -2984,7 +2942,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.linkedinOauth.authorizeLinkedIn({
+await client.oauth.authorizeLinkedin({
     instance_id: "instance_id",
 });
 ```
@@ -3002,7 +2960,7 @@ await client.linkedinOauth.authorizeLinkedIn({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeLinkedInRequest`
+**request:** `Klavis.OauthAuthorizeLinkedinRequest`
 
 </dd>
 </dl>
@@ -3010,7 +2968,7 @@ await client.linkedinOauth.authorizeLinkedIn({
 <dl>
 <dd>
 
-**requestOptions:** `LinkedinOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3021,9 +2979,7 @@ await client.linkedinOauth.authorizeLinkedIn({
 </dl>
 </details>
 
-## CanvaOauth
-
-<details><summary><code>client.canvaOauth.<a href="/src/api/resources/canvaOauth/client/Client.ts">authorizeCanva</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeCanva</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3057,7 +3013,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.canvaOauth.authorizeCanva({
+await client.oauth.authorizeCanva({
     instance_id: "instance_id",
 });
 ```
@@ -3075,7 +3031,7 @@ await client.canvaOauth.authorizeCanva({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeCanvaRequest`
+**request:** `Klavis.OauthAuthorizeCanvaRequest`
 
 </dd>
 </dl>
@@ -3083,7 +3039,7 @@ await client.canvaOauth.authorizeCanva({
 <dl>
 <dd>
 
-**requestOptions:** `CanvaOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3094,9 +3050,7 @@ await client.canvaOauth.authorizeCanva({
 </dl>
 </details>
 
-## XeroOauth
-
-<details><summary><code>client.xeroOauth.<a href="/src/api/resources/xeroOauth/client/Client.ts">authorizeXero</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeXero</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3130,7 +3084,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.xeroOauth.authorizeXero({
+await client.oauth.authorizeXero({
     instance_id: "instance_id",
 });
 ```
@@ -3148,7 +3102,7 @@ await client.xeroOauth.authorizeXero({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeXeroRequest`
+**request:** `Klavis.OauthAuthorizeXeroRequest`
 
 </dd>
 </dl>
@@ -3156,7 +3110,7 @@ await client.xeroOauth.authorizeXero({
 <dl>
 <dd>
 
-**requestOptions:** `XeroOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3167,9 +3121,7 @@ await client.xeroOauth.authorizeXero({
 </dl>
 </details>
 
-## DropboxOauth
-
-<details><summary><code>client.dropboxOauth.<a href="/src/api/resources/dropboxOauth/client/Client.ts">authorizeDropbox</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeDropbox</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3203,7 +3155,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.dropboxOauth.authorizeDropbox({
+await client.oauth.authorizeDropbox({
     instance_id: "instance_id",
 });
 ```
@@ -3221,7 +3173,7 @@ await client.dropboxOauth.authorizeDropbox({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeDropboxRequest`
+**request:** `Klavis.OauthAuthorizeDropboxRequest`
 
 </dd>
 </dl>
@@ -3229,7 +3181,7 @@ await client.dropboxOauth.authorizeDropbox({
 <dl>
 <dd>
 
-**requestOptions:** `DropboxOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3240,9 +3192,7 @@ await client.dropboxOauth.authorizeDropbox({
 </dl>
 </details>
 
-## BoxOauth
-
-<details><summary><code>client.boxOauth.<a href="/src/api/resources/boxOauth/client/Client.ts">authorizeBox</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeBox</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3270,7 +3220,7 @@ Start Box OAuth 2.0 flow
 <dd>
 
 ```typescript
-await client.boxOauth.authorizeBox({
+await client.oauth.authorizeBox({
     instance_id: "instance_id",
 });
 ```
@@ -3288,7 +3238,7 @@ await client.boxOauth.authorizeBox({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeBoxRequest`
+**request:** `Klavis.OauthAuthorizeBoxRequest`
 
 </dd>
 </dl>
@@ -3296,7 +3246,7 @@ await client.boxOauth.authorizeBox({
 <dl>
 <dd>
 
-**requestOptions:** `BoxOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3307,9 +3257,7 @@ await client.boxOauth.authorizeBox({
 </dl>
 </details>
 
-## QuickbooksOauth
-
-<details><summary><code>client.quickbooksOauth.<a href="/src/api/resources/quickbooksOauth/client/Client.ts">authorizeQuickBooks</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeQuickbooks</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3344,7 +3292,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.quickbooksOauth.authorizeQuickBooks({
+await client.oauth.authorizeQuickbooks({
     instance_id: "instance_id",
 });
 ```
@@ -3362,7 +3310,7 @@ await client.quickbooksOauth.authorizeQuickBooks({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeQuickBooksRequest`
+**request:** `Klavis.OauthAuthorizeQuickbooksRequest`
 
 </dd>
 </dl>
@@ -3370,7 +3318,7 @@ await client.quickbooksOauth.authorizeQuickBooks({
 <dl>
 <dd>
 
-**requestOptions:** `QuickbooksOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3381,9 +3329,7 @@ await client.quickbooksOauth.authorizeQuickBooks({
 </dl>
 </details>
 
-## ZendeskOauth
-
-<details><summary><code>client.zendeskOauth.<a href="/src/api/resources/zendeskOauth/client/Client.ts">authorizeZendesk</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeZendesk</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3418,7 +3364,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.zendeskOauth.authorizeZendesk({
+await client.oauth.authorizeZendesk({
     instance_id: "instance_id",
     subdomain: "subdomain",
 });
@@ -3437,7 +3383,7 @@ await client.zendeskOauth.authorizeZendesk({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeZendeskRequest`
+**request:** `Klavis.OauthAuthorizeZendeskRequest`
 
 </dd>
 </dl>
@@ -3445,7 +3391,7 @@ await client.zendeskOauth.authorizeZendesk({
 <dl>
 <dd>
 
-**requestOptions:** `ZendeskOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3456,9 +3402,7 @@ await client.zendeskOauth.authorizeZendesk({
 </dl>
 </details>
 
-## StripeConnectOauth
-
-<details><summary><code>client.stripeConnectOauth.<a href="/src/api/resources/stripeConnectOauth/client/Client.ts">authorizeStripeConnect</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeStripe</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3492,7 +3436,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.stripeConnectOauth.authorizeStripeConnect({
+await client.oauth.authorizeStripe({
     instance_id: "instance_id",
 });
 ```
@@ -3510,7 +3454,7 @@ await client.stripeConnectOauth.authorizeStripeConnect({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeStripeConnectRequest`
+**request:** `Klavis.OauthAuthorizeStripeRequest`
 
 </dd>
 </dl>
@@ -3518,7 +3462,7 @@ await client.stripeConnectOauth.authorizeStripeConnect({
 <dl>
 <dd>
 
-**requestOptions:** `StripeConnectOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3529,9 +3473,7 @@ await client.stripeConnectOauth.authorizeStripeConnect({
 </dl>
 </details>
 
-## CalcomOauth
-
-<details><summary><code>client.calcomOauth.<a href="/src/api/resources/calcomOauth/client/Client.ts">authorizeCalcom</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeCalcom</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3564,7 +3506,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.calcomOauth.authorizeCalcom({
+await client.oauth.authorizeCalcom({
     instance_id: "instance_id",
 });
 ```
@@ -3582,7 +3524,7 @@ await client.calcomOauth.authorizeCalcom({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeCalcomRequest`
+**request:** `Klavis.OauthAuthorizeCalcomRequest`
 
 </dd>
 </dl>
@@ -3590,7 +3532,7 @@ await client.calcomOauth.authorizeCalcom({
 <dl>
 <dd>
 
-**requestOptions:** `CalcomOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3601,9 +3543,7 @@ await client.calcomOauth.authorizeCalcom({
 </dl>
 </details>
 
-## VercelOauth
-
-<details><summary><code>client.vercelOauth.<a href="/src/api/resources/vercelOauth/client/Client.ts">authorizeVercel</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeVercel</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3637,7 +3577,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.vercelOauth.authorizeVercel({
+await client.oauth.authorizeVercel({
     instance_id: "instance_id",
 });
 ```
@@ -3655,7 +3595,7 @@ await client.vercelOauth.authorizeVercel({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeVercelRequest`
+**request:** `Klavis.OauthAuthorizeVercelRequest`
 
 </dd>
 </dl>
@@ -3663,7 +3603,7 @@ await client.vercelOauth.authorizeVercel({
 <dl>
 <dd>
 
-**requestOptions:** `VercelOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3674,9 +3614,7 @@ await client.vercelOauth.authorizeVercel({
 </dl>
 </details>
 
-## PipedriveOauth
-
-<details><summary><code>client.pipedriveOauth.<a href="/src/api/resources/pipedriveOauth/client/Client.ts">authorizePipedrive</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizePipedrive</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3710,7 +3648,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.pipedriveOauth.authorizePipedrive({
+await client.oauth.authorizePipedrive({
     instance_id: "instance_id",
 });
 ```
@@ -3728,7 +3666,7 @@ await client.pipedriveOauth.authorizePipedrive({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizePipedriveRequest`
+**request:** `Klavis.OauthAuthorizePipedriveRequest`
 
 </dd>
 </dl>
@@ -3736,7 +3674,7 @@ await client.pipedriveOauth.authorizePipedrive({
 <dl>
 <dd>
 
-**requestOptions:** `PipedriveOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3747,9 +3685,7 @@ await client.pipedriveOauth.authorizePipedrive({
 </dl>
 </details>
 
-## FigmaOauth
-
-<details><summary><code>client.figmaOauth.<a href="/src/api/resources/figmaOauth/client/Client.ts">authorizeFigma</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeFigma</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3783,7 +3719,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.figmaOauth.authorizeFigma({
+await client.oauth.authorizeFigma({
     instance_id: "instance_id",
 });
 ```
@@ -3801,7 +3737,7 @@ await client.figmaOauth.authorizeFigma({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeFigmaRequest`
+**request:** `Klavis.OauthAuthorizeFigmaRequest`
 
 </dd>
 </dl>
@@ -3809,7 +3745,7 @@ await client.figmaOauth.authorizeFigma({
 <dl>
 <dd>
 
-**requestOptions:** `FigmaOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3820,9 +3756,7 @@ await client.figmaOauth.authorizeFigma({
 </dl>
 </details>
 
-## KlaviyoOauth
-
-<details><summary><code>client.klaviyoOauth.<a href="/src/api/resources/klaviyoOauth/client/Client.ts">authorizeKlaviyo</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeKlaviyo</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3835,7 +3769,7 @@ await client.figmaOauth.authorizeFigma({
 <dd>
 
 ```typescript
-await client.klaviyoOauth.authorizeKlaviyo({
+await client.oauth.authorizeKlaviyo({
     instance_id: "instance_id",
 });
 ```
@@ -3853,7 +3787,7 @@ await client.klaviyoOauth.authorizeKlaviyo({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeKlaviyoRequest`
+**request:** `Klavis.OauthAuthorizeKlaviyoRequest`
 
 </dd>
 </dl>
@@ -3861,7 +3795,7 @@ await client.klaviyoOauth.authorizeKlaviyo({
 <dl>
 <dd>
 
-**requestOptions:** `KlaviyoOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3872,9 +3806,7 @@ await client.klaviyoOauth.authorizeKlaviyo({
 </dl>
 </details>
 
-## PagerdutyOauth
-
-<details><summary><code>client.pagerdutyOauth.<a href="/src/api/resources/pagerdutyOauth/client/Client.ts">authorizePagerDuty</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizePagerduty</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3908,7 +3840,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.pagerdutyOauth.authorizePagerDuty({
+await client.oauth.authorizePagerduty({
     instance_id: "instance_id",
 });
 ```
@@ -3926,7 +3858,7 @@ await client.pagerdutyOauth.authorizePagerDuty({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizePagerDutyRequest`
+**request:** `Klavis.OauthAuthorizePagerdutyRequest`
 
 </dd>
 </dl>
@@ -3934,7 +3866,7 @@ await client.pagerdutyOauth.authorizePagerDuty({
 <dl>
 <dd>
 
-**requestOptions:** `PagerdutyOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -3945,9 +3877,7 @@ await client.pagerdutyOauth.authorizePagerDuty({
 </dl>
 </details>
 
-## DocusignOauth
-
-<details><summary><code>client.docusignOauth.<a href="/src/api/resources/docusignOauth/client/Client.ts">authorizeDocuSign</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeDocusign</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -3981,7 +3911,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.docusignOauth.authorizeDocuSign({
+await client.oauth.authorizeDocusign({
     instance_id: "instance_id",
 });
 ```
@@ -3999,7 +3929,7 @@ await client.docusignOauth.authorizeDocuSign({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeDocuSignRequest`
+**request:** `Klavis.OauthAuthorizeDocusignRequest`
 
 </dd>
 </dl>
@@ -4007,7 +3937,7 @@ await client.docusignOauth.authorizeDocuSign({
 <dl>
 <dd>
 
-**requestOptions:** `DocusignOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -4018,9 +3948,7 @@ await client.docusignOauth.authorizeDocuSign({
 </dl>
 </details>
 
-## DialpadOauth
-
-<details><summary><code>client.dialpadOauth.<a href="/src/api/resources/dialpadOauth/client/Client.ts">authorizeDialpad</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeDialpad</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -4056,7 +3984,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.dialpadOauth.authorizeDialpad({
+await client.oauth.authorizeDialpad({
     instance_id: "instance_id",
 });
 ```
@@ -4074,7 +4002,7 @@ await client.dialpadOauth.authorizeDialpad({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeDialpadRequest`
+**request:** `Klavis.OauthAuthorizeDialpadRequest`
 
 </dd>
 </dl>
@@ -4082,7 +4010,7 @@ await client.dialpadOauth.authorizeDialpad({
 <dl>
 <dd>
 
-**requestOptions:** `DialpadOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -4093,9 +4021,7 @@ await client.dialpadOauth.authorizeDialpad({
 </dl>
 </details>
 
-## ShopifyOauth
-
-<details><summary><code>client.shopifyOauth.<a href="/src/api/resources/shopifyOauth/client/Client.ts">authorizeShopify</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeShopify</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -4130,7 +4056,7 @@ Parameters:
 <dd>
 
 ```typescript
-await client.shopifyOauth.authorizeShopify({
+await client.oauth.authorizeShopify({
     instance_id: "instance_id",
     shop: "shop",
 });
@@ -4149,7 +4075,7 @@ await client.shopifyOauth.authorizeShopify({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeShopifyRequest`
+**request:** `Klavis.OauthAuthorizeShopifyRequest`
 
 </dd>
 </dl>
@@ -4157,7 +4083,7 @@ await client.shopifyOauth.authorizeShopify({
 <dl>
 <dd>
 
-**requestOptions:** `ShopifyOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -4168,9 +4094,7 @@ await client.shopifyOauth.authorizeShopify({
 </dl>
 </details>
 
-## OnedriveOauth
-
-<details><summary><code>client.onedriveOauth.<a href="/src/api/resources/onedriveOauth/client/Client.ts">authorizeOneDrive</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeOnedrive</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -4183,7 +4107,7 @@ await client.shopifyOauth.authorizeShopify({
 <dd>
 
 ```typescript
-await client.onedriveOauth.authorizeOneDrive({
+await client.oauth.authorizeOnedrive({
     instance_id: "instance_id",
 });
 ```
@@ -4201,7 +4125,7 @@ await client.onedriveOauth.authorizeOneDrive({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeOneDriveRequest`
+**request:** `Klavis.OauthAuthorizeOnedriveRequest`
 
 </dd>
 </dl>
@@ -4209,7 +4133,7 @@ await client.onedriveOauth.authorizeOneDrive({
 <dl>
 <dd>
 
-**requestOptions:** `OnedriveOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>
@@ -4220,9 +4144,7 @@ await client.onedriveOauth.authorizeOneDrive({
 </dl>
 </details>
 
-## OutlookOauth
-
-<details><summary><code>client.outlookOauth.<a href="/src/api/resources/outlookOauth/client/Client.ts">authorizeOutlook</a>({ ...params }) -> unknown</code></summary>
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeOutlook</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -4235,7 +4157,7 @@ await client.onedriveOauth.authorizeOneDrive({
 <dd>
 
 ```typescript
-await client.outlookOauth.authorizeOutlook({
+await client.oauth.authorizeOutlook({
     instance_id: "instance_id",
 });
 ```
@@ -4253,7 +4175,7 @@ await client.outlookOauth.authorizeOutlook({
 <dl>
 <dd>
 
-**request:** `Klavis.AuthorizeOutlookRequest`
+**request:** `Klavis.OauthAuthorizeOutlookRequest`
 
 </dd>
 </dl>
@@ -4261,7 +4183,7 @@ await client.outlookOauth.authorizeOutlook({
 <dl>
 <dd>
 
-**requestOptions:** `OutlookOauth.RequestOptions`
+**requestOptions:** `Oauth.RequestOptions`
 
 </dd>
 </dl>

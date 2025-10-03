@@ -8,46 +8,7 @@ import { mergeHeaders } from "./core/headers.js";
 import { McpServer } from "./api/resources/mcpServer/client/Client.js";
 import { WhiteLabeling } from "./api/resources/whiteLabeling/client/Client.js";
 import { User } from "./api/resources/user/client/Client.js";
-import { SlackOauth } from "./api/resources/slackOauth/client/Client.js";
-import { GithubOauth } from "./api/resources/githubOauth/client/Client.js";
-import { GitlabOauth } from "./api/resources/gitlabOauth/client/Client.js";
-import { SupabaseOauth } from "./api/resources/supabaseOauth/client/Client.js";
-import { NotionOauth } from "./api/resources/notionOauth/client/Client.js";
-import { JiraOauth } from "./api/resources/jiraOauth/client/Client.js";
-import { ConfluenceOauth } from "./api/resources/confluenceOauth/client/Client.js";
-import { WordpressOauth } from "./api/resources/wordpressOauth/client/Client.js";
-import { GmailOauth } from "./api/resources/gmailOauth/client/Client.js";
-import { GdriveOauth } from "./api/resources/gdriveOauth/client/Client.js";
-import { GcalendarOauth } from "./api/resources/gcalendarOauth/client/Client.js";
-import { GsheetsOauth } from "./api/resources/gsheetsOauth/client/Client.js";
-import { GdocsOauth } from "./api/resources/gdocsOauth/client/Client.js";
-import { AttioOauth } from "./api/resources/attioOauth/client/Client.js";
-import { SalesforceOauth } from "./api/resources/salesforceOauth/client/Client.js";
-import { AsanaOauth } from "./api/resources/asanaOauth/client/Client.js";
-import { LinearOauth } from "./api/resources/linearOauth/client/Client.js";
-import { CloseOauth } from "./api/resources/closeOauth/client/Client.js";
-import { ClickupOauth } from "./api/resources/clickupOauth/client/Client.js";
-import { AirtableOauth } from "./api/resources/airtableOauth/client/Client.js";
-import { HubspotOauth } from "./api/resources/hubspotOauth/client/Client.js";
-import { LinkedinOauth } from "./api/resources/linkedinOauth/client/Client.js";
-import { CanvaOauth } from "./api/resources/canvaOauth/client/Client.js";
-import { XeroOauth } from "./api/resources/xeroOauth/client/Client.js";
-import { DropboxOauth } from "./api/resources/dropboxOauth/client/Client.js";
-import { BoxOauth } from "./api/resources/boxOauth/client/Client.js";
-import { QuickbooksOauth } from "./api/resources/quickbooksOauth/client/Client.js";
-import { ZendeskOauth } from "./api/resources/zendeskOauth/client/Client.js";
-import { StripeConnectOauth } from "./api/resources/stripeConnectOauth/client/Client.js";
-import { CalcomOauth } from "./api/resources/calcomOauth/client/Client.js";
-import { VercelOauth } from "./api/resources/vercelOauth/client/Client.js";
-import { PipedriveOauth } from "./api/resources/pipedriveOauth/client/Client.js";
-import { FigmaOauth } from "./api/resources/figmaOauth/client/Client.js";
-import { KlaviyoOauth } from "./api/resources/klaviyoOauth/client/Client.js";
-import { PagerdutyOauth } from "./api/resources/pagerdutyOauth/client/Client.js";
-import { DocusignOauth } from "./api/resources/docusignOauth/client/Client.js";
-import { DialpadOauth } from "./api/resources/dialpadOauth/client/Client.js";
-import { ShopifyOauth } from "./api/resources/shopifyOauth/client/Client.js";
-import { OnedriveOauth } from "./api/resources/onedriveOauth/client/Client.js";
-import { OutlookOauth } from "./api/resources/outlookOauth/client/Client.js";
+import { Oauth } from "./api/resources/oauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -77,46 +38,7 @@ export class KlavisClient {
     protected _mcpServer: McpServer | undefined;
     protected _whiteLabeling: WhiteLabeling | undefined;
     protected _user: User | undefined;
-    protected _slackOauth: SlackOauth | undefined;
-    protected _githubOauth: GithubOauth | undefined;
-    protected _gitlabOauth: GitlabOauth | undefined;
-    protected _supabaseOauth: SupabaseOauth | undefined;
-    protected _notionOauth: NotionOauth | undefined;
-    protected _jiraOauth: JiraOauth | undefined;
-    protected _confluenceOauth: ConfluenceOauth | undefined;
-    protected _wordpressOauth: WordpressOauth | undefined;
-    protected _gmailOauth: GmailOauth | undefined;
-    protected _gdriveOauth: GdriveOauth | undefined;
-    protected _gcalendarOauth: GcalendarOauth | undefined;
-    protected _gsheetsOauth: GsheetsOauth | undefined;
-    protected _gdocsOauth: GdocsOauth | undefined;
-    protected _attioOauth: AttioOauth | undefined;
-    protected _salesforceOauth: SalesforceOauth | undefined;
-    protected _asanaOauth: AsanaOauth | undefined;
-    protected _linearOauth: LinearOauth | undefined;
-    protected _closeOauth: CloseOauth | undefined;
-    protected _clickupOauth: ClickupOauth | undefined;
-    protected _airtableOauth: AirtableOauth | undefined;
-    protected _hubspotOauth: HubspotOauth | undefined;
-    protected _linkedinOauth: LinkedinOauth | undefined;
-    protected _canvaOauth: CanvaOauth | undefined;
-    protected _xeroOauth: XeroOauth | undefined;
-    protected _dropboxOauth: DropboxOauth | undefined;
-    protected _boxOauth: BoxOauth | undefined;
-    protected _quickbooksOauth: QuickbooksOauth | undefined;
-    protected _zendeskOauth: ZendeskOauth | undefined;
-    protected _stripeConnectOauth: StripeConnectOauth | undefined;
-    protected _calcomOauth: CalcomOauth | undefined;
-    protected _vercelOauth: VercelOauth | undefined;
-    protected _pipedriveOauth: PipedriveOauth | undefined;
-    protected _figmaOauth: FigmaOauth | undefined;
-    protected _klaviyoOauth: KlaviyoOauth | undefined;
-    protected _pagerdutyOauth: PagerdutyOauth | undefined;
-    protected _docusignOauth: DocusignOauth | undefined;
-    protected _dialpadOauth: DialpadOauth | undefined;
-    protected _shopifyOauth: ShopifyOauth | undefined;
-    protected _onedriveOauth: OnedriveOauth | undefined;
-    protected _outlookOauth: OutlookOauth | undefined;
+    protected _oauth: Oauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -125,8 +47,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "2.3.0",
-                    "User-Agent": "klavis/2.3.0",
+                    "X-Fern-SDK-Version": "2.4.0",
+                    "User-Agent": "klavis/2.4.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -147,163 +69,7 @@ export class KlavisClient {
         return (this._user ??= new User(this._options));
     }
 
-    public get slackOauth(): SlackOauth {
-        return (this._slackOauth ??= new SlackOauth(this._options));
-    }
-
-    public get githubOauth(): GithubOauth {
-        return (this._githubOauth ??= new GithubOauth(this._options));
-    }
-
-    public get gitlabOauth(): GitlabOauth {
-        return (this._gitlabOauth ??= new GitlabOauth(this._options));
-    }
-
-    public get supabaseOauth(): SupabaseOauth {
-        return (this._supabaseOauth ??= new SupabaseOauth(this._options));
-    }
-
-    public get notionOauth(): NotionOauth {
-        return (this._notionOauth ??= new NotionOauth(this._options));
-    }
-
-    public get jiraOauth(): JiraOauth {
-        return (this._jiraOauth ??= new JiraOauth(this._options));
-    }
-
-    public get confluenceOauth(): ConfluenceOauth {
-        return (this._confluenceOauth ??= new ConfluenceOauth(this._options));
-    }
-
-    public get wordpressOauth(): WordpressOauth {
-        return (this._wordpressOauth ??= new WordpressOauth(this._options));
-    }
-
-    public get gmailOauth(): GmailOauth {
-        return (this._gmailOauth ??= new GmailOauth(this._options));
-    }
-
-    public get gdriveOauth(): GdriveOauth {
-        return (this._gdriveOauth ??= new GdriveOauth(this._options));
-    }
-
-    public get gcalendarOauth(): GcalendarOauth {
-        return (this._gcalendarOauth ??= new GcalendarOauth(this._options));
-    }
-
-    public get gsheetsOauth(): GsheetsOauth {
-        return (this._gsheetsOauth ??= new GsheetsOauth(this._options));
-    }
-
-    public get gdocsOauth(): GdocsOauth {
-        return (this._gdocsOauth ??= new GdocsOauth(this._options));
-    }
-
-    public get attioOauth(): AttioOauth {
-        return (this._attioOauth ??= new AttioOauth(this._options));
-    }
-
-    public get salesforceOauth(): SalesforceOauth {
-        return (this._salesforceOauth ??= new SalesforceOauth(this._options));
-    }
-
-    public get asanaOauth(): AsanaOauth {
-        return (this._asanaOauth ??= new AsanaOauth(this._options));
-    }
-
-    public get linearOauth(): LinearOauth {
-        return (this._linearOauth ??= new LinearOauth(this._options));
-    }
-
-    public get closeOauth(): CloseOauth {
-        return (this._closeOauth ??= new CloseOauth(this._options));
-    }
-
-    public get clickupOauth(): ClickupOauth {
-        return (this._clickupOauth ??= new ClickupOauth(this._options));
-    }
-
-    public get airtableOauth(): AirtableOauth {
-        return (this._airtableOauth ??= new AirtableOauth(this._options));
-    }
-
-    public get hubspotOauth(): HubspotOauth {
-        return (this._hubspotOauth ??= new HubspotOauth(this._options));
-    }
-
-    public get linkedinOauth(): LinkedinOauth {
-        return (this._linkedinOauth ??= new LinkedinOauth(this._options));
-    }
-
-    public get canvaOauth(): CanvaOauth {
-        return (this._canvaOauth ??= new CanvaOauth(this._options));
-    }
-
-    public get xeroOauth(): XeroOauth {
-        return (this._xeroOauth ??= new XeroOauth(this._options));
-    }
-
-    public get dropboxOauth(): DropboxOauth {
-        return (this._dropboxOauth ??= new DropboxOauth(this._options));
-    }
-
-    public get boxOauth(): BoxOauth {
-        return (this._boxOauth ??= new BoxOauth(this._options));
-    }
-
-    public get quickbooksOauth(): QuickbooksOauth {
-        return (this._quickbooksOauth ??= new QuickbooksOauth(this._options));
-    }
-
-    public get zendeskOauth(): ZendeskOauth {
-        return (this._zendeskOauth ??= new ZendeskOauth(this._options));
-    }
-
-    public get stripeConnectOauth(): StripeConnectOauth {
-        return (this._stripeConnectOauth ??= new StripeConnectOauth(this._options));
-    }
-
-    public get calcomOauth(): CalcomOauth {
-        return (this._calcomOauth ??= new CalcomOauth(this._options));
-    }
-
-    public get vercelOauth(): VercelOauth {
-        return (this._vercelOauth ??= new VercelOauth(this._options));
-    }
-
-    public get pipedriveOauth(): PipedriveOauth {
-        return (this._pipedriveOauth ??= new PipedriveOauth(this._options));
-    }
-
-    public get figmaOauth(): FigmaOauth {
-        return (this._figmaOauth ??= new FigmaOauth(this._options));
-    }
-
-    public get klaviyoOauth(): KlaviyoOauth {
-        return (this._klaviyoOauth ??= new KlaviyoOauth(this._options));
-    }
-
-    public get pagerdutyOauth(): PagerdutyOauth {
-        return (this._pagerdutyOauth ??= new PagerdutyOauth(this._options));
-    }
-
-    public get docusignOauth(): DocusignOauth {
-        return (this._docusignOauth ??= new DocusignOauth(this._options));
-    }
-
-    public get dialpadOauth(): DialpadOauth {
-        return (this._dialpadOauth ??= new DialpadOauth(this._options));
-    }
-
-    public get shopifyOauth(): ShopifyOauth {
-        return (this._shopifyOauth ??= new ShopifyOauth(this._options));
-    }
-
-    public get onedriveOauth(): OnedriveOauth {
-        return (this._onedriveOauth ??= new OnedriveOauth(this._options));
-    }
-
-    public get outlookOauth(): OutlookOauth {
-        return (this._outlookOauth ??= new OutlookOauth(this._options));
+    public get oauth(): Oauth {
+        return (this._oauth ??= new Oauth(this._options));
     }
 }

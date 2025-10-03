@@ -1065,7 +1065,7 @@ export class McpServer {
      * Get tools information for any MCP server.
      *
      * @param {Klavis.McpServerName} serverName - The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
-     * @param {Klavis.GetToolsRequest} request
+     * @param {Klavis.McpServerGetToolsRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
@@ -1075,7 +1075,7 @@ export class McpServer {
      */
     public getTools(
         serverName: Klavis.McpServerName,
-        request: Klavis.GetToolsRequest = {},
+        request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.ListToolsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getTools(serverName, request, requestOptions));
@@ -1083,7 +1083,7 @@ export class McpServer {
 
     private async __getTools(
         serverName: Klavis.McpServerName,
-        request: Klavis.GetToolsRequest = {},
+        request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.ListToolsResponse>> {
         const { format } = request;
@@ -1390,19 +1390,19 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getOAuthUrl({
+     *     await client.mcpServer.getOauthUrl({
      *         serverName: "Affinity",
      *         instanceId: "instanceId"
      *     })
      */
-    public getOAuthUrl(
+    public getOauthUrl(
         request: Klavis.GetOAuthUrlRequest,
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.GetOAuthUrlResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getOAuthUrl(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getOauthUrl(request, requestOptions));
     }
 
-    private async __getOAuthUrl(
+    private async __getOauthUrl(
         request: Klavis.GetOAuthUrlRequest,
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.GetOAuthUrlResponse>> {
