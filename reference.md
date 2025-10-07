@@ -359,7 +359,7 @@ await client.mcpServer.deleteServersFromStrata("strataId");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataInstance</a>(strataId) -> Klavis.StrataGetResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataServer</a>(strataId) -> Klavis.StrataGetResponse</code></summary>
 <dl>
 <dd>
 
@@ -390,7 +390,7 @@ and authentication URLs for klavis servers.
 <dd>
 
 ```typescript
-await client.mcpServer.getStrataInstance("strataId");
+await client.mcpServer.getStrataServer("strataId");
 ```
 
 </dd>
@@ -824,7 +824,7 @@ await client.mcpServer.deleteServerInstance("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName, { ...params }) -> Klavis.ListToolsResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName, { ...params }) -> Klavis.McpServerGetToolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -836,7 +836,7 @@ await client.mcpServer.deleteServerInstance("instance_id");
 <dl>
 <dd>
 
-Get tools information for any MCP server.
+Get tools information for one or multiple MCP servers.
 
 </dd>
 </dl>
@@ -852,7 +852,7 @@ Get tools information for any MCP server.
 <dd>
 
 ```typescript
-await client.mcpServer.getTools("Affinity");
+await client.mcpServer.getTools("server_name");
 ```
 
 </dd>
@@ -868,7 +868,7 @@ await client.mcpServer.getTools("Affinity");
 <dl>
 <dd>
 
-**serverName:** `Klavis.McpServerName` — The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
+**serverName:** `string` — The name of the target MCP server. Case-insensitive. Provide a comma-separated list (e.g., 'google calendar,slack') to fetch tools for multiple servers.
 
 </dd>
 </dl>
@@ -907,7 +907,7 @@ await client.mcpServer.getTools("Affinity");
 <dl>
 <dd>
 
-Get all MCP servers with their basic information including id, name, description, and tools.
+Get all MCP servers with their basic information including id, name, and description.
 
 </dd>
 </dl>

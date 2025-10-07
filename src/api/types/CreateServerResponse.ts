@@ -7,6 +7,6 @@ export interface CreateServerResponse {
     serverUrl: string;
     /** The unique identifier for this specific server connection instance. */
     instanceId: string;
-    /** The OAuth authorization URL for the specified server, if OAuth is configured. */
+    /** The OAuth URL for authentication if available, supports white label if configured. */
     oauthUrl?: string;
 }

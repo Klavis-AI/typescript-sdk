@@ -497,16 +497,16 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getStrataInstance("strataId")
+     *     await client.mcpServer.getStrataServer("strataId")
      */
-    public getStrataInstance(
+    public getStrataServer(
         strataId: string,
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.StrataGetResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getStrataInstance(strataId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getStrataServer(strataId, requestOptions));
     }
 
-    private async __getStrataInstance(
+    private async __getStrataServer(
         strataId: string,
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.StrataGetResponse>> {
@@ -1062,30 +1062,30 @@ export class McpServer {
     }
 
     /**
-     * Get tools information for any MCP server.
+     * Get tools information for one or multiple MCP servers.
      *
-     * @param {Klavis.McpServerName} serverName - The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
+     * @param {string} serverName - The name of the target MCP server. Case-insensitive. Provide a comma-separated list (e.g., 'google calendar,slack') to fetch tools for multiple servers.
      * @param {Klavis.McpServerGetToolsRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getTools("Affinity")
+     *     await client.mcpServer.getTools("server_name")
      */
     public getTools(
-        serverName: Klavis.McpServerName,
+        serverName: string,
         request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.ListToolsResponse> {
+    ): core.HttpResponsePromise<Klavis.McpServerGetToolsResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getTools(serverName, request, requestOptions));
     }
 
     private async __getTools(
-        serverName: Klavis.McpServerName,
+        serverName: string,
         request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.ListToolsResponse>> {
+    ): Promise<core.WithRawResponse<Klavis.McpServerGetToolsResponse>> {
         const { format } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (format != null) {
@@ -1111,7 +1111,7 @@ export class McpServer {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Klavis.ListToolsResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Klavis.McpServerGetToolsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -1150,7 +1150,7 @@ export class McpServer {
     }
 
     /**
-     * Get all MCP servers with their basic information including id, name, description, and tools.
+     * Get all MCP servers with their basic information including id, name, and description.
      *
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *

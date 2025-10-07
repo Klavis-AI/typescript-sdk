@@ -176,7 +176,7 @@ describe("McpServer", () => {
         });
     });
 
-    test("getStrataInstance", async () => {
+    test("getStrataServer", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -196,7 +196,7 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getStrataInstance("strataId");
+        const response = await client.mcpServer.getStrataServer("strataId");
         expect(response).toEqual({
             strataServerUrl: "strataServerUrl",
             strataId: "strataId",
@@ -370,13 +370,13 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, tools: [{ key: "value" }], format: "openai", error: "error" };
         server
             .mockEndpoint()
-            .get("/mcp-server/tools/Affinity")
+            .get("/mcp-server/tools/server_name")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getTools("Affinity");
+        const response = await client.mcpServer.getTools("server_name");
         expect(response).toEqual({
             success: true,
             tools: [
