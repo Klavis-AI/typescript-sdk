@@ -1,6 +1,6 @@
 {
     "name": "klavis",
-    "version": "2.5.0",
+    "version": "2.6.0",
     "private": false,
     "repository": "https://github.com/Klavis-AI/typescript-sdk",
     "type": "commonjs",
