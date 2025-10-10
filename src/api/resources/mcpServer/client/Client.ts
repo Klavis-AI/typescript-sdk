@@ -309,7 +309,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.addServersToStrata({
-     *         strata_id: "strata_id"
+     *         strataId: "strataId"
      *     })
      */
     public addServersToStrata(
@@ -386,7 +386,7 @@ export class McpServer {
      * Note: After deleting servers, you need to reconnect the MCP server so that list_tool can be updated to reflect the removed servers.
      *
      * Parameters:
-     * - strata_id: The strata server ID (path parameter)
+     * - strataId: The strata server ID (path parameter)
      * - servers: Can be 'ALL' to delete all available Klavis integration, a list of specific server names, or null to delete no servers
      * - externalServers: Query parameter - comma-separated list of external server names to delete
      *
@@ -399,7 +399,7 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.deleteServersFromStrata("strata_id")
+     *     await client.mcpServer.deleteServersFromStrata("strataId")
      */
     public deleteServersFromStrata(
         strataId: string,
@@ -475,7 +475,7 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strata_id}/servers.",
+                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strataId}/servers.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
@@ -497,7 +497,7 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getStrataServer("strata_id")
+     *     await client.mcpServer.getStrataServer("strataId")
      */
     public getStrataServer(
         strataId: string,
@@ -555,9 +555,7 @@ export class McpServer {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling GET /mcp-server/strata/{strata_id}.",
-                );
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /mcp-server/strata/{strataId}.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -578,7 +576,7 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getStrataAuth("strata_id", "serverName")
+     *     await client.mcpServer.getStrataAuth("strataId", "serverName")
      */
     public getStrataAuth(
         strataId: string,
@@ -639,7 +637,90 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling GET /mcp-server/strata/{strata_id}/auth/{serverName}.",
+                    "Timeout exceeded when calling GET /mcp-server/strata/{strataId}/auth/{serverName}.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes authentication data for a specific integration within a Strata MCP server.
+     *
+     * This will clear the stored authentication credentials, effectively unauthenticating the server.
+     *
+     * @param {string} strataId - The strata server ID
+     * @param {string} serverName - The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.deleteStrataAuth("strataId", "serverName")
+     */
+    public deleteStrataAuth(
+        strataId: string,
+        serverName: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StatusResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteStrataAuth(strataId, serverName, requestOptions));
+    }
+
+    private async __deleteStrataAuth(
+        strataId: string,
+        serverName: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/strata/${encodeURIComponent(strataId)}/auth/${encodeURIComponent(serverName)}`,
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strataId}/auth/{serverName}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
@@ -661,7 +742,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.setStrataAuth({
-     *         strata_id: "strata_id",
+     *         strataId: "strataId",
      *         serverName: "Affinity",
      *         authData: {}
      *     })
@@ -726,89 +807,6 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /mcp-server/strata/set-auth.");
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Deletes authentication data for a specific integration within a Strata MCP server.
-     *
-     * This will clear the stored authentication credentials, effectively unauthenticating the server.
-     *
-     * @param {string} strataId - The strata server ID
-     * @param {string} serverName - The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
-     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.mcpServer.deleteStrataAuth("strata_id", "server_name")
-     */
-    public deleteStrataAuth(
-        strataId: string,
-        serverName: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.StatusResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteStrataAuth(strataId, serverName, requestOptions));
-    }
-
-    private async __deleteStrataAuth(
-        strataId: string,
-        serverName: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                `mcp-server/strata/${encodeURIComponent(strataId)}/server/${encodeURIComponent(serverName)}/auth`,
-            ),
-            method: "DELETE",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strata_id}/server/{server_name}/auth.",
-                );
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

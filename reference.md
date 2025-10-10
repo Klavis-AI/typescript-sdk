@@ -242,7 +242,7 @@ Parameters:
 
 ```typescript
 await client.mcpServer.addServersToStrata({
-    strata_id: "strata_id",
+    strataId: "strataId",
 });
 ```
 
@@ -296,7 +296,7 @@ Note: After deleting servers, you need to reconnect the MCP server so that list_
 
 Parameters:
 
-- strata_id: The strata server ID (path parameter)
+- strataId: The strata server ID (path parameter)
 - servers: Can be 'ALL' to delete all available Klavis integration, a list of specific server names, or null to delete no servers
 - externalServers: Query parameter - comma-separated list of external server names to delete
 
@@ -316,7 +316,7 @@ Returns separate lists for deleted Klavis servers and deleted external servers.
 <dd>
 
 ```typescript
-await client.mcpServer.deleteServersFromStrata("strata_id");
+await client.mcpServer.deleteServersFromStrata("strataId");
 ```
 
 </dd>
@@ -390,7 +390,7 @@ and authentication URLs for klavis servers.
 <dd>
 
 ```typescript
-await client.mcpServer.getStrataServer("strata_id");
+await client.mcpServer.getStrataServer("strataId");
 ```
 
 </dd>
@@ -455,7 +455,7 @@ Returns the authentication data if available, along with authentication status.
 <dd>
 
 ```typescript
-await client.mcpServer.getStrataAuth("strata_id", "serverName");
+await client.mcpServer.getStrataAuth("strataId", "serverName");
 ```
 
 </dd>
@@ -480,6 +480,79 @@ await client.mcpServer.getStrataAuth("strata_id", "serverName");
 <dd>
 
 **serverName:** `string` — The name of the Klavis MCP server to get authentication for (e.g., 'GitHub', 'Jira')
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteStrataAuth</a>(strataId, serverName) -> Klavis.StatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes authentication data for a specific integration within a Strata MCP server.
+
+This will clear the stored authentication credentials, effectively unauthenticating the server.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.deleteStrataAuth("strataId", "serverName");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**strataId:** `string` — The strata server ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**serverName:** `string` — The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
 
 </dd>
 </dl>
@@ -529,7 +602,7 @@ Accepts either API key authentication or general authentication data.
 
 ```typescript
 await client.mcpServer.setStrataAuth({
-    strata_id: "strata_id",
+    strataId: "strataId",
     serverName: "Affinity",
     authData: {},
 });
@@ -549,79 +622,6 @@ await client.mcpServer.setStrataAuth({
 <dd>
 
 **request:** `Klavis.StrataSetAuthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `McpServer.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteStrataAuth</a>(strataId, serverName) -> Klavis.StatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes authentication data for a specific integration within a Strata MCP server.
-
-This will clear the stored authentication credentials, effectively unauthenticating the server.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.mcpServer.deleteStrataAuth("strata_id", "server_name");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**strataId:** `string` — The strata server ID
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**serverName:** `string` — The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
 
 </dd>
 </dl>

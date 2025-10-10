@@ -119,7 +119,7 @@ describe("User", () => {
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/user/user/user_id/server/server_name/auth")
+            .delete("/user/user_id/auth/server_name")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)

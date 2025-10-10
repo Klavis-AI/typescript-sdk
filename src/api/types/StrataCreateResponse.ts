@@ -8,7 +8,7 @@ export interface StrataCreateResponse {
     /** URL to connect to the Strata MCP server */
     strataServerUrl: string;
     /** The strata server ID */
-    strata_id: string;
+    strataId: string;
     /** List of Klavis integration that were added */
     addedServers: string[];
     /** List of external MCP servers that were added with name and URL */

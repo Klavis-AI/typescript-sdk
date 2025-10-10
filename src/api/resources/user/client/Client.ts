@@ -472,7 +472,7 @@ export class User {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                `user/user/${encodeURIComponent(userId)}/server/${encodeURIComponent(serverName)}/auth`,
+                `user/${encodeURIComponent(userId)}/auth/${encodeURIComponent(serverName)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -513,7 +513,7 @@ export class User {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /user/user/{user_id}/server/{server_name}/auth.",
+                    "Timeout exceeded when calling DELETE /user/{user_id}/auth/{server_name}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
