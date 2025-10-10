@@ -309,7 +309,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.addServersToStrata({
-     *         strataId: "strataId"
+     *         strata_id: "strata_id"
      *     })
      */
     public addServersToStrata(
@@ -386,7 +386,7 @@ export class McpServer {
      * Note: After deleting servers, you need to reconnect the MCP server so that list_tool can be updated to reflect the removed servers.
      *
      * Parameters:
-     * - strataId: The strata server ID (path parameter)
+     * - strata_id: The strata server ID (path parameter)
      * - servers: Can be 'ALL' to delete all available Klavis integration, a list of specific server names, or null to delete no servers
      * - externalServers: Query parameter - comma-separated list of external server names to delete
      *
@@ -399,7 +399,7 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.deleteServersFromStrata("strataId")
+     *     await client.mcpServer.deleteServersFromStrata("strata_id")
      */
     public deleteServersFromStrata(
         strataId: string,
@@ -475,7 +475,7 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strataId}/servers.",
+                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strata_id}/servers.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
@@ -497,7 +497,7 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getStrataServer("strataId")
+     *     await client.mcpServer.getStrataServer("strata_id")
      */
     public getStrataServer(
         strataId: string,
@@ -555,7 +555,92 @@ export class McpServer {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /mcp-server/strata/{strataId}.");
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /mcp-server/strata/{strata_id}.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Retrieves authentication data for a specific integration within a Strata MCP server.
+     *
+     * Returns the authentication data if available, along with authentication status.
+     *
+     * @param {string} strataId - The strata server ID
+     * @param {string} serverName - The name of the Klavis MCP server to get authentication for (e.g., 'GitHub', 'Jira')
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.getStrataAuth("strata_id", "serverName")
+     */
+    public getStrataAuth(
+        strataId: string,
+        serverName: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StrataGetAuthResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getStrataAuth(strataId, serverName, requestOptions));
+    }
+
+    private async __getStrataAuth(
+        strataId: string,
+        serverName: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StrataGetAuthResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/strata/${encodeURIComponent(strataId)}/auth/${encodeURIComponent(serverName)}`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StrataGetAuthResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /mcp-server/strata/{strata_id}/auth/{serverName}.",
+                );
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -576,7 +661,7 @@ export class McpServer {
      *
      * @example
      *     await client.mcpServer.setStrataAuth({
-     *         strataId: "strataId",
+     *         strata_id: "strata_id",
      *         serverName: "Affinity",
      *         authData: {}
      *     })
@@ -641,6 +726,89 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /mcp-server/strata/set-auth.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes authentication data for a specific integration within a Strata MCP server.
+     *
+     * This will clear the stored authentication credentials, effectively unauthenticating the server.
+     *
+     * @param {string} strataId - The strata server ID
+     * @param {string} serverName - The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.deleteStrataAuth("strata_id", "server_name")
+     */
+    public deleteStrataAuth(
+        strataId: string,
+        serverName: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StatusResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteStrataAuth(strataId, serverName, requestOptions));
+    }
+
+    private async __deleteStrataAuth(
+        strataId: string,
+        serverName: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/strata/${encodeURIComponent(strataId)}/server/${encodeURIComponent(serverName)}/auth`,
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling DELETE /mcp-server/strata/{strata_id}/server/{server_name}/auth.",
+                );
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -829,7 +997,7 @@ export class McpServer {
      * Checks the details of a specific server connection instance using its unique ID and API key,
      * returning server details like authentication status and associated server/platform info.
      *
-     * @param {string} instanceId - The ID of the connection instance whose status is being checked. This is returned by the Create API.
+     * @param {string} instanceId - The ID of the connection integration instance whose status is being checked. This is returned by the Create API.
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
@@ -853,7 +1021,7 @@ export class McpServer {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                `mcp-server/instance/get/${encodeURIComponent(instanceId)}`,
+                `mcp-server/instance/${encodeURIComponent(instanceId)}`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -894,85 +1062,7 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling GET /mcp-server/instance/get/{instance_id}.",
-                );
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Deletes authentication data for a specific server connection instance.
-     *
-     * @param {string} instanceId - The ID of the connection instance to delete auth for.
-     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.mcpServer.deleteInstanceAuth("instance_id")
-     */
-    public deleteInstanceAuth(
-        instanceId: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.StatusResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__deleteInstanceAuth(instanceId, requestOptions));
-    }
-
-    private async __deleteInstanceAuth(
-        instanceId: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                `mcp-server/instance/delete-auth/${encodeURIComponent(instanceId)}`,
-            ),
-            method: "DELETE",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /mcp-server/instance/delete-auth/{instance_id}.",
+                    "Timeout exceeded when calling GET /mcp-server/instance/{instance_id}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
@@ -1010,7 +1100,7 @@ export class McpServer {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                `mcp-server/instance/delete/${encodeURIComponent(instanceId)}`,
+                `mcp-server/instance/${encodeURIComponent(instanceId)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -1051,7 +1141,167 @@ export class McpServer {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /mcp-server/instance/delete/{instance_id}.",
+                    "Timeout exceeded when calling DELETE /mcp-server/instance/{instance_id}.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Retrieves the auth data for a specific integration instance that the API key owner controls.
+     * Includes access token, refresh token, and other authentication data.
+     *
+     * This endpoint includes proper ownership verification to ensure users can only access
+     * authentication data for integration instances they own. It also handles token refresh if needed.
+     *
+     * @param {string} instanceId - The ID of the connection integration instance to get auth data for.
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.getInstanceAuthData("instance_id")
+     */
+    public getInstanceAuthData(
+        instanceId: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.GetAuthDataResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getInstanceAuthData(instanceId, requestOptions));
+    }
+
+    private async __getInstanceAuthData(
+        instanceId: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.GetAuthDataResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/instance/${encodeURIComponent(instanceId)}/auth`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.GetAuthDataResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /mcp-server/instance/{instance_id}/auth.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes authentication data for a specific server connection instance.
+     *
+     * @param {string} instanceId - The ID of the connection instance to delete auth for.
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.deleteInstanceAuth("instance_id")
+     */
+    public deleteInstanceAuth(
+        instanceId: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StatusResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteInstanceAuth(instanceId, requestOptions));
+    }
+
+    private async __deleteInstanceAuth(
+        instanceId: string,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/instance/${encodeURIComponent(instanceId)}/auth`,
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling DELETE /mcp-server/instance/{instance_id}/auth.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
@@ -1213,9 +1463,9 @@ export class McpServer {
     }
 
     /**
-     * Sets authentication data for a specific instance.
+     * Sets authentication data for a specific integration instance.
      * Accepts either API key authentication or general authentication data.
-     * This updates the auth_metadata for the specified instance.
+     * This updates the auth_metadata for the specified integration instance.
      *
      * @param {Klavis.SetAuthRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
@@ -1289,88 +1539,6 @@ export class McpServer {
             case "timeout":
                 throw new errors.KlavisTimeoutError(
                     "Timeout exceeded when calling POST /mcp-server/instance/set-auth.",
-                );
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * Retrieves the auth data for a specific instance that the API key owner controls.
-     * Includes access token, refresh token, and other authentication data.
-     *
-     * This endpoint includes proper ownership verification to ensure users can only access
-     * authentication data for instances they own. It also handles token refresh if needed.
-     *
-     * @param {string} instanceId - The ID of the connection instance to get auth data for.
-     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.mcpServer.getInstanceAuthData("instance_id")
-     */
-    public getInstanceAuthData(
-        instanceId: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.GetAuthDataResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getInstanceAuthData(instanceId, requestOptions));
-    }
-
-    private async __getInstanceAuthData(
-        instanceId: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.GetAuthDataResponse>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                `mcp-server/instance/get-auth/${encodeURIComponent(instanceId)}`,
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body as Klavis.GetAuthDataResponse, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling GET /mcp-server/instance/get-auth/{instance_id}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({

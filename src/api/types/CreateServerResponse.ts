@@ -5,7 +5,7 @@
 export interface CreateServerResponse {
     /** The full URL for connecting to the MCP server, including the instance ID. */
     serverUrl: string;
-    /** The unique identifier for this specific server connection instance. */
+    /** The unique identifier for this specific server connection integration instance. */
     instanceId: string;
     /** The OAuth URL for authentication if available, supports white label if configured. */
     oauthUrl?: string;

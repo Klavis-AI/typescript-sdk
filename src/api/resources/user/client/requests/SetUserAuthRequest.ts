@@ -7,21 +7,21 @@ import * as Klavis from "../../../../index.js";
 /**
  * @example
  *     {
- *         strata_id: "strata_id",
+ *         userId: "userId",
  *         serverName: "Affinity",
  *         authData: {}
  *     }
  */
-export interface StrataSetAuthRequest {
-    /** The strata server ID */
-    strata_id: string;
-    /** The name of the Klavis MCP server to set authentication for (e.g., 'GitHub', 'Jira') */
+export interface SetUserAuthRequest {
+    /** The unique identifier for the user */
+    userId: string;
+    /** The name of the MCP server to set authentication for (e.g., 'GitHub', 'Jira') */
     serverName: Klavis.McpServerName;
     /** Authentication data */
-    authData: StrataSetAuthRequest.AuthData;
+    authData: SetUserAuthRequest.AuthData;
 }
 
-export namespace StrataSetAuthRequest {
+export namespace SetUserAuthRequest {
     /**
      * Authentication data
      */

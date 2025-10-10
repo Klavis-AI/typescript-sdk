@@ -4,6 +4,6 @@
 
 import * as Klavis from "../index.js";
 
-export interface GetServerInstancesResponse {
-    instances: Klavis.ExtendedMcpServer[];
+export interface GetUserIntegrationsResponse {
+    integrations: Klavis.McpServerName[];
 }

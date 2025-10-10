@@ -242,7 +242,7 @@ Parameters:
 
 ```typescript
 await client.mcpServer.addServersToStrata({
-    strataId: "strataId",
+    strata_id: "strata_id",
 });
 ```
 
@@ -296,7 +296,7 @@ Note: After deleting servers, you need to reconnect the MCP server so that list_
 
 Parameters:
 
-- strataId: The strata server ID (path parameter)
+- strata_id: The strata server ID (path parameter)
 - servers: Can be 'ALL' to delete all available Klavis integration, a list of specific server names, or null to delete no servers
 - externalServers: Query parameter - comma-separated list of external server names to delete
 
@@ -316,7 +316,7 @@ Returns separate lists for deleted Klavis servers and deleted external servers.
 <dd>
 
 ```typescript
-await client.mcpServer.deleteServersFromStrata("strataId");
+await client.mcpServer.deleteServersFromStrata("strata_id");
 ```
 
 </dd>
@@ -390,7 +390,7 @@ and authentication URLs for klavis servers.
 <dd>
 
 ```typescript
-await client.mcpServer.getStrataServer("strataId");
+await client.mcpServer.getStrataServer("strata_id");
 ```
 
 </dd>
@@ -407,6 +407,79 @@ await client.mcpServer.getStrataServer("strataId");
 <dd>
 
 **strataId:** `string`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataAuth</a>(strataId, serverName) -> Klavis.StrataGetAuthResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves authentication data for a specific integration within a Strata MCP server.
+
+Returns the authentication data if available, along with authentication status.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.getStrataAuth("strata_id", "serverName");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**strataId:** `string` — The strata server ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**serverName:** `string` — The name of the Klavis MCP server to get authentication for (e.g., 'GitHub', 'Jira')
 
 </dd>
 </dl>
@@ -456,7 +529,7 @@ Accepts either API key authentication or general authentication data.
 
 ```typescript
 await client.mcpServer.setStrataAuth({
-    strataId: "strataId",
+    strata_id: "strata_id",
     serverName: "Affinity",
     authData: {},
 });
@@ -476,6 +549,79 @@ await client.mcpServer.setStrataAuth({
 <dd>
 
 **request:** `Klavis.StrataSetAuthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteStrataAuth</a>(strataId, serverName) -> Klavis.StatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes authentication data for a specific integration within a Strata MCP server.
+
+This will clear the stored authentication credentials, effectively unauthenticating the server.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.deleteStrataAuth("strata_id", "server_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**strataId:** `string` — The strata server ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**serverName:** `string` — The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
 
 </dd>
 </dl>
@@ -678,70 +824,7 @@ await client.mcpServer.getServerInstance("instance_id");
 <dl>
 <dd>
 
-**instanceId:** `string` — The ID of the connection instance whose status is being checked. This is returned by the Create API.
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `McpServer.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteInstanceAuth</a>(instanceId) -> Klavis.StatusResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Deletes authentication data for a specific server connection instance.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.mcpServer.deleteInstanceAuth("instance_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string` — The ID of the connection instance to delete auth for.
+**instanceId:** `string` — The ID of the connection integration instance whose status is being checked. This is returned by the Create API.
 
 </dd>
 </dl>
@@ -806,6 +889,136 @@ await client.mcpServer.deleteServerInstance("instance_id");
 <dd>
 
 **instanceId:** `string` — The ID of the connection instance to delete.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getInstanceAuthData</a>(instanceId) -> Klavis.GetAuthDataResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves the auth data for a specific integration instance that the API key owner controls.
+Includes access token, refresh token, and other authentication data.
+
+This endpoint includes proper ownership verification to ensure users can only access
+authentication data for integration instances they own. It also handles token refresh if needed.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.getInstanceAuthData("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string` — The ID of the connection integration instance to get auth data for.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">deleteInstanceAuth</a>(instanceId) -> Klavis.StatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes authentication data for a specific server connection instance.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.deleteInstanceAuth("instance_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string` — The ID of the connection instance to delete auth for.
 
 </dd>
 </dl>
@@ -962,9 +1175,9 @@ await client.mcpServer.getAllMcpServers();
 <dl>
 <dd>
 
-Sets authentication data for a specific instance.
+Sets authentication data for a specific integration instance.
 Accepts either API key authentication or general authentication data.
-This updates the auth_metadata for the specified instance.
+This updates the auth_metadata for the specified integration instance.
 
 </dd>
 </dl>
@@ -1000,73 +1213,6 @@ await client.mcpServer.setInstanceAuth({
 <dd>
 
 **request:** `Klavis.SetAuthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `McpServer.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getInstanceAuthData</a>(instanceId) -> Klavis.GetAuthDataResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Retrieves the auth data for a specific instance that the API key owner controls.
-Includes access token, refresh token, and other authentication data.
-
-This endpoint includes proper ownership verification to ensure users can only access
-authentication data for instances they own. It also handles token refresh if needed.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.mcpServer.getInstanceAuthData("instance_id");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**instanceId:** `string` — The ID of the connection instance to get auth data for.
 
 </dd>
 </dl>
@@ -1259,7 +1405,7 @@ await client.whiteLabeling.getWhiteLabelingByClientId("client_id");
 
 ## User
 
-<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getServerInstancesByUser</a>({ ...params }) -> Klavis.GetServerInstancesResponse</code></summary>
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getUserIntegrations</a>(userId) -> Klavis.GetUserIntegrationsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1271,7 +1417,8 @@ await client.whiteLabeling.getWhiteLabelingByClientId("client_id");
 <dl>
 <dd>
 
-Get all MCP server instances information by user ID and platform name.
+Get all available integrations (MCP server names) by user ID.
+Returns a list of integration names as McpServerName types.
 
 </dd>
 </dl>
@@ -1287,9 +1434,7 @@ Get all MCP server instances information by user ID and platform name.
 <dd>
 
 ```typescript
-await client.user.getServerInstancesByUser({
-    user_id: "user_id",
-});
+await client.user.getUserIntegrations("user_id");
 ```
 
 </dd>
@@ -1305,7 +1450,70 @@ await client.user.getServerInstancesByUser({
 <dl>
 <dd>
 
-**request:** `Klavis.GetServerInstancesByUserRequest`
+**userId:** `string` — The external user ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getUserByUserId</a>(userId) -> Klavis.GetUserResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Get user information by user_id.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.getUserByUserId("user_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — The identifier for the user to fetch.
 
 </dd>
 </dl>
@@ -1371,6 +1579,223 @@ await client.user.deleteUserByUserId("user_id");
 <dd>
 
 **userId:** `string` — The identifier for the user to delete.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">setUserAuth</a>({ ...params }) -> Klavis.StatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Sets authentication data for a specific integration for a user.
+
+Accepts either API key authentication or general authentication data.
+This updates the auth_metadata for the specified user's integration instance.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.setUserAuth({
+    userId: "userId",
+    serverName: "Affinity",
+    authData: {},
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.SetUserAuthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getUserAuth</a>(userId, serverName) -> Klavis.GetUserAuthResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieves authentication data for a specific integration for a user.
+
+Returns the authentication data if available, along with authentication status.
+Includes token refresh handling if needed.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.getUserAuth("user_id", "server_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — The identifier for the user
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**serverName:** `string` — The name of the MCP server (e.g., 'GitHub', 'Jira')
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">deleteUserAuth</a>(userId, serverName) -> Klavis.StatusResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Deletes authentication data for a specific integration for a user.
+
+This will clear the stored authentication credentials, effectively unauthenticating the integration.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.deleteUserAuth("user_id", "server_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**userId:** `string` — The unique identifier for the user
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**serverName:** `string` — The name of the MCP server to delete authentication for (e.g., 'github', 'jira')
 
 </dd>
 </dl>
@@ -4157,6 +4582,58 @@ await client.oauth.authorizeOutlook({
 <dd>
 
 **requestOptions:** `Oauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## TeamsOauth
+
+<details><summary><code>client.teamsOauth.<a href="/src/api/resources/teamsOauth/client/Client.ts">authorizeTeams</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.teamsOauth.authorizeTeams({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeTeamsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TeamsOauth.RequestOptions`
 
 </dd>
 </dl>

@@ -40,42 +40,34 @@ export class User {
     }
 
     /**
-     * Get all MCP server instances information by user ID and platform name.
+     * Get all available integrations (MCP server names) by user ID.
+     * Returns a list of integration names as McpServerName types.
      *
-     * @param {Klavis.GetServerInstancesByUserRequest} request
+     * @param {string} userId - The external user ID
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.getServerInstancesByUser({
-     *         user_id: "user_id"
-     *     })
+     *     await client.user.getUserIntegrations("user_id")
      */
-    public getServerInstancesByUser(
-        request: Klavis.GetServerInstancesByUserRequest,
+    public getUserIntegrations(
+        userId: string,
         requestOptions?: User.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.GetServerInstancesResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getServerInstancesByUser(request, requestOptions));
+    ): core.HttpResponsePromise<Klavis.GetUserIntegrationsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getUserIntegrations(userId, requestOptions));
     }
 
-    private async __getServerInstancesByUser(
-        request: Klavis.GetServerInstancesByUserRequest,
+    private async __getUserIntegrations(
+        userId: string,
         requestOptions?: User.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.GetServerInstancesResponse>> {
-        const { user_id: userId, platform_name: platformName } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        _queryParams["user_id"] = userId;
-        if (platformName != null) {
-            _queryParams["platform_name"] = platformName;
-        }
-
+    ): Promise<core.WithRawResponse<Klavis.GetUserIntegrationsResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
             url: urlJoin(
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "user/instances",
+                `user/${encodeURIComponent(userId)}/integrations`,
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -83,13 +75,12 @@ export class User {
                 mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
                 requestOptions?.headers,
             ),
-            queryParameters: _queryParams,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Klavis.GetServerInstancesResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Klavis.GetUserIntegrationsResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -116,7 +107,83 @@ export class User {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/instances.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/{user_id}/integrations.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Get user information by user_id.
+     *
+     * @param {string} userId - The identifier for the user to fetch.
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.user.getUserByUserId("user_id")
+     */
+    public getUserByUserId(
+        userId: string,
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.GetUserResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getUserByUserId(userId, requestOptions));
+    }
+
+    private async __getUserByUserId(
+        userId: string,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.GetUserResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `user/${encodeURIComponent(userId)}`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.GetUserResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/{user_id}.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -154,7 +221,7 @@ export class User {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                `user/delete/${encodeURIComponent(userId)}`,
+                `user/${encodeURIComponent(userId)}`,
             ),
             method: "DELETE",
             headers: mergeHeaders(
@@ -194,7 +261,260 @@ export class User {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /user/delete/{user_id}.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /user/{user_id}.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Sets authentication data for a specific integration for a user.
+     *
+     * Accepts either API key authentication or general authentication data.
+     * This updates the auth_metadata for the specified user's integration instance.
+     *
+     * @param {Klavis.SetUserAuthRequest} request
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.user.setUserAuth({
+     *         userId: "userId",
+     *         serverName: "Affinity",
+     *         authData: {}
+     *     })
+     */
+    public setUserAuth(
+        request: Klavis.SetUserAuthRequest,
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StatusResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__setUserAuth(request, requestOptions));
+    }
+
+    private async __setUserAuth(
+        request: Klavis.SetUserAuthRequest,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "user/set-auth",
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /user/set-auth.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Retrieves authentication data for a specific integration for a user.
+     *
+     * Returns the authentication data if available, along with authentication status.
+     * Includes token refresh handling if needed.
+     *
+     * @param {string} userId - The identifier for the user
+     * @param {string} serverName - The name of the MCP server (e.g., 'GitHub', 'Jira')
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.user.getUserAuth("user_id", "server_name")
+     */
+    public getUserAuth(
+        userId: string,
+        serverName: string,
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.GetUserAuthResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getUserAuth(userId, serverName, requestOptions));
+    }
+
+    private async __getUserAuth(
+        userId: string,
+        serverName: string,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.GetUserAuthResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `user/${encodeURIComponent(userId)}/auth/${encodeURIComponent(serverName)}`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.GetUserAuthResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /user/{user_id}/auth/{server_name}.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Deletes authentication data for a specific integration for a user.
+     *
+     * This will clear the stored authentication credentials, effectively unauthenticating the integration.
+     *
+     * @param {string} userId - The unique identifier for the user
+     * @param {string} serverName - The name of the MCP server to delete authentication for (e.g., 'github', 'jira')
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.user.deleteUserAuth("user_id", "server_name")
+     */
+    public deleteUserAuth(
+        userId: string,
+        serverName: string,
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StatusResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__deleteUserAuth(userId, serverName, requestOptions));
+    }
+
+    private async __deleteUserAuth(
+        userId: string,
+        serverName: string,
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `user/user/${encodeURIComponent(userId)}/server/${encodeURIComponent(serverName)}/auth`,
+            ),
+            method: "DELETE",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StatusResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling DELETE /user/user/{user_id}/server/{server_name}/auth.",
+                );
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

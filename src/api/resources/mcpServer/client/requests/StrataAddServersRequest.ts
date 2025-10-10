@@ -7,12 +7,12 @@ import * as Klavis from "../../../../index.js";
 /**
  * @example
  *     {
- *         strataId: "strataId"
+ *         strata_id: "strata_id"
  *     }
  */
 export interface StrataAddServersRequest {
     /** The strata server ID */
-    strataId: string;
+    strata_id: string;
     /** List of Klavis integration to add (e.g., 'jira', 'linear'), 'ALL' to add all Klavis integration, or null to add no servers. */
     servers?: StrataAddServersRequest.Servers;
     /** Optional list of external MCP servers to add with their URLs. Each server will be validated before being added. */

@@ -3,7 +3,7 @@
  */
 
 export interface CreateSelfHostedServerResponse {
-    /** The unique identifier for this specific server connection instance. */
+    /** The unique identifier for this specific server connection integration instance. */
     instanceId: string;
     /** The OAuth authorization URL for the specified server, if OAuth is configured. */
     oauthUrl?: string;

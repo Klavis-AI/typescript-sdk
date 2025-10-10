@@ -77,7 +77,7 @@ describe("McpServer", () => {
         const rawRequestBody = { userId: "userId" };
         const rawResponseBody = {
             strataServerUrl: "strataServerUrl",
-            strataId: "strataId",
+            strata_id: "strata_id",
             addedServers: ["addedServers"],
             addedExternalServers: [{ name: "name", url: "url" }],
             oauthUrls: { key: "value" },
@@ -97,7 +97,7 @@ describe("McpServer", () => {
         });
         expect(response).toEqual({
             strataServerUrl: "strataServerUrl",
-            strataId: "strataId",
+            strata_id: "strata_id",
             addedServers: ["addedServers"],
             addedExternalServers: [
                 {
@@ -117,7 +117,7 @@ describe("McpServer", () => {
     test("addServersToStrata", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { strataId: "strataId" };
+        const rawRequestBody = { strata_id: "strata_id" };
         const rawResponseBody = {
             addedServers: ["addedServers"],
             addedExternalServers: [{ name: "name", url: "url" }],
@@ -134,7 +134,7 @@ describe("McpServer", () => {
             .build();
 
         const response = await client.mcpServer.addServersToStrata({
-            strataId: "strataId",
+            strata_id: "strata_id",
         });
         expect(response).toEqual({
             addedServers: ["addedServers"],
@@ -163,13 +163,13 @@ describe("McpServer", () => {
         };
         server
             .mockEndpoint()
-            .delete("/mcp-server/strata/strataId/servers")
+            .delete("/mcp-server/strata/strata_id/servers")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.deleteServersFromStrata("strataId");
+        const response = await client.mcpServer.deleteServersFromStrata("strata_id");
         expect(response).toEqual({
             deletedServers: ["deletedServers"],
             deletedExternalServers: ["deletedExternalServers"],
@@ -182,7 +182,7 @@ describe("McpServer", () => {
 
         const rawResponseBody = {
             strataServerUrl: "strataServerUrl",
-            strataId: "strataId",
+            strata_id: "strata_id",
             connectedServers: ["connectedServers"],
             connectedExternalServers: [{ name: "name", url: "url" }],
             oauthUrls: { key: "value" },
@@ -190,16 +190,16 @@ describe("McpServer", () => {
         };
         server
             .mockEndpoint()
-            .get("/mcp-server/strata/strataId")
+            .get("/mcp-server/strata/strata_id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getStrataServer("strataId");
+        const response = await client.mcpServer.getStrataServer("strata_id");
         expect(response).toEqual({
             strataServerUrl: "strataServerUrl",
-            strataId: "strataId",
+            strata_id: "strata_id",
             connectedServers: ["connectedServers"],
             connectedExternalServers: [
                 {
@@ -216,10 +216,41 @@ describe("McpServer", () => {
         });
     });
 
+    test("getStrataAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            success: true,
+            serverName: "serverName",
+            authData: { key: "value" },
+            isAuthenticated: true,
+            message: "message",
+        };
+        server
+            .mockEndpoint()
+            .get("/mcp-server/strata/strata_id/auth/serverName")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.getStrataAuth("strata_id", "serverName");
+        expect(response).toEqual({
+            success: true,
+            serverName: "serverName",
+            authData: {
+                key: "value",
+            },
+            isAuthenticated: true,
+            message: "message",
+        });
+    });
+
     test("setStrataAuth", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { strataId: "strataId", serverName: "Affinity", authData: {} };
+        const rawRequestBody = { strata_id: "strata_id", serverName: "Affinity", authData: {} };
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
@@ -231,10 +262,30 @@ describe("McpServer", () => {
             .build();
 
         const response = await client.mcpServer.setStrataAuth({
-            strataId: "strataId",
+            strata_id: "strata_id",
             serverName: "Affinity",
             authData: {},
         });
+        expect(response).toEqual({
+            success: true,
+            message: "message",
+        });
+    });
+
+    test("deleteStrataAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true, message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/mcp-server/strata/strata_id/server/server_name/auth")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.deleteStrataAuth("strata_id", "server_name");
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -305,7 +356,7 @@ describe("McpServer", () => {
         };
         server
             .mockEndpoint()
-            .get("/mcp-server/instance/get/instance_id")
+            .get("/mcp-server/instance/instance_id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
@@ -323,26 +374,6 @@ describe("McpServer", () => {
         });
     });
 
-    test("deleteInstanceAuth", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { success: true, message: "message" };
-        server
-            .mockEndpoint()
-            .delete("/mcp-server/instance/delete-auth/instance_id")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.mcpServer.deleteInstanceAuth("instance_id");
-        expect(response).toEqual({
-            success: true,
-            message: "message",
-        });
-    });
-
     test("deleteServerInstance", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
@@ -350,13 +381,56 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/mcp-server/instance/delete/instance_id")
+            .delete("/mcp-server/instance/instance_id")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
         const response = await client.mcpServer.deleteServerInstance("instance_id");
+        expect(response).toEqual({
+            success: true,
+            message: "message",
+        });
+    });
+
+    test("getInstanceAuthData", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true, authData: { key: "value" }, error: "error" };
+        server
+            .mockEndpoint()
+            .get("/mcp-server/instance/instance_id/auth")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.getInstanceAuthData("instance_id");
+        expect(response).toEqual({
+            success: true,
+            authData: {
+                key: "value",
+            },
+            error: "error",
+        });
+    });
+
+    test("deleteInstanceAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true, message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/mcp-server/instance/instance_id/auth")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.deleteInstanceAuth("instance_id");
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -452,29 +526,6 @@ describe("McpServer", () => {
         expect(response).toEqual({
             success: true,
             message: "message",
-        });
-    });
-
-    test("getInstanceAuthData", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { success: true, authData: { key: "value" }, error: "error" };
-        server
-            .mockEndpoint()
-            .get("/mcp-server/instance/get-auth/instance_id")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.mcpServer.getInstanceAuthData("instance_id");
-        expect(response).toEqual({
-            success: true,
-            authData: {
-                key: "value",
-            },
-            error: "error",
         });
     });
 

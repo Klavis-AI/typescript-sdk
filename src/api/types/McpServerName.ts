@@ -23,6 +23,7 @@ export type McpServerName =
     | "ElevenLabs"
     | "Exa"
     | "Figma"
+    | "Fireflies"
     | "Firecrawl Deep Research"
     | "Firecrawl Web Search"
     | "Freshdesk"
@@ -45,6 +46,7 @@ export type McpServerName =
     | "LinkedIn"
     | "Markdown2doc"
     | "Mem0"
+    | "Microsoft Teams"
     | "Mixpanel"
     | "Monday"
     | "Moneybird"
@@ -71,7 +73,8 @@ export type McpServerName =
     | "WhatsApp"
     | "WordPress"
     | "YouTube"
-    | "Zendesk";
+    | "Zendesk"
+    | "ServiceNow";
 export const McpServerName = {
     Affinity: "Affinity",
     Airtable: "Airtable",
@@ -93,6 +96,7 @@ export const McpServerName = {
     ElevenLabs: "ElevenLabs",
     Exa: "Exa",
     Figma: "Figma",
+    Fireflies: "Fireflies",
     FirecrawlDeepResearch: "Firecrawl Deep Research",
     FirecrawlWebSearch: "Firecrawl Web Search",
     Freshdesk: "Freshdesk",
@@ -115,6 +119,7 @@ export const McpServerName = {
     Linkedin: "LinkedIn",
     Markdown2Doc: "Markdown2doc",
     Mem0: "Mem0",
+    MicrosoftTeams: "Microsoft Teams",
     Mixpanel: "Mixpanel",
     Monday: "Monday",
     Moneybird: "Moneybird",
@@ -142,4 +147,5 @@ export const McpServerName = {
     Wordpress: "WordPress",
     Youtube: "YouTube",
     Zendesk: "Zendesk",
+    ServiceNow: "ServiceNow",
 } as const;

@@ -20,4 +20,6 @@ export interface CreateServerRequest {
     platformName?: string;
     /** The connection type to use for the MCP server. Default is STREAMABLE_HTTP. */
     connectionType?: Klavis.ConnectionType;
+    /** Whether to use the legacy server. Default is False. */
+    legacy?: boolean;
 }

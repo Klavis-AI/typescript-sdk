@@ -3,7 +3,7 @@
  */
 
 export interface GetInstanceResponse {
-    /** The unique identifier of the connection instance. */
+    /** The unique identifier of the connection integration instance. */
     instanceId?: string;
     /** Indicates whether authentication is required for this server instance. */
     authNeeded?: boolean;

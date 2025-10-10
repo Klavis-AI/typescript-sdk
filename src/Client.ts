@@ -9,6 +9,7 @@ import { McpServer } from "./api/resources/mcpServer/client/Client.js";
 import { WhiteLabeling } from "./api/resources/whiteLabeling/client/Client.js";
 import { User } from "./api/resources/user/client/Client.js";
 import { Oauth } from "./api/resources/oauth/client/Client.js";
+import { TeamsOauth } from "./api/resources/teamsOauth/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -39,6 +40,7 @@ export class KlavisClient {
     protected _whiteLabeling: WhiteLabeling | undefined;
     protected _user: User | undefined;
     protected _oauth: Oauth | undefined;
+    protected _teamsOauth: TeamsOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -47,8 +49,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "2.7.0",
-                    "User-Agent": "klavis/2.7.0",
+                    "X-Fern-SDK-Version": "2.8.0",
+                    "User-Agent": "klavis/2.8.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -71,5 +73,9 @@ export class KlavisClient {
 
     public get oauth(): Oauth {
         return (this._oauth ??= new Oauth(this._options));
+    }
+
+    public get teamsOauth(): TeamsOauth {
+        return (this._teamsOauth ??= new TeamsOauth(this._options));
     }
 }

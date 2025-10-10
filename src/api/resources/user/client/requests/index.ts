@@ -1,1 +1,1 @@
-export { type GetServerInstancesByUserRequest } from "./GetServerInstancesByUserRequest.js";
+export { type SetUserAuthRequest } from "./SetUserAuthRequest.js";

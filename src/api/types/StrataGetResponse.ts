@@ -8,7 +8,7 @@ export interface StrataGetResponse {
     /** URL to connect to the Strata MCP server */
     strataServerUrl: string;
     /** The strata server ID */
-    strataId: string;
+    strata_id: string;
     /** List of available integration currently connected to this strata */
     connectedServers: string[];
     /** List of external servers with name and URL currently connected to this strata */

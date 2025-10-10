@@ -28,6 +28,7 @@ export type OAuthServerName =
     | "Klaviyo"
     | "Linear"
     | "LinkedIn"
+    | "Microsoft Teams"
     | "Monday"
     | "Moneybird"
     | "Notion"
@@ -71,6 +72,7 @@ export const OAuthServerName = {
     Klaviyo: "Klaviyo",
     Linear: "Linear",
     LinkedIn: "LinkedIn",
+    MicrosoftTeams: "Microsoft Teams",
     Monday: "Monday",
     Moneybird: "Moneybird",
     Notion: "Notion",

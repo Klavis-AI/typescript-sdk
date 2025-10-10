@@ -6,45 +6,37 @@ import { mockServerPool } from "../mock-server/MockServerPool.js";
 import { KlavisClient } from "../../src/Client";
 
 describe("User", () => {
-    test("getServerInstancesByUser", async () => {
+    test("getUserIntegrations", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = {
-            instances: [
-                {
-                    id: "id",
-                    name: "name",
-                    description: "description",
-                    tools: [{ name: "name", description: "description" }],
-                    authNeeded: true,
-                    isAuthenticated: true,
-                    serverUrl: "serverUrl",
-                },
-            ],
-        };
-        server.mockEndpoint().get("/user/instances").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        const rawResponseBody = { integrations: ["Affinity"] };
+        server
+            .mockEndpoint()
+            .get("/user/user_id/integrations")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
-        const response = await client.user.getServerInstancesByUser({
-            user_id: "user_id",
-        });
+        const response = await client.user.getUserIntegrations("user_id");
         expect(response).toEqual({
-            instances: [
-                {
-                    id: "id",
-                    name: "name",
-                    description: "description",
-                    tools: [
-                        {
-                            name: "name",
-                            description: "description",
-                        },
-                    ],
-                    authNeeded: true,
-                    isAuthenticated: true,
-                    serverUrl: "serverUrl",
-                },
-            ],
+            integrations: ["Affinity"],
+        });
+    });
+
+    test("getUserByUserId", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { user_id: "user_id", created_at: "created_at", last_used_at: "last_used_at" };
+        server.mockEndpoint().get("/user/user_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.user.getUserByUserId("user_id");
+        expect(response).toEqual({
+            user_id: "user_id",
+            created_at: "created_at",
+            last_used_at: "last_used_at",
         });
     });
 
@@ -53,15 +45,87 @@ describe("User", () => {
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "message" };
+        server.mockEndpoint().delete("/user/user_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.user.deleteUserByUserId("user_id");
+        expect(response).toEqual({
+            success: true,
+            message: "message",
+        });
+    });
+
+    test("setUserAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { userId: "userId", serverName: "Affinity", authData: {} };
+        const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/user/delete/user_id")
+            .post("/user/set-auth")
+            .jsonBody(rawRequestBody)
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.user.deleteUserByUserId("user_id");
+        const response = await client.user.setUserAuth({
+            userId: "userId",
+            serverName: "Affinity",
+            authData: {},
+        });
+        expect(response).toEqual({
+            success: true,
+            message: "message",
+        });
+    });
+
+    test("getUserAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            success: true,
+            userId: "userId",
+            serverName: "serverName",
+            authData: { key: "value" },
+            isAuthenticated: true,
+            message: "message",
+        };
+        server
+            .mockEndpoint()
+            .get("/user/user_id/auth/server_name")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.getUserAuth("user_id", "server_name");
+        expect(response).toEqual({
+            success: true,
+            userId: "userId",
+            serverName: "serverName",
+            authData: {
+                key: "value",
+            },
+            isAuthenticated: true,
+            message: "message",
+        });
+    });
+
+    test("deleteUserAuth", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { success: true, message: "message" };
+        server
+            .mockEndpoint()
+            .delete("/user/user/user_id/server/server_name/auth")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.user.deleteUserAuth("user_id", "server_name");
         expect(response).toEqual({
             success: true,
             message: "message",
