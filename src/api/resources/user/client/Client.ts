@@ -49,7 +49,7 @@ export class User {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.getUserIntegrations("user_id")
+     *     await client.user.getUserIntegrations("userId")
      */
     public getUserIntegrations(
         userId: string,
@@ -107,7 +107,7 @@ export class User {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/{user_id}/integrations.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/{userId}/integrations.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -125,7 +125,7 @@ export class User {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.getUserByUserId("user_id")
+     *     await client.user.getUserByUserId("userId")
      */
     public getUserByUserId(
         userId: string,
@@ -183,7 +183,7 @@ export class User {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/{user_id}.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/{userId}.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -203,7 +203,7 @@ export class User {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.deleteUserByUserId("user_id")
+     *     await client.user.deleteUserByUserId("userId")
      */
     public deleteUserByUserId(
         userId: string,
@@ -261,7 +261,7 @@ export class User {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /user/{user_id}.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling DELETE /user/{userId}.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -363,17 +363,17 @@ export class User {
      * Includes token refresh handling if needed.
      *
      * @param {string} userId - The identifier for the user
-     * @param {string} serverName - The name of the MCP server (e.g., 'GitHub', 'Jira')
+     * @param {Klavis.McpServerName} serverName - The name of the MCP server (e.g., 'GitHub', 'Jira')
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.getUserAuth("user_id", "server_name")
+     *     await client.user.getUserAuth("userId", "Affinity")
      */
     public getUserAuth(
         userId: string,
-        serverName: string,
+        serverName: Klavis.McpServerName,
         requestOptions?: User.RequestOptions,
     ): core.HttpResponsePromise<Klavis.GetUserAuthResponse> {
         return core.HttpResponsePromise.fromPromise(this.__getUserAuth(userId, serverName, requestOptions));
@@ -381,7 +381,7 @@ export class User {
 
     private async __getUserAuth(
         userId: string,
-        serverName: string,
+        serverName: Klavis.McpServerName,
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.GetUserAuthResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -430,7 +430,7 @@ export class User {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling GET /user/{user_id}/auth/{server_name}.",
+                    "Timeout exceeded when calling GET /user/{userId}/auth/{serverName}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({
@@ -446,17 +446,17 @@ export class User {
      * This will clear the stored authentication credentials, effectively unauthenticating the integration.
      *
      * @param {string} userId - The unique identifier for the user
-     * @param {string} serverName - The name of the MCP server to delete authentication for (e.g., 'github', 'jira')
+     * @param {Klavis.McpServerName} serverName - The name of the MCP server to delete authentication for (e.g., 'github', 'jira')
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.deleteUserAuth("user_id", "server_name")
+     *     await client.user.deleteUserAuth("userId", "Affinity")
      */
     public deleteUserAuth(
         userId: string,
-        serverName: string,
+        serverName: Klavis.McpServerName,
         requestOptions?: User.RequestOptions,
     ): core.HttpResponsePromise<Klavis.StatusResponse> {
         return core.HttpResponsePromise.fromPromise(this.__deleteUserAuth(userId, serverName, requestOptions));
@@ -464,7 +464,7 @@ export class User {
 
     private async __deleteUserAuth(
         userId: string,
-        serverName: string,
+        serverName: Klavis.McpServerName,
         requestOptions?: User.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.StatusResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -513,7 +513,7 @@ export class User {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling DELETE /user/{user_id}/auth/{server_name}.",
+                    "Timeout exceeded when calling DELETE /user/{userId}/auth/{serverName}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({

@@ -455,7 +455,7 @@ Returns the authentication data if available, along with authentication status.
 <dd>
 
 ```typescript
-await client.mcpServer.getStrataAuth("strataId", "serverName");
+await client.mcpServer.getStrataAuth("strataId", "Affinity");
 ```
 
 </dd>
@@ -479,7 +479,7 @@ await client.mcpServer.getStrataAuth("strataId", "serverName");
 <dl>
 <dd>
 
-**serverName:** `string` — The name of the Klavis MCP server to get authentication for (e.g., 'GitHub', 'Jira')
+**serverName:** `Klavis.McpServerName` — The name of the Klavis MCP server to get authentication for (e.g., 'GitHub', 'Jira')
 
 </dd>
 </dl>
@@ -528,7 +528,7 @@ This will clear the stored authentication credentials, effectively unauthenticat
 <dd>
 
 ```typescript
-await client.mcpServer.deleteStrataAuth("strataId", "serverName");
+await client.mcpServer.deleteStrataAuth("strataId", "Affinity");
 ```
 
 </dd>
@@ -552,7 +552,7 @@ await client.mcpServer.deleteStrataAuth("strataId", "serverName");
 <dl>
 <dd>
 
-**serverName:** `string` — The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
+**serverName:** `Klavis.McpServerName` — The name of the Klavis MCP server to delete authentication for (e.g., 'github', 'jira')
 
 </dd>
 </dl>
@@ -808,7 +808,7 @@ returning server details like authentication status and associated server/platfo
 <dd>
 
 ```typescript
-await client.mcpServer.getServerInstance("instance_id");
+await client.mcpServer.getServerInstance("instanceId");
 ```
 
 </dd>
@@ -872,7 +872,7 @@ deleting all associated data from the system.
 <dd>
 
 ```typescript
-await client.mcpServer.deleteServerInstance("instance_id");
+await client.mcpServer.deleteServerInstance("instanceId");
 ```
 
 </dd>
@@ -939,7 +939,7 @@ authentication data for integration instances they own. It also handles token re
 <dd>
 
 ```typescript
-await client.mcpServer.getInstanceAuthData("instance_id");
+await client.mcpServer.getInstanceAuthData("instanceId");
 ```
 
 </dd>
@@ -1002,7 +1002,7 @@ Deletes authentication data for a specific server connection instance.
 <dd>
 
 ```typescript
-await client.mcpServer.deleteInstanceAuth("instance_id");
+await client.mcpServer.deleteInstanceAuth("instanceId");
 ```
 
 </dd>
@@ -1037,7 +1037,7 @@ await client.mcpServer.deleteInstanceAuth("instance_id");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName, { ...params }) -> Klavis.McpServerGetToolsResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getServerTools</a>(serverName, { ...params }) -> Klavis.GetServerToolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1065,7 +1065,7 @@ Get tools information for one or multiple MCP servers.
 <dd>
 
 ```typescript
-await client.mcpServer.getTools("server_name");
+await client.mcpServer.getServerTools("serverName");
 ```
 
 </dd>
@@ -1089,7 +1089,7 @@ await client.mcpServer.getTools("server_name");
 <dl>
 <dd>
 
-**request:** `Klavis.McpServerGetToolsRequest`
+**request:** `Klavis.GetServerToolsRequest`
 
 </dd>
 </dl>
@@ -1213,6 +1213,54 @@ await client.mcpServer.setInstanceAuth({
 <dd>
 
 **request:** `Klavis.SetAuthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName) -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.getTools("server_name");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverName:** `string`
 
 </dd>
 </dl>
@@ -1434,7 +1482,7 @@ Returns a list of integration names as McpServerName types.
 <dd>
 
 ```typescript
-await client.user.getUserIntegrations("user_id");
+await client.user.getUserIntegrations("userId");
 ```
 
 </dd>
@@ -1497,7 +1545,7 @@ Get user information by user_id.
 <dd>
 
 ```typescript
-await client.user.getUserByUserId("user_id");
+await client.user.getUserByUserId("userId");
 ```
 
 </dd>
@@ -1562,7 +1610,7 @@ This operation will permanently remove all user data.
 <dd>
 
 ```typescript
-await client.user.deleteUserByUserId("user_id");
+await client.user.deleteUserByUserId("userId");
 ```
 
 </dd>
@@ -1698,7 +1746,7 @@ Includes token refresh handling if needed.
 <dd>
 
 ```typescript
-await client.user.getUserAuth("user_id", "server_name");
+await client.user.getUserAuth("userId", "Affinity");
 ```
 
 </dd>
@@ -1722,7 +1770,7 @@ await client.user.getUserAuth("user_id", "server_name");
 <dl>
 <dd>
 
-**serverName:** `string` — The name of the MCP server (e.g., 'GitHub', 'Jira')
+**serverName:** `Klavis.McpServerName` — The name of the MCP server (e.g., 'GitHub', 'Jira')
 
 </dd>
 </dl>
@@ -1771,7 +1819,7 @@ This will clear the stored authentication credentials, effectively unauthenticat
 <dd>
 
 ```typescript
-await client.user.deleteUserAuth("user_id", "server_name");
+await client.user.deleteUserAuth("userId", "Affinity");
 ```
 
 </dd>
@@ -1795,7 +1843,7 @@ await client.user.deleteUserAuth("user_id", "server_name");
 <dl>
 <dd>
 
-**serverName:** `string` — The name of the MCP server to delete authentication for (e.g., 'github', 'jira')
+**serverName:** `Klavis.McpServerName` — The name of the MCP server to delete authentication for (e.g., 'github', 'jira')
 
 </dd>
 </dl>
@@ -4592,6 +4640,110 @@ await client.oauth.authorizeOutlook({
 </dl>
 </details>
 
+## OnedriveOauth
+
+<details><summary><code>client.onedriveOauth.<a href="/src/api/resources/onedriveOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.AzureAdoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.onedriveOauth.refreshToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshTokenOauthOnedriveRefreshTokenPostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `OnedriveOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## OutlookOauth
+
+<details><summary><code>client.outlookOauth.<a href="/src/api/resources/outlookOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.AzureAdoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.outlookOauth.refreshToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshTokenOauthOutlookRefreshTokenPostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `OutlookOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## TeamsOauth
 
 <details><summary><code>client.teamsOauth.<a href="/src/api/resources/teamsOauth/client/Client.ts">authorizeTeams</a>({ ...params }) -> unknown</code></summary>
@@ -4626,6 +4778,56 @@ await client.teamsOauth.authorizeTeams({
 <dd>
 
 **request:** `Klavis.AuthorizeTeamsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `TeamsOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.teamsOauth.<a href="/src/api/resources/teamsOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.AzureAdoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.teamsOauth.refreshToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshTokenOauthTeamsRefreshTokenPostRequest`
 
 </dd>
 </dl>

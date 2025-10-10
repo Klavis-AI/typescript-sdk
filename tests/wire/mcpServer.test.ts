@@ -229,13 +229,13 @@ describe("McpServer", () => {
         };
         server
             .mockEndpoint()
-            .get("/mcp-server/strata/strataId/auth/serverName")
+            .get("/mcp-server/strata/strataId/auth/Affinity")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getStrataAuth("strataId", "serverName");
+        const response = await client.mcpServer.getStrataAuth("strataId", "Affinity");
         expect(response).toEqual({
             success: true,
             serverName: "serverName",
@@ -254,13 +254,13 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/mcp-server/strata/strataId/auth/serverName")
+            .delete("/mcp-server/strata/strataId/auth/Affinity")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.deleteStrataAuth("strataId", "serverName");
+        const response = await client.mcpServer.deleteStrataAuth("strataId", "Affinity");
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -356,13 +356,13 @@ describe("McpServer", () => {
         };
         server
             .mockEndpoint()
-            .get("/mcp-server/instance/instance_id")
+            .get("/mcp-server/instance/instanceId")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getServerInstance("instance_id");
+        const response = await client.mcpServer.getServerInstance("instanceId");
         expect(response).toEqual({
             instanceId: "instanceId",
             authNeeded: true,
@@ -381,13 +381,13 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/mcp-server/instance/instance_id")
+            .delete("/mcp-server/instance/instanceId")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.deleteServerInstance("instance_id");
+        const response = await client.mcpServer.deleteServerInstance("instanceId");
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -401,13 +401,13 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, authData: { key: "value" }, error: "error" };
         server
             .mockEndpoint()
-            .get("/mcp-server/instance/instance_id/auth")
+            .get("/mcp-server/instance/instanceId/auth")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getInstanceAuthData("instance_id");
+        const response = await client.mcpServer.getInstanceAuthData("instanceId");
         expect(response).toEqual({
             success: true,
             authData: {
@@ -424,33 +424,33 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/mcp-server/instance/instance_id/auth")
+            .delete("/mcp-server/instance/instanceId/auth")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.deleteInstanceAuth("instance_id");
+        const response = await client.mcpServer.deleteInstanceAuth("instanceId");
         expect(response).toEqual({
             success: true,
             message: "message",
         });
     });
 
-    test("get_tools", async () => {
+    test("getServerTools", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, tools: [{ key: "value" }], format: "openai", error: "error" };
         server
             .mockEndpoint()
-            .get("/mcp-server/tools/server_name")
+            .get("/mcp-server/tools/serverName")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getTools("server_name");
+        const response = await client.mcpServer.getServerTools("serverName");
         expect(response).toEqual({
             success: true,
             tools: [
@@ -527,6 +527,16 @@ describe("McpServer", () => {
             success: true,
             message: "message",
         });
+    });
+
+    test("get_tools", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        server.mockEndpoint().get("/mcp-server/tools/server_name").respondWith().statusCode(200).build();
+
+        const response = await client.mcpServer.getTools("server_name");
+        expect(response).toEqual(undefined);
     });
 
     test("get_oauth_url", async () => {

@@ -13,13 +13,13 @@ describe("User", () => {
         const rawResponseBody = { integrations: ["Affinity"] };
         server
             .mockEndpoint()
-            .get("/user/user_id/integrations")
+            .get("/user/userId/integrations")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.user.getUserIntegrations("user_id");
+        const response = await client.user.getUserIntegrations("userId");
         expect(response).toEqual({
             integrations: ["Affinity"],
         });
@@ -29,14 +29,14 @@ describe("User", () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { user_id: "user_id", created_at: "created_at", last_used_at: "last_used_at" };
-        server.mockEndpoint().get("/user/user_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        const rawResponseBody = { userId: "userId", createdAt: "createdAt", lastUsedAt: "lastUsedAt" };
+        server.mockEndpoint().get("/user/userId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.user.getUserByUserId("user_id");
+        const response = await client.user.getUserByUserId("userId");
         expect(response).toEqual({
-            user_id: "user_id",
-            created_at: "created_at",
-            last_used_at: "last_used_at",
+            userId: "userId",
+            createdAt: "createdAt",
+            lastUsedAt: "lastUsedAt",
         });
     });
 
@@ -45,9 +45,9 @@ describe("User", () => {
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
         const rawResponseBody = { success: true, message: "message" };
-        server.mockEndpoint().delete("/user/user_id").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server.mockEndpoint().delete("/user/userId").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.user.deleteUserByUserId("user_id");
+        const response = await client.user.deleteUserByUserId("userId");
         expect(response).toEqual({
             success: true,
             message: "message",
@@ -93,13 +93,13 @@ describe("User", () => {
         };
         server
             .mockEndpoint()
-            .get("/user/user_id/auth/server_name")
+            .get("/user/userId/auth/Affinity")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.user.getUserAuth("user_id", "server_name");
+        const response = await client.user.getUserAuth("userId", "Affinity");
         expect(response).toEqual({
             success: true,
             userId: "userId",
@@ -119,13 +119,13 @@ describe("User", () => {
         const rawResponseBody = { success: true, message: "message" };
         server
             .mockEndpoint()
-            .delete("/user/user_id/auth/server_name")
+            .delete("/user/userId/auth/Affinity")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.user.deleteUserAuth("user_id", "server_name");
+        const response = await client.user.deleteUserAuth("userId", "Affinity");
         expect(response).toEqual({
             success: true,
             message: "message",

@@ -9,7 +9,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
-export declare namespace TeamsOauth {
+export declare namespace OutlookOauth {
     export interface Options {
         environment?: core.Supplier<environments.KlavisEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -32,127 +32,35 @@ export declare namespace TeamsOauth {
     }
 }
 
-export class TeamsOauth {
-    protected readonly _options: TeamsOauth.Options;
+export class OutlookOauth {
+    protected readonly _options: OutlookOauth.Options;
 
-    constructor(_options: TeamsOauth.Options = {}) {
+    constructor(_options: OutlookOauth.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * @param {Klavis.AuthorizeTeamsRequest} request
-     * @param {TeamsOauth.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.teamsOauth.authorizeTeams({
-     *         instance_id: "instance_id"
-     *     })
-     */
-    public authorizeTeams(
-        request: Klavis.AuthorizeTeamsRequest,
-        requestOptions?: TeamsOauth.RequestOptions,
-    ): core.HttpResponsePromise<unknown> {
-        return core.HttpResponsePromise.fromPromise(this.__authorizeTeams(request, requestOptions));
-    }
-
-    private async __authorizeTeams(
-        request: Klavis.AuthorizeTeamsRequest,
-        requestOptions?: TeamsOauth.RequestOptions,
-    ): Promise<core.WithRawResponse<unknown>> {
-        const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        _queryParams["instance_id"] = instanceId;
-        if (clientId != null) {
-            _queryParams["client_id"] = clientId;
-        }
-
-        if (scope != null) {
-            _queryParams["scope"] = scope;
-        }
-
-        if (redirectUrl != null) {
-            _queryParams["redirect_url"] = redirectUrl;
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                "oauth/teams/authorize",
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/teams/authorize.");
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * @param {Klavis.RefreshTokenOauthTeamsRefreshTokenPostRequest} request
-     * @param {TeamsOauth.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Klavis.RefreshTokenOauthOutlookRefreshTokenPostRequest} request
+     * @param {OutlookOauth.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.BadRequestError}
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.teamsOauth.refreshToken({
+     *     await client.outlookOauth.refreshToken({
      *         instance_id: "instance_id"
      *     })
      */
     public refreshToken(
-        request: Klavis.RefreshTokenOauthTeamsRefreshTokenPostRequest,
-        requestOptions?: TeamsOauth.RequestOptions,
+        request: Klavis.RefreshTokenOauthOutlookRefreshTokenPostRequest,
+        requestOptions?: OutlookOauth.RequestOptions,
     ): core.HttpResponsePromise<Klavis.AzureAdoAuthSuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__refreshToken(request, requestOptions));
     }
 
     private async __refreshToken(
-        request: Klavis.RefreshTokenOauthTeamsRefreshTokenPostRequest,
-        requestOptions?: TeamsOauth.RequestOptions,
+        request: Klavis.RefreshTokenOauthOutlookRefreshTokenPostRequest,
+        requestOptions?: OutlookOauth.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.AzureAdoAuthSuccessResponse>> {
         const { instance_id: instanceId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -162,7 +70,7 @@ export class TeamsOauth {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "oauth/teams/refresh_token",
+                "oauth/outlook/refresh_token",
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -208,7 +116,7 @@ export class TeamsOauth {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /oauth/teams/refresh_token.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /oauth/outlook/refresh_token.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

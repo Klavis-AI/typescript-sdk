@@ -9,6 +9,8 @@ import { McpServer } from "./api/resources/mcpServer/client/Client.js";
 import { WhiteLabeling } from "./api/resources/whiteLabeling/client/Client.js";
 import { User } from "./api/resources/user/client/Client.js";
 import { Oauth } from "./api/resources/oauth/client/Client.js";
+import { OnedriveOauth } from "./api/resources/onedriveOauth/client/Client.js";
+import { OutlookOauth } from "./api/resources/outlookOauth/client/Client.js";
 import { TeamsOauth } from "./api/resources/teamsOauth/client/Client.js";
 
 export declare namespace KlavisClient {
@@ -40,6 +42,8 @@ export class KlavisClient {
     protected _whiteLabeling: WhiteLabeling | undefined;
     protected _user: User | undefined;
     protected _oauth: Oauth | undefined;
+    protected _onedriveOauth: OnedriveOauth | undefined;
+    protected _outlookOauth: OutlookOauth | undefined;
     protected _teamsOauth: TeamsOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
@@ -73,6 +77,14 @@ export class KlavisClient {
 
     public get oauth(): Oauth {
         return (this._oauth ??= new Oauth(this._options));
+    }
+
+    public get onedriveOauth(): OnedriveOauth {
+        return (this._onedriveOauth ??= new OnedriveOauth(this._options));
+    }
+
+    public get outlookOauth(): OutlookOauth {
+        return (this._outlookOauth ??= new OutlookOauth(this._options));
     }
 
     public get teamsOauth(): TeamsOauth {

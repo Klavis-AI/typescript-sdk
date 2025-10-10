@@ -18,7 +18,7 @@ export interface StrataCreateRequest {
     /** Optional list of external MCP servers to add with their URLs. Each server will be validated before being added. */
     externalServers?: Klavis.ExternalServerRequest[];
     /** Whether to enable authentication handling. Default is True. */
-    enable_auth_handling?: boolean;
+    enableAuthHandling?: boolean;
 }
 
 export namespace StrataCreateRequest {

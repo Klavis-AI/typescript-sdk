@@ -5,28 +5,7 @@
 import { mockServerPool } from "../mock-server/MockServerPool.js";
 import { KlavisClient } from "../../src/Client";
 
-describe("TeamsOauth", () => {
-    test("authorizeTeams", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .get("/oauth/teams/authorize")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.teamsOauth.authorizeTeams({
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            key: "value",
-        });
-    });
-
+describe("OutlookOauth", () => {
     test("refreshToken", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
@@ -34,13 +13,13 @@ describe("TeamsOauth", () => {
         const rawResponseBody = { status: "status", message: "message", data: { key: "value" } };
         server
             .mockEndpoint()
-            .post("/oauth/teams/refresh_token")
+            .post("/oauth/outlook/refresh_token")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.teamsOauth.refreshToken({
+        const response = await client.outlookOauth.refreshToken({
             instance_id: "instance_id",
         });
         expect(response).toEqual({

@@ -1,4 +1,6 @@
 export * from "./ApiKeyAuth.js";
+export * from "./AzureAdoAuthErrorResponse.js";
+export * from "./AzureAdoAuthSuccessResponse.js";
 export * from "./CallToolResponse.js";
 export * from "./CallToolResult.js";
 export * from "./ConnectionType.js";

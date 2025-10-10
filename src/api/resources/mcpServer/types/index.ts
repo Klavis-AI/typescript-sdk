@@ -1,2 +1,2 @@
 export * from "./DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequestServersItem.js";
-export * from "./McpServerGetToolsResponse.js";
+export * from "./GetServerToolsResponse.js";

@@ -4,4 +4,4 @@
 
 import * as Klavis from "../../../index.js";
 
-export type McpServerGetToolsResponse = Klavis.ListToolsResponse | Klavis.MultiServerToolsResponse;
+export type GetServerToolsResponse = Klavis.ListToolsResponse | Klavis.MultiServerToolsResponse;

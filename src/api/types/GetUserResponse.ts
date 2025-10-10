@@ -3,7 +3,7 @@
  */
 
 export interface GetUserResponse {
-    user_id: string;
-    created_at: string;
-    last_used_at?: string;
+    userId: string;
+    createdAt: string;
+    lastUsedAt?: string;
 }
