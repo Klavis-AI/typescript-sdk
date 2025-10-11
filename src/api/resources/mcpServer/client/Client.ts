@@ -1334,10 +1334,14 @@ export class McpServer {
         request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.ListToolsResponse>> {
-        const { format } = request;
+        const { format, legacy } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         if (format != null) {
             _queryParams["format"] = format;
+        }
+
+        if (legacy != null) {
+            _queryParams["legacy"] = legacy.toString();
         }
 
         const _response = await (this._options.fetcher ?? core.fetcher)({

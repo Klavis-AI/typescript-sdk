@@ -13,4 +13,8 @@ export interface McpServerGetToolsRequest {
      * The format to return tools in. Default is MCP Native format for maximum compatibility.
      */
     format?: Klavis.ToolFormat;
+    /**
+     * Whether to use the legacy server. Default is False.
+     */
+    legacy?: boolean;
 }
