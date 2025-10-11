@@ -444,13 +444,13 @@ describe("McpServer", () => {
         const rawResponseBody = { success: true, tools: [{ key: "value" }], format: "openai", error: "error" };
         server
             .mockEndpoint()
-            .get("/mcp-server/tools/serverName")
+            .get("/mcp-server/tools/Affinity")
             .respondWith()
             .statusCode(200)
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getServerTools("serverName");
+        const response = await client.mcpServer.getServerTools("Affinity");
         expect(response).toEqual({
             success: true,
             tools: [

@@ -4044,6 +4044,98 @@ export class Oauth {
         }
     }
 
+    /**
+     * @param {Klavis.OauthAuthorizeTeamsRequest} request
+     * @param {Oauth.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.oauth.authorizeTeams({
+     *         instance_id: "instance_id"
+     *     })
+     */
+    public authorizeTeams(
+        request: Klavis.OauthAuthorizeTeamsRequest,
+        requestOptions?: Oauth.RequestOptions,
+    ): core.HttpResponsePromise<unknown> {
+        return core.HttpResponsePromise.fromPromise(this.__authorizeTeams(request, requestOptions));
+    }
+
+    private async __authorizeTeams(
+        request: Klavis.OauthAuthorizeTeamsRequest,
+        requestOptions?: Oauth.RequestOptions,
+    ): Promise<core.WithRawResponse<unknown>> {
+        const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["instance_id"] = instanceId;
+        if (clientId != null) {
+            _queryParams["client_id"] = clientId;
+        }
+
+        if (scope != null) {
+            _queryParams["scope"] = scope;
+        }
+
+        if (redirectUrl != null) {
+            _queryParams["redirect_url"] = redirectUrl;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "oauth/teams/authorize",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/teams/authorize.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getAuthorizationHeader(): Promise<string | undefined> {
         const bearer = await core.Supplier.get(this._options.apiKey);
         if (bearer != null) {

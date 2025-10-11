@@ -1037,7 +1037,7 @@ await client.mcpServer.deleteInstanceAuth("instanceId");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getServerTools</a>(serverName, { ...params }) -> Klavis.GetServerToolsResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getServerTools</a>(serverName, { ...params }) -> Klavis.ListToolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1049,7 +1049,7 @@ await client.mcpServer.deleteInstanceAuth("instanceId");
 <dl>
 <dd>
 
-Get tools information for one or multiple MCP servers.
+Get tools information for any MCP server.
 
 </dd>
 </dl>
@@ -1065,7 +1065,7 @@ Get tools information for one or multiple MCP servers.
 <dd>
 
 ```typescript
-await client.mcpServer.getServerTools("serverName");
+await client.mcpServer.getServerTools("Affinity");
 ```
 
 </dd>
@@ -1081,7 +1081,7 @@ await client.mcpServer.getServerTools("serverName");
 <dl>
 <dd>
 
-**serverName:** `string` — The name of the target MCP server. Case-insensitive. Provide a comma-separated list (e.g., 'google calendar,slack') to fetch tools for multiple servers.
+**serverName:** `Klavis.McpServerName` — The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
 
 </dd>
 </dl>
@@ -1120,7 +1120,7 @@ await client.mcpServer.getServerTools("serverName");
 <dl>
 <dd>
 
-Get all MCP servers with their basic information including id, name, and description.
+Get all MCP servers with their basic information including id, name, description, and tools.
 
 </dd>
 </dl>
@@ -4640,6 +4640,56 @@ await client.oauth.authorizeOutlook({
 </dl>
 </details>
 
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeTeams</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.oauth.authorizeTeams({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.OauthAuthorizeTeamsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Oauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## OnedriveOauth
 
 <details><summary><code>client.onedriveOauth.<a href="/src/api/resources/onedriveOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.AzureAdoAuthSuccessResponse</code></summary>
@@ -4745,56 +4795,6 @@ await client.outlookOauth.refreshToken({
 </details>
 
 ## TeamsOauth
-
-<details><summary><code>client.teamsOauth.<a href="/src/api/resources/teamsOauth/client/Client.ts">authorizeTeams</a>({ ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.teamsOauth.authorizeTeams({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.AuthorizeTeamsRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `TeamsOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
 
 <details><summary><code>client.teamsOauth.<a href="/src/api/resources/teamsOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.AzureAdoAuthSuccessResponse</code></summary>
 <dl>

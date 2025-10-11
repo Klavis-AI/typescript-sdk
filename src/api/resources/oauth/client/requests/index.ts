@@ -38,3 +38,4 @@ export { type OauthAuthorizeDialpadRequest } from "./OauthAuthorizeDialpadReques
 export { type OauthAuthorizeShopifyRequest } from "./OauthAuthorizeShopifyRequest.js";
 export { type OauthAuthorizeOnedriveRequest } from "./OauthAuthorizeOnedriveRequest.js";
 export { type OauthAuthorizeOutlookRequest } from "./OauthAuthorizeOutlookRequest.js";
+export { type OauthAuthorizeTeamsRequest } from "./OauthAuthorizeTeamsRequest.js";

@@ -8,7 +8,7 @@
  *         instance_id: "instance_id"
  *     }
  */
-export interface AuthorizeTeamsRequest {
+export interface OauthAuthorizeTeamsRequest {
     /**
      * Unique identifier for the client instance requesting authorization
      */
