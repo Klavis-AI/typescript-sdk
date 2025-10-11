@@ -437,7 +437,7 @@ describe("McpServer", () => {
         });
     });
 
-    test("getServerTools", async () => {
+    test("get_tools", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -450,7 +450,7 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getServerTools("Affinity");
+        const response = await client.mcpServer.getTools("Affinity");
         expect(response).toEqual({
             success: true,
             tools: [
@@ -527,16 +527,6 @@ describe("McpServer", () => {
             success: true,
             message: "message",
         });
-    });
-
-    test("get_tools", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        server.mockEndpoint().get("/mcp-server/tools/server_name").respondWith().statusCode(200).build();
-
-        const response = await client.mcpServer.getTools("server_name");
-        expect(response).toEqual(undefined);
     });
 
     test("get_oauth_url", async () => {

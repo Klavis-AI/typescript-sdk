@@ -1037,7 +1037,7 @@ await client.mcpServer.deleteInstanceAuth("instanceId");
 </dl>
 </details>
 
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getServerTools</a>(serverName, { ...params }) -> Klavis.ListToolsResponse</code></summary>
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName, { ...params }) -> Klavis.ListToolsResponse</code></summary>
 <dl>
 <dd>
 
@@ -1065,7 +1065,7 @@ Get tools information for any MCP server.
 <dd>
 
 ```typescript
-await client.mcpServer.getServerTools("Affinity");
+await client.mcpServer.getTools("Affinity");
 ```
 
 </dd>
@@ -1089,7 +1089,7 @@ await client.mcpServer.getServerTools("Affinity");
 <dl>
 <dd>
 
-**request:** `Klavis.GetServerToolsRequest`
+**request:** `Klavis.McpServerGetToolsRequest`
 
 </dd>
 </dl>
@@ -1213,54 +1213,6 @@ await client.mcpServer.setInstanceAuth({
 <dd>
 
 **request:** `Klavis.SetAuthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `McpServer.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getTools</a>(serverName) -> void</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.mcpServer.getTools("server_name");
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**serverName:** `string`
 
 </dd>
 </dl>

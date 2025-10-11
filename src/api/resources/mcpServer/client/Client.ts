@@ -1313,25 +1313,25 @@ export class McpServer {
      * Get tools information for any MCP server.
      *
      * @param {Klavis.McpServerName} serverName - The name of the target MCP server. Case-insensitive (e.g., 'google calendar', 'GOOGLE_CALENDAR', 'Google Calendar' are all valid).
-     * @param {Klavis.GetServerToolsRequest} request
+     * @param {Klavis.McpServerGetToolsRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getServerTools("Affinity")
+     *     await client.mcpServer.getTools("Affinity")
      */
-    public getServerTools(
+    public getTools(
         serverName: Klavis.McpServerName,
-        request: Klavis.GetServerToolsRequest = {},
+        request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): core.HttpResponsePromise<Klavis.ListToolsResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__getServerTools(serverName, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__getTools(serverName, request, requestOptions));
     }
 
-    private async __getServerTools(
+    private async __getTools(
         serverName: Klavis.McpServerName,
-        request: Klavis.GetServerToolsRequest = {},
+        request: Klavis.McpServerGetToolsRequest = {},
         requestOptions?: McpServer.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.ListToolsResponse>> {
         const { format } = request;
@@ -1537,69 +1537,6 @@ export class McpServer {
             case "timeout":
                 throw new errors.KlavisTimeoutError(
                     "Timeout exceeded when calling POST /mcp-server/instance/set-auth.",
-                );
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
-     * @param {string} serverName
-     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @example
-     *     await client.mcpServer.getTools("server_name")
-     */
-    public getTools(serverName: string, requestOptions?: McpServer.RequestOptions): core.HttpResponsePromise<void> {
-        return core.HttpResponsePromise.fromPromise(this.__getTools(serverName, requestOptions));
-    }
-
-    private async __getTools(
-        serverName: string,
-        requestOptions?: McpServer.RequestOptions,
-    ): Promise<core.WithRawResponse<void>> {
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                `mcp-server/tools/${encodeURIComponent(serverName)}`,
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: undefined, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            throw new errors.KlavisError({
-                statusCode: _response.error.statusCode,
-                body: _response.error.body,
-                rawResponse: _response.rawResponse,
-            });
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling GET /mcp-server/tools/{server_name}.",
                 );
             case "unknown":
                 throw new errors.KlavisError({

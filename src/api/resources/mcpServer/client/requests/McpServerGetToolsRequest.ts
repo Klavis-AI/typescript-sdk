@@ -8,7 +8,7 @@ import * as Klavis from "../../../../index.js";
  * @example
  *     {}
  */
-export interface GetServerToolsRequest {
+export interface McpServerGetToolsRequest {
     /**
      * The format to return tools in. Default is MCP Native format for maximum compatibility.
      */
