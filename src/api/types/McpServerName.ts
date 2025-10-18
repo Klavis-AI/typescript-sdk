@@ -22,6 +22,7 @@ export type McpServerName =
     | "Dropbox"
     | "ElevenLabs"
     | "Exa"
+    | "Fathom"
     | "Figma"
     | "Fireflies"
     | "Firecrawl Deep Research"
@@ -95,6 +96,7 @@ export const McpServerName = {
     Dropbox: "Dropbox",
     ElevenLabs: "ElevenLabs",
     Exa: "Exa",
+    Fathom: "Fathom",
     Figma: "Figma",
     Fireflies: "Fireflies",
     FirecrawlDeepResearch: "Firecrawl Deep Research",

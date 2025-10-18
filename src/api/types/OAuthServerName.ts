@@ -15,6 +15,7 @@ export type OAuthServerName =
     | "Dialpad"
     | "DocuSign"
     | "Dropbox"
+    | "Fathom"
     | "Figma"
     | "GitHub"
     | "GitLab"
@@ -59,6 +60,7 @@ export const OAuthServerName = {
     Dialpad: "Dialpad",
     DocuSign: "DocuSign",
     Dropbox: "Dropbox",
+    Fathom: "Fathom",
     Figma: "Figma",
     GitHub: "GitHub",
     GitLab: "GitLab",

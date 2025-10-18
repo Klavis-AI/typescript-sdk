@@ -4136,6 +4136,206 @@ export class Oauth {
         }
     }
 
+    /**
+     * Start Fathom OAuth flow
+     *
+     * Parameters:
+     * - instance_id: Identifier for the instance requesting authorization
+     * - client_id: Optional client ID for white labeling
+     * - scope: Optional scopes to request
+     * - redirect_url: Optional URL to redirect to after authorization completes
+     *
+     * @param {Klavis.OauthAuthorizeFathomRequest} request
+     * @param {Oauth.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.oauth.authorizeFathom({
+     *         instance_id: "instance_id"
+     *     })
+     */
+    public authorizeFathom(
+        request: Klavis.OauthAuthorizeFathomRequest,
+        requestOptions?: Oauth.RequestOptions,
+    ): core.HttpResponsePromise<unknown> {
+        return core.HttpResponsePromise.fromPromise(this.__authorizeFathom(request, requestOptions));
+    }
+
+    private async __authorizeFathom(
+        request: Klavis.OauthAuthorizeFathomRequest,
+        requestOptions?: Oauth.RequestOptions,
+    ): Promise<core.WithRawResponse<unknown>> {
+        const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["instance_id"] = instanceId;
+        if (clientId != null) {
+            _queryParams["client_id"] = clientId;
+        }
+
+        if (scope != null) {
+            _queryParams["scope"] = scope;
+        }
+
+        if (redirectUrl != null) {
+            _queryParams["redirect_url"] = redirectUrl;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "oauth/fathom/authorize",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/fathom/authorize.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Start Monday OAuth flow
+     *
+     * Parameters:
+     * - instance_id: Identifier for the instance requesting authorization
+     * - client_id: Optional client ID for white labeling
+     * - scope: Optional scopes to request (space-separated)
+     * - redirect_url: Optional URL to redirect to after authorization completes
+     *
+     * @param {Klavis.OauthAuthorizeMondayRequest} request
+     * @param {Oauth.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.oauth.authorizeMonday({
+     *         instance_id: "instance_id"
+     *     })
+     */
+    public authorizeMonday(
+        request: Klavis.OauthAuthorizeMondayRequest,
+        requestOptions?: Oauth.RequestOptions,
+    ): core.HttpResponsePromise<unknown> {
+        return core.HttpResponsePromise.fromPromise(this.__authorizeMonday(request, requestOptions));
+    }
+
+    private async __authorizeMonday(
+        request: Klavis.OauthAuthorizeMondayRequest,
+        requestOptions?: Oauth.RequestOptions,
+    ): Promise<core.WithRawResponse<unknown>> {
+        const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["instance_id"] = instanceId;
+        if (clientId != null) {
+            _queryParams["client_id"] = clientId;
+        }
+
+        if (scope != null) {
+            _queryParams["scope"] = scope;
+        }
+
+        if (redirectUrl != null) {
+            _queryParams["redirect_url"] = redirectUrl;
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "oauth/monday/authorize",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/monday/authorize.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
     protected async _getAuthorizationHeader(): Promise<string | undefined> {
         const bearer = await core.Supplier.get(this._options.apiKey);
         if (bearer != null) {

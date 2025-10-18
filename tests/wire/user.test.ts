@@ -54,6 +54,34 @@ describe("User", () => {
         });
     });
 
+    test("getAllUsers", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            users: [{ userId: "userId", createdAt: "createdAt" }],
+            totalCount: 1,
+            page: 1,
+            pageSize: 1,
+            totalPages: 1,
+        };
+        server.mockEndpoint().get("/user/").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+
+        const response = await client.user.getAllUsers();
+        expect(response).toEqual({
+            users: [
+                {
+                    userId: "userId",
+                    createdAt: "createdAt",
+                },
+            ],
+            totalCount: 1,
+            page: 1,
+            pageSize: 1,
+            totalPages: 1,
+        });
+    });
+
     test("setUserAuth", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });

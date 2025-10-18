@@ -425,6 +425,79 @@ await client.mcpServer.getStrataServer("strataId");
 </dl>
 </details>
 
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">listStrataRawActions</a>(strataId, { ...params }) -> Klavis.StrataRawActionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch raw actions (all underlying actions) for a specific integration within a Strata MCP instance.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.listStrataRawActions("strataId", {
+    server: "Affinity",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**strataId:** `string` — The strata server ID
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getStrataAuth</a>(strataId, serverName) -> Klavis.StrataGetAuthResponse</code></summary>
 <dl>
 <dd>
@@ -656,6 +729,7 @@ Creates a URL for a specified MCP server,
 validating the request with an API key and user details.
 Returns the existing server URL if it already exists for the user.
 If OAuth is configured for the server, also returns the base OAuth authorization URL.
+Note that some servers have hundreds of tools and therefore only expose the Strata tools.
 
 </dd>
 </dl>
@@ -1579,6 +1653,69 @@ await client.user.deleteUserByUserId("userId");
 <dd>
 
 **userId:** `string` — The identifier for the user to delete.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `User.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.user.<a href="/src/api/resources/user/client/Client.ts">getAllUsers</a>({ ...params }) -> Klavis.GetAllUsersResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve all users that have been created under your account, with support for pagination.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.user.getAllUsers();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GetAllUsersRequest`
 
 </dd>
 </dl>
@@ -4624,6 +4761,148 @@ await client.oauth.authorizeTeams({
 <dd>
 
 **request:** `Klavis.OauthAuthorizeTeamsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Oauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeFathom</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Fathom OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.oauth.authorizeFathom({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.OauthAuthorizeFathomRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Oauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeMonday</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Monday OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (space-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.oauth.authorizeMonday({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.OauthAuthorizeMondayRequest`
 
 </dd>
 </dl>

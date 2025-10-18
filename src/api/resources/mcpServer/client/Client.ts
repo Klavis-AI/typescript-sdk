@@ -565,6 +565,93 @@ export class McpServer {
     }
 
     /**
+     * Fetch raw actions (all underlying actions) for a specific integration within a Strata MCP instance.
+     *
+     * @param {string} strataId - The strata server ID
+     * @param {Klavis.ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.listStrataRawActions("strataId", {
+     *         server: "Affinity"
+     *     })
+     */
+    public listStrataRawActions(
+        strataId: string,
+        request: Klavis.ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.StrataRawActionsResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__listStrataRawActions(strataId, request, requestOptions));
+    }
+
+    private async __listStrataRawActions(
+        strataId: string,
+        request: Klavis.ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest,
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.StrataRawActionsResponse>> {
+        const { server } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        _queryParams["server"] = server;
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/strata/${encodeURIComponent(strataId)}/raw-actions`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.StrataRawActionsResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /mcp-server/strata/{strataId}/raw-actions.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Retrieves authentication data for a specific integration within a Strata MCP server.
      *
      * Returns the authentication data if available, along with authentication status.
@@ -820,6 +907,7 @@ export class McpServer {
      * validating the request with an API key and user details.
      * Returns the existing server URL if it already exists for the user.
      * If OAuth is configured for the server, also returns the base OAuth authorization URL.
+     * Note that some servers have hundreds of tools and therefore only expose the Strata tools.
      *
      * @param {Klavis.CreateServerRequest} request
      * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.

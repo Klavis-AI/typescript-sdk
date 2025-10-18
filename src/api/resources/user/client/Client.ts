@@ -271,6 +271,93 @@ export class User {
     }
 
     /**
+     * Retrieve all users that have been created under your account, with support for pagination.
+     *
+     * @param {Klavis.GetAllUsersRequest} request
+     * @param {User.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.user.getAllUsers()
+     */
+    public getAllUsers(
+        request: Klavis.GetAllUsersRequest = {},
+        requestOptions?: User.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.GetAllUsersResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__getAllUsers(request, requestOptions));
+    }
+
+    private async __getAllUsers(
+        request: Klavis.GetAllUsersRequest = {},
+        requestOptions?: User.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.GetAllUsersResponse>> {
+        const { page_size: pageSize, page_number: pageNumber } = request;
+        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
+        if (pageSize != null) {
+            _queryParams["page_size"] = pageSize.toString();
+        }
+
+        if (pageNumber != null) {
+            _queryParams["page_number"] = pageNumber.toString();
+        }
+
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "user/",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            queryParameters: _queryParams,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.GetAllUsersResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /user/.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Sets authentication data for a specific integration for a user.
      *
      * Accepts either API key authentication or general authentication data.

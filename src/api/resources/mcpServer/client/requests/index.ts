@@ -3,6 +3,7 @@ export { type ListToolsRequest } from "./ListToolsRequest.js";
 export { type StrataCreateRequest } from "./StrataCreateRequest.js";
 export { type StrataAddServersRequest } from "./StrataAddServersRequest.js";
 export { type DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest } from "./DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest.js";
+export { type ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest } from "./ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest.js";
 export { type StrataSetAuthRequest } from "./StrataSetAuthRequest.js";
 export { type CreateServerRequest } from "./CreateServerRequest.js";
 export { type CreateSelfHostedServerRequest } from "./CreateSelfHostedServerRequest.js";

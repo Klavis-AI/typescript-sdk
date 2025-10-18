@@ -39,3 +39,5 @@ export { type OauthAuthorizeShopifyRequest } from "./OauthAuthorizeShopifyReques
 export { type OauthAuthorizeOnedriveRequest } from "./OauthAuthorizeOnedriveRequest.js";
 export { type OauthAuthorizeOutlookRequest } from "./OauthAuthorizeOutlookRequest.js";
 export { type OauthAuthorizeTeamsRequest } from "./OauthAuthorizeTeamsRequest.js";
+export { type OauthAuthorizeFathomRequest } from "./OauthAuthorizeFathomRequest.js";
+export { type OauthAuthorizeMondayRequest } from "./OauthAuthorizeMondayRequest.js";
