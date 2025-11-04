@@ -5,7 +5,11 @@
 /**
  * @example
  *     {
- *         instance_id: "instance_id"
+ *         instance_id: "instance_id",
+ *         client_id: "client_id",
+ *         scope: "scope",
+ *         redirect_url: "redirect_url",
+ *         instance_url: "instance_url"
  *     }
  */
 export interface OauthAuthorizeSalesforceRequest {

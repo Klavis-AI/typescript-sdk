@@ -35,7 +35,6 @@ export { type OauthAuthorizeKlaviyoRequest } from "./OauthAuthorizeKlaviyoReques
 export { type OauthAuthorizePagerdutyRequest } from "./OauthAuthorizePagerdutyRequest.js";
 export { type OauthAuthorizeDocusignRequest } from "./OauthAuthorizeDocusignRequest.js";
 export { type OauthAuthorizeDialpadRequest } from "./OauthAuthorizeDialpadRequest.js";
-export { type OauthAuthorizeShopifyRequest } from "./OauthAuthorizeShopifyRequest.js";
 export { type OauthAuthorizeOnedriveRequest } from "./OauthAuthorizeOnedriveRequest.js";
 export { type OauthAuthorizeOutlookRequest } from "./OauthAuthorizeOutlookRequest.js";
 export { type OauthAuthorizeTeamsRequest } from "./OauthAuthorizeTeamsRequest.js";

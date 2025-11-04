@@ -5,7 +5,12 @@
 /**
  * @example
  *     {
- *         instance_id: "instance_id"
+ *         instance_id: "instance_id",
+ *         client_id: "client_id",
+ *         scope: "scope",
+ *         redirect_url: "redirect_url",
+ *         code_challenge: "code_challenge",
+ *         code_challenge_method: "code_challenge_method"
  *     }
  */
 export interface OauthAuthorizeDialpadRequest {

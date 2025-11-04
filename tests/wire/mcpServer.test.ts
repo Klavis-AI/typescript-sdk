@@ -79,7 +79,7 @@ describe("McpServer", () => {
             strataServerUrl: "strataServerUrl",
             strataId: "strataId",
             addedServers: ["addedServers"],
-            addedExternalServers: [{ name: "name", url: "url" }],
+            addedExternalServers: [{ name: "name", url: "url", headers: {} }],
             oauthUrls: { key: "value" },
             apiKeyUrls: { key: "value" },
         };
@@ -103,6 +103,7 @@ describe("McpServer", () => {
                 {
                     name: "name",
                     url: "url",
+                    headers: {},
                 },
             ],
             oauthUrls: {
@@ -120,7 +121,7 @@ describe("McpServer", () => {
         const rawRequestBody = { strataId: "strataId" };
         const rawResponseBody = {
             addedServers: ["addedServers"],
-            addedExternalServers: [{ name: "name", url: "url" }],
+            addedExternalServers: [{ name: "name", url: "url", headers: {} }],
             oauthUrls: { key: "value" },
             apiKeyUrls: { key: "value" },
         };
@@ -142,6 +143,7 @@ describe("McpServer", () => {
                 {
                     name: "name",
                     url: "url",
+                    headers: {},
                 },
             ],
             oauthUrls: {
@@ -169,7 +171,9 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.deleteServersFromStrata("strataId");
+        const response = await client.mcpServer.deleteServersFromStrata("strataId", {
+            externalServers: "externalServers",
+        });
         expect(response).toEqual({
             deletedServers: ["deletedServers"],
             deletedExternalServers: ["deletedExternalServers"],
@@ -184,7 +188,7 @@ describe("McpServer", () => {
             strataServerUrl: "strataServerUrl",
             strataId: "strataId",
             connectedServers: ["connectedServers"],
-            connectedExternalServers: [{ name: "name", url: "url" }],
+            connectedExternalServers: [{ name: "name", url: "url", headers: {} }],
             oauthUrls: { key: "value" },
             apiKeyUrls: { key: "value" },
         };
@@ -205,6 +209,7 @@ describe("McpServer", () => {
                 {
                     name: "name",
                     url: "url",
+                    headers: {},
                 },
             ],
             oauthUrls: {
@@ -475,7 +480,10 @@ describe("McpServer", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.mcpServer.getTools("Affinity");
+        const response = await client.mcpServer.getTools("Affinity", {
+            format: "openai",
+            legacy: true,
+        });
         expect(response).toEqual({
             success: true,
             tools: [

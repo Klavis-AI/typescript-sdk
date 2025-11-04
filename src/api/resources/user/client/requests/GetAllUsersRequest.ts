@@ -4,7 +4,10 @@
 
 /**
  * @example
- *     {}
+ *     {
+ *         page_size: 1,
+ *         page_number: 1
+ *     }
  */
 export interface GetAllUsersRequest {
     /**

@@ -6,7 +6,10 @@
  * @example
  *     {
  *         instance_id: "instance_id",
- *         subdomain: "subdomain"
+ *         subdomain: "subdomain",
+ *         client_id: "client_id",
+ *         scope: "scope",
+ *         redirect_url: "redirect_url"
  *     }
  */
 export interface OauthAuthorizeZendeskRequest {

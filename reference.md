@@ -316,7 +316,9 @@ Returns separate lists for deleted Klavis servers and deleted external servers.
 <dd>
 
 ```typescript
-await client.mcpServer.deleteServersFromStrata("strataId");
+await client.mcpServer.deleteServersFromStrata("strataId", {
+    externalServers: "externalServers",
+});
 ```
 
 </dd>
@@ -1139,7 +1141,10 @@ Get tools information for any MCP server.
 <dd>
 
 ```typescript
-await client.mcpServer.getTools("Affinity");
+await client.mcpServer.getTools("Affinity", {
+    format: "openai",
+    legacy: true,
+});
 ```
 
 </dd>
@@ -1699,7 +1704,10 @@ Retrieve all users that have been created under your account, with support for p
 <dd>
 
 ```typescript
-await client.user.getAllUsers();
+await client.user.getAllUsers({
+    page_size: 1,
+    page_number: 1,
+});
 ```
 
 </dd>
@@ -1990,6 +1998,10 @@ Parameters:
 ```typescript
 await client.oauth.authorizeSlack({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    user_scope: "user_scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2061,6 +2073,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGithub({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2132,6 +2147,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGitlab({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2202,6 +2220,8 @@ Parameters:
 ```typescript
 await client.oauth.authorizeSupabase({
     instance_id: "instance_id",
+    client_id: "client_id",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2273,6 +2293,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeNotion({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2344,6 +2367,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeJira({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2415,6 +2441,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeConfluence({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2486,6 +2515,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeWordpress({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2557,6 +2589,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGmail({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2628,6 +2663,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGdrive({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2699,6 +2737,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGcalendar({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2770,6 +2811,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGsheets({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2841,6 +2885,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeGdocs({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2911,6 +2958,8 @@ Parameters:
 ```typescript
 await client.oauth.authorizeAttio({
     instance_id: "instance_id",
+    client_id: "client_id",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -2983,6 +3032,10 @@ Parameters:
 ```typescript
 await client.oauth.authorizeSalesforce({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+    instance_url: "instance_url",
 });
 ```
 
@@ -3054,6 +3107,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeAsana({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3125,6 +3181,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeLinear({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3196,6 +3255,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeClose({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3266,6 +3328,8 @@ Parameters:
 ```typescript
 await client.oauth.authorizeClickup({
     instance_id: "instance_id",
+    client_id: "client_id",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3337,6 +3401,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeAirtable({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3408,6 +3475,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeHubspot({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3479,6 +3549,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeLinkedin({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3550,6 +3623,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeCanva({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3621,6 +3697,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeXero({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3692,6 +3771,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeDropbox({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3757,6 +3839,9 @@ Start Box OAuth 2.0 flow
 ```typescript
 await client.oauth.authorizeBox({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3829,6 +3914,10 @@ Parameters:
 ```typescript
 await client.oauth.authorizeQuickbooks({
     instance_id: "instance_id",
+    client_id: "client_id",
+    environment: "sandbox",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3902,6 +3991,9 @@ Parameters:
 await client.oauth.authorizeZendesk({
     instance_id: "instance_id",
     subdomain: "subdomain",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -3973,6 +4065,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeStripe({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4043,6 +4138,8 @@ Parameters:
 ```typescript
 await client.oauth.authorizeCalcom({
     instance_id: "instance_id",
+    client_id: "client_id",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4114,6 +4211,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeVercel({
     instance_id: "instance_id",
+    client_id: "client_id",
+    client_slug: "client_slug",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4185,6 +4285,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizePipedrive({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4256,6 +4359,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeFigma({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4306,6 +4412,9 @@ await client.oauth.authorizeFigma({
 ```typescript
 await client.oauth.authorizeKlaviyo({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4377,6 +4486,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizePagerduty({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4448,6 +4560,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeDocusign({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4521,6 +4636,11 @@ Parameters:
 ```typescript
 await client.oauth.authorizeDialpad({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+    code_challenge: "code_challenge",
+    code_challenge_method: "code_challenge_method",
 });
 ```
 
@@ -4556,79 +4676,6 @@ await client.oauth.authorizeDialpad({
 </dl>
 </details>
 
-<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeShopify</a>({ ...params }) -> unknown</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Start Shopify OAuth flow
-
-Parameters:
-
-- instance_id: Identifier for the instance requesting authorization
-- shop: Shopify shop domain (e.g., mystore.myshopify.com)
-- client_id: Optional client ID for white labeling
-- scope: Optional scopes to request (comma-separated)
-- redirect_url: Optional URL to redirect to after authorization completes
-  </dd>
-  </dl>
-  </dd>
-  </dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.oauth.authorizeShopify({
-    instance_id: "instance_id",
-    shop: "shop",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.OauthAuthorizeShopifyRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `Oauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 <details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeOnedrive</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
@@ -4644,6 +4691,9 @@ await client.oauth.authorizeShopify({
 ```typescript
 await client.oauth.authorizeOnedrive({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4694,6 +4744,9 @@ await client.oauth.authorizeOnedrive({
 ```typescript
 await client.oauth.authorizeOutlook({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4744,6 +4797,9 @@ await client.oauth.authorizeOutlook({
 ```typescript
 await client.oauth.authorizeTeams({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4815,6 +4871,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeFathom({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4886,6 +4945,9 @@ Parameters:
 ```typescript
 await client.oauth.authorizeMonday({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -4906,6 +4968,46 @@ await client.oauth.authorizeMonday({
 
 </dd>
 </dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Oauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.oauth.<a href="/src/api/resources/oauth/client/Client.ts">authorizeShopify</a>() -> void</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.oauth.authorizeShopify();
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
 
 <dl>
 <dd>

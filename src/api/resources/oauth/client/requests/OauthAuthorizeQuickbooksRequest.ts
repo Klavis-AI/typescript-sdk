@@ -7,7 +7,11 @@ import * as Klavis from "../../../../index.js";
 /**
  * @example
  *     {
- *         instance_id: "instance_id"
+ *         instance_id: "instance_id",
+ *         client_id: "client_id",
+ *         environment: "sandbox",
+ *         scope: "scope",
+ *         redirect_url: "redirect_url"
  *     }
  */
 export interface OauthAuthorizeQuickbooksRequest {

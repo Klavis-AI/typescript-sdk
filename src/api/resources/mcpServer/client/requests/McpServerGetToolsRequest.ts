@@ -6,7 +6,10 @@ import * as Klavis from "../../../../index.js";
 
 /**
  * @example
- *     {}
+ *     {
+ *         format: "openai",
+ *         legacy: true
+ *     }
  */
 export interface McpServerGetToolsRequest {
     /**

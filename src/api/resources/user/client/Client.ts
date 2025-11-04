@@ -279,7 +279,10 @@ export class User {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.user.getAllUsers()
+     *     await client.user.getAllUsers({
+     *         page_size: 1,
+     *         page_number: 1
+     *     })
      */
     public getAllUsers(
         request: Klavis.GetAllUsersRequest = {},

@@ -5,7 +5,10 @@
 /**
  * @example
  *     {
- *         instance_id: "instance_id"
+ *         instance_id: "instance_id",
+ *         client_id: "client_id",
+ *         scope: "scope",
+ *         redirect_url: "redirect_url"
  *     }
  */
 export interface OauthAuthorizeGithubRequest {

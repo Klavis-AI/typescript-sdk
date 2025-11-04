@@ -56,7 +56,11 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeSlack({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         user_scope: "user_scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeSlack(
@@ -166,7 +170,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGithub({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGithub(
@@ -266,7 +273,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGitlab({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGitlab(
@@ -365,7 +375,9 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeSupabase({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeSupabase(
@@ -461,7 +473,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeNotion({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeNotion(
@@ -561,7 +576,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeJira({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeJira(
@@ -661,7 +679,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeConfluence({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeConfluence(
@@ -761,7 +782,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeWordpress({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeWordpress(
@@ -861,7 +885,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGmail({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGmail(
@@ -961,7 +988,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGdrive({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGdrive(
@@ -1061,7 +1091,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGcalendar({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGcalendar(
@@ -1161,7 +1194,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGsheets({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGsheets(
@@ -1261,7 +1297,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeGdocs({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeGdocs(
@@ -1360,7 +1399,9 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeAttio({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeAttio(
@@ -1457,7 +1498,11 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeSalesforce({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url",
+     *         instance_url: "instance_url"
      *     })
      */
     public authorizeSalesforce(
@@ -1567,7 +1612,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeAsana({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeAsana(
@@ -1667,7 +1715,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeLinear({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeLinear(
@@ -1767,7 +1818,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeClose({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeClose(
@@ -1866,7 +1920,9 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeClickup({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeClickup(
@@ -1962,7 +2018,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeAirtable({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeAirtable(
@@ -2062,7 +2121,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeHubspot({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeHubspot(
@@ -2162,7 +2224,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeLinkedin({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeLinkedin(
@@ -2262,7 +2327,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeCanva({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeCanva(
@@ -2362,7 +2430,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeXero({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeXero(
@@ -2462,7 +2533,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeDropbox({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeDropbox(
@@ -2556,7 +2630,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeBox({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeBox(
@@ -2657,7 +2734,11 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeQuickbooks({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         environment: "sandbox",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeQuickbooks(
@@ -2763,7 +2844,10 @@ export class Oauth {
      * @example
      *     await client.oauth.authorizeZendesk({
      *         instance_id: "instance_id",
-     *         subdomain: "subdomain"
+     *         subdomain: "subdomain",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeZendesk(
@@ -2864,7 +2948,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeStripe({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeStripe(
@@ -2963,7 +3050,9 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeCalcom({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeCalcom(
@@ -3059,7 +3148,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeVercel({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         client_slug: "client_slug",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeVercel(
@@ -3164,7 +3256,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizePipedrive({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizePipedrive(
@@ -3264,7 +3359,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeFigma({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeFigma(
@@ -3356,7 +3454,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeKlaviyo({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeKlaviyo(
@@ -3456,7 +3557,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizePagerduty({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizePagerduty(
@@ -3556,7 +3660,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeDocusign({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeDocusign(
@@ -3658,7 +3765,12 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeDialpad({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url",
+     *         code_challenge: "code_challenge",
+     *         code_challenge_method: "code_challenge_method"
      *     })
      */
     public authorizeDialpad(
@@ -3758,109 +3870,6 @@ export class Oauth {
     }
 
     /**
-     * Start Shopify OAuth flow
-     *
-     * Parameters:
-     * - instance_id: Identifier for the instance requesting authorization
-     * - shop: Shopify shop domain (e.g., mystore.myshopify.com)
-     * - client_id: Optional client ID for white labeling
-     * - scope: Optional scopes to request (comma-separated)
-     * - redirect_url: Optional URL to redirect to after authorization completes
-     *
-     * @param {Klavis.OauthAuthorizeShopifyRequest} request
-     * @param {Oauth.RequestOptions} requestOptions - Request-specific configuration.
-     *
-     * @throws {@link Klavis.UnprocessableEntityError}
-     *
-     * @example
-     *     await client.oauth.authorizeShopify({
-     *         instance_id: "instance_id",
-     *         shop: "shop"
-     *     })
-     */
-    public authorizeShopify(
-        request: Klavis.OauthAuthorizeShopifyRequest,
-        requestOptions?: Oauth.RequestOptions,
-    ): core.HttpResponsePromise<unknown> {
-        return core.HttpResponsePromise.fromPromise(this.__authorizeShopify(request, requestOptions));
-    }
-
-    private async __authorizeShopify(
-        request: Klavis.OauthAuthorizeShopifyRequest,
-        requestOptions?: Oauth.RequestOptions,
-    ): Promise<core.WithRawResponse<unknown>> {
-        const { instance_id: instanceId, shop, client_id: clientId, scope, redirect_url: redirectUrl } = request;
-        const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
-        _queryParams["instance_id"] = instanceId;
-        _queryParams["shop"] = shop;
-        if (clientId != null) {
-            _queryParams["client_id"] = clientId;
-        }
-
-        if (scope != null) {
-            _queryParams["scope"] = scope;
-        }
-
-        if (redirectUrl != null) {
-            _queryParams["redirect_url"] = redirectUrl;
-        }
-
-        const _response = await (this._options.fetcher ?? core.fetcher)({
-            url: urlJoin(
-                (await core.Supplier.get(this._options.baseUrl)) ??
-                    (await core.Supplier.get(this._options.environment)) ??
-                    environments.KlavisEnvironment.Default,
-                "oauth/shopify/authorize",
-            ),
-            method: "GET",
-            headers: mergeHeaders(
-                this._options?.headers,
-                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
-                requestOptions?.headers,
-            ),
-            queryParameters: _queryParams,
-            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
-            maxRetries: requestOptions?.maxRetries,
-            abortSignal: requestOptions?.abortSignal,
-        });
-        if (_response.ok) {
-            return { data: _response.body, rawResponse: _response.rawResponse };
-        }
-
-        if (_response.error.reason === "status-code") {
-            switch (_response.error.statusCode) {
-                case 422:
-                    throw new Klavis.UnprocessableEntityError(
-                        _response.error.body as Klavis.HttpValidationError,
-                        _response.rawResponse,
-                    );
-                default:
-                    throw new errors.KlavisError({
-                        statusCode: _response.error.statusCode,
-                        body: _response.error.body,
-                        rawResponse: _response.rawResponse,
-                    });
-            }
-        }
-
-        switch (_response.error.reason) {
-            case "non-json":
-                throw new errors.KlavisError({
-                    statusCode: _response.error.statusCode,
-                    body: _response.error.rawBody,
-                    rawResponse: _response.rawResponse,
-                });
-            case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/shopify/authorize.");
-            case "unknown":
-                throw new errors.KlavisError({
-                    message: _response.error.errorMessage,
-                    rawResponse: _response.rawResponse,
-                });
-        }
-    }
-
-    /**
      * @param {Klavis.OauthAuthorizeOnedriveRequest} request
      * @param {Oauth.RequestOptions} requestOptions - Request-specific configuration.
      *
@@ -3868,7 +3877,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeOnedrive({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeOnedrive(
@@ -3960,7 +3972,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeOutlook({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeOutlook(
@@ -4052,7 +4067,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeTeams({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeTeams(
@@ -4152,7 +4170,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeFathom({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeFathom(
@@ -4252,7 +4273,10 @@ export class Oauth {
      *
      * @example
      *     await client.oauth.authorizeMonday({
-     *         instance_id: "instance_id"
+     *         instance_id: "instance_id",
+     *         client_id: "client_id",
+     *         scope: "scope",
+     *         redirect_url: "redirect_url"
      *     })
      */
     public authorizeMonday(
@@ -4328,6 +4352,63 @@ export class Oauth {
                 });
             case "timeout":
                 throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/monday/authorize.");
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * @param {Oauth.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @example
+     *     await client.oauth.authorizeShopify()
+     */
+    public authorizeShopify(requestOptions?: Oauth.RequestOptions): core.HttpResponsePromise<void> {
+        return core.HttpResponsePromise.fromPromise(this.__authorizeShopify(requestOptions));
+    }
+
+    private async __authorizeShopify(requestOptions?: Oauth.RequestOptions): Promise<core.WithRawResponse<void>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                "oauth/shopify/authorize",
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: undefined, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            throw new errors.KlavisError({
+                statusCode: _response.error.statusCode,
+                body: _response.error.body,
+                rawResponse: _response.rawResponse,
+            });
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/shopify/authorize.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,

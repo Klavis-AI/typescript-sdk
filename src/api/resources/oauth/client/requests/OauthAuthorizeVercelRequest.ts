@@ -5,7 +5,10 @@
 /**
  * @example
  *     {
- *         instance_id: "instance_id"
+ *         instance_id: "instance_id",
+ *         client_id: "client_id",
+ *         client_slug: "client_slug",
+ *         redirect_url: "redirect_url"
  *     }
  */
 export interface OauthAuthorizeVercelRequest {

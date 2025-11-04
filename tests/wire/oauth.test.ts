@@ -21,6 +21,10 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeSlack({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            user_scope: "user_scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -42,6 +46,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGithub({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -63,6 +70,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGitlab({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -84,6 +94,8 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeSupabase({
             instance_id: "instance_id",
+            client_id: "client_id",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -105,6 +117,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeNotion({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -126,6 +141,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeJira({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -147,6 +165,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeConfluence({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -168,6 +189,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeWordpress({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -189,6 +213,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGmail({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -210,6 +237,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGdrive({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -231,6 +261,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGcalendar({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -252,6 +285,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGsheets({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -273,6 +309,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeGdocs({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -294,6 +333,8 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeAttio({
             instance_id: "instance_id",
+            client_id: "client_id",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -315,6 +356,10 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeSalesforce({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
+            instance_url: "instance_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -336,6 +381,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeAsana({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -357,6 +405,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeLinear({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -378,6 +429,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeClose({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -399,6 +453,8 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeClickup({
             instance_id: "instance_id",
+            client_id: "client_id",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -420,6 +476,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeAirtable({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -441,6 +500,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeHubspot({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -462,6 +524,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeLinkedin({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -483,6 +548,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeCanva({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -504,6 +572,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeXero({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -525,6 +596,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeDropbox({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -546,6 +620,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeBox({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -567,6 +644,10 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeQuickbooks({
             instance_id: "instance_id",
+            client_id: "client_id",
+            environment: "sandbox",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -589,6 +670,9 @@ describe("Oauth", () => {
         const response = await client.oauth.authorizeZendesk({
             instance_id: "instance_id",
             subdomain: "subdomain",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -610,6 +694,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeStripe({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -631,6 +718,8 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeCalcom({
             instance_id: "instance_id",
+            client_id: "client_id",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -652,6 +741,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeVercel({
             instance_id: "instance_id",
+            client_id: "client_id",
+            client_slug: "client_slug",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -673,6 +765,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizePipedrive({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -694,6 +789,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeFigma({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -715,6 +813,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeKlaviyo({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -736,6 +837,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizePagerduty({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -757,6 +861,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeDocusign({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -778,28 +885,11 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeDialpad({
             instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            key: "value",
-        });
-    });
-
-    test("authorize_shopify", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { key: "value" };
-        server
-            .mockEndpoint()
-            .get("/oauth/shopify/authorize")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.oauth.authorizeShopify({
-            instance_id: "instance_id",
-            shop: "shop",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
+            code_challenge: "code_challenge",
+            code_challenge_method: "code_challenge_method",
         });
         expect(response).toEqual({
             key: "value",
@@ -821,6 +911,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeOnedrive({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -842,6 +935,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeOutlook({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -863,6 +959,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeTeams({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -884,6 +983,9 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeFathom({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
@@ -905,9 +1007,22 @@ describe("Oauth", () => {
 
         const response = await client.oauth.authorizeMonday({
             instance_id: "instance_id",
+            client_id: "client_id",
+            scope: "scope",
+            redirect_url: "redirect_url",
         });
         expect(response).toEqual({
             key: "value",
         });
+    });
+
+    test("authorize_shopify", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        server.mockEndpoint().get("/oauth/shopify/authorize").respondWith().statusCode(200).build();
+
+        const response = await client.oauth.authorizeShopify();
+        expect(response).toEqual(undefined);
     });
 });

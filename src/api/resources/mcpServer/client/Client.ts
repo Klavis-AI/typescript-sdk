@@ -399,7 +399,9 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.deleteServersFromStrata("strataId")
+     *     await client.mcpServer.deleteServersFromStrata("strataId", {
+     *         externalServers: "externalServers"
+     *     })
      */
     public deleteServersFromStrata(
         strataId: string,
@@ -1407,7 +1409,10 @@ export class McpServer {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mcpServer.getTools("Affinity")
+     *     await client.mcpServer.getTools("Affinity", {
+     *         format: "openai",
+     *         legacy: true
+     *     })
      */
     public getTools(
         serverName: Klavis.McpServerName,

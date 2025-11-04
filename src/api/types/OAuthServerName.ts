@@ -39,7 +39,6 @@ export type OAuthServerName =
     | "Pipedrive"
     | "QuickBooks"
     | "Salesforce"
-    | "Shopify"
     | "Slack"
     | "Stripe"
     | "Supabase"
@@ -84,7 +83,6 @@ export const OAuthServerName = {
     Pipedrive: "Pipedrive",
     QuickBooks: "QuickBooks",
     Salesforce: "Salesforce",
-    Shopify: "Shopify",
     Slack: "Slack",
     Stripe: "Stripe",
     Supabase: "Supabase",

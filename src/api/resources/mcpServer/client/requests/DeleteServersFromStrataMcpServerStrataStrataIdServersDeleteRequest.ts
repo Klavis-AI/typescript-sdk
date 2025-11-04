@@ -6,7 +6,9 @@ import * as Klavis from "../../../../index.js";
 
 /**
  * @example
- *     {}
+ *     {
+ *         externalServers: "externalServers"
+ *     }
  */
 export interface DeleteServersFromStrataMcpServerStrataStrataIdServersDeleteRequest {
     /**

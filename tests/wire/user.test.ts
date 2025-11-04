@@ -67,7 +67,10 @@ describe("User", () => {
         };
         server.mockEndpoint().get("/user/").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
 
-        const response = await client.user.getAllUsers();
+        const response = await client.user.getAllUsers({
+            page_size: 1,
+            page_number: 1,
+        });
         expect(response).toEqual({
             users: [
                 {
