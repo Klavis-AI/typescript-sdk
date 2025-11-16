@@ -11,6 +11,7 @@ import { User } from "./api/resources/user/client/Client.js";
 import { Oauth } from "./api/resources/oauth/client/Client.js";
 import { OnedriveOauth } from "./api/resources/onedriveOauth/client/Client.js";
 import { OutlookOauth } from "./api/resources/outlookOauth/client/Client.js";
+import { MscalendarOauth } from "./api/resources/mscalendarOauth/client/Client.js";
 import { TeamsOauth } from "./api/resources/teamsOauth/client/Client.js";
 
 export declare namespace KlavisClient {
@@ -44,6 +45,7 @@ export class KlavisClient {
     protected _oauth: Oauth | undefined;
     protected _onedriveOauth: OnedriveOauth | undefined;
     protected _outlookOauth: OutlookOauth | undefined;
+    protected _mscalendarOauth: MscalendarOauth | undefined;
     protected _teamsOauth: TeamsOauth | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
@@ -53,8 +55,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "2.11.2",
-                    "User-Agent": "klavis/2.11.2",
+                    "X-Fern-SDK-Version": "2.12.2",
+                    "User-Agent": "klavis/2.12.2",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -85,6 +87,10 @@ export class KlavisClient {
 
     public get outlookOauth(): OutlookOauth {
         return (this._outlookOauth ??= new OutlookOauth(this._options));
+    }
+
+    public get mscalendarOauth(): MscalendarOauth {
+        return (this._mscalendarOauth ??= new MscalendarOauth(this._options));
     }
 
     public get teamsOauth(): TeamsOauth {

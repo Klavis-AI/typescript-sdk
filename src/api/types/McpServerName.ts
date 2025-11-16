@@ -10,6 +10,7 @@ export type McpServerName =
     | "Box"
     | "Brave Search"
     | "Cal.com"
+    | "Canva"
     | "ClickUp"
     | "Close"
     | "Cloudflare"
@@ -56,6 +57,7 @@ export type McpServerName =
     | "OneDrive"
     | "Openrouter"
     | "Outlook"
+    | "Outlook Calendar"
     | "PagerDuty"
     | "Pipedrive"
     | "Plai"
@@ -84,6 +86,7 @@ export const McpServerName = {
     Box: "Box",
     BraveSearch: "Brave Search",
     CalCom: "Cal.com",
+    Canva: "Canva",
     Clickup: "ClickUp",
     Close: "Close",
     Cloudflare: "Cloudflare",
@@ -130,6 +133,7 @@ export const McpServerName = {
     Onedrive: "OneDrive",
     Openrouter: "Openrouter",
     Outlook: "Outlook",
+    OutlookCalendar: "Outlook Calendar",
     Pagerduty: "PagerDuty",
     Pipedrive: "Pipedrive",
     Plai: "Plai",

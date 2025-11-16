@@ -35,6 +35,7 @@ export type OAuthServerName =
     | "Notion"
     | "Onedrive"
     | "Outlook"
+    | "MsCalendar"
     | "PagerDuty"
     | "Pipedrive"
     | "QuickBooks"
@@ -79,6 +80,7 @@ export const OAuthServerName = {
     Notion: "Notion",
     Onedrive: "Onedrive",
     Outlook: "Outlook",
+    MsCalendar: "MsCalendar",
     PagerDuty: "PagerDuty",
     Pipedrive: "Pipedrive",
     QuickBooks: "QuickBooks",
