@@ -5283,3 +5283,108 @@ await client.teamsOauth.refreshToken({
 </dd>
 </dl>
 </details>
+
+## ZoomOauth
+
+<details><summary><code>client.zoomOauth.<a href="/src/api/resources/zoomOauth/client/Client.ts">authorizeZoom</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.zoomOauth.authorizeZoom({
+    instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeZoomRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ZoomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.zoomOauth.<a href="/src/api/resources/zoomOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.ZoomOAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.zoomOauth.refreshToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshTokenOauthZoomRefreshTokenPostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ZoomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>

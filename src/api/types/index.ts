@@ -34,3 +34,5 @@ export * from "./ToolFormat.js";
 export * from "./UserInfo.js";
 export * from "./ValidationError.js";
 export * from "./WhiteLabelingResponse.js";
+export * from "./ZoomOAuthErrorResponse.js";
+export * from "./ZoomOAuthSuccessResponse.js";

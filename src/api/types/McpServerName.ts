@@ -56,13 +56,14 @@ export type McpServerName =
     | "Notion"
     | "OneDrive"
     | "Openrouter"
-    | "Outlook"
+    | "Outlook Mail"
     | "Outlook Calendar"
     | "PagerDuty"
     | "Pipedrive"
     | "Plai"
     | "Postgres"
     | "PostHog"
+    | "Postman"
     | "QuickBooks"
     | "Resend"
     | "Salesforce"
@@ -132,13 +133,14 @@ export const McpServerName = {
     Notion: "Notion",
     Onedrive: "OneDrive",
     Openrouter: "Openrouter",
-    Outlook: "Outlook",
+    OutlookMail: "Outlook Mail",
     OutlookCalendar: "Outlook Calendar",
     Pagerduty: "PagerDuty",
     Pipedrive: "Pipedrive",
     Plai: "Plai",
     Postgres: "Postgres",
     Posthog: "PostHog",
+    Postman: "Postman",
     Quickbooks: "QuickBooks",
     Resend: "Resend",
     Salesforce: "Salesforce",

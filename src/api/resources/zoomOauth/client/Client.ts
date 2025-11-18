@@ -9,7 +9,7 @@ import { mergeHeaders, mergeOnlyDefinedHeaders } from "../../../../core/headers.
 import urlJoin from "url-join";
 import * as errors from "../../../../errors/index.js";
 
-export declare namespace MscalendarOauth {
+export declare namespace ZoomOauth {
     export interface Options {
         environment?: core.Supplier<environments.KlavisEnvironment | string>;
         /** Specify a custom URL to connect the client to. */
@@ -32,37 +32,37 @@ export declare namespace MscalendarOauth {
     }
 }
 
-export class MscalendarOauth {
-    protected readonly _options: MscalendarOauth.Options;
+export class ZoomOauth {
+    protected readonly _options: ZoomOauth.Options;
 
-    constructor(_options: MscalendarOauth.Options = {}) {
+    constructor(_options: ZoomOauth.Options = {}) {
         this._options = _options;
     }
 
     /**
-     * @param {Klavis.AuthorizeMsCalendarRequest} request
-     * @param {MscalendarOauth.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Klavis.AuthorizeZoomRequest} request
+     * @param {ZoomOauth.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mscalendarOauth.authorizeMsCalendar({
+     *     await client.zoomOauth.authorizeZoom({
      *         instance_id: "instance_id",
      *         client_id: "client_id",
      *         scope: "scope",
      *         redirect_url: "redirect_url"
      *     })
      */
-    public authorizeMsCalendar(
-        request: Klavis.AuthorizeMsCalendarRequest,
-        requestOptions?: MscalendarOauth.RequestOptions,
+    public authorizeZoom(
+        request: Klavis.AuthorizeZoomRequest,
+        requestOptions?: ZoomOauth.RequestOptions,
     ): core.HttpResponsePromise<unknown> {
-        return core.HttpResponsePromise.fromPromise(this.__authorizeMsCalendar(request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__authorizeZoom(request, requestOptions));
     }
 
-    private async __authorizeMsCalendar(
-        request: Klavis.AuthorizeMsCalendarRequest,
-        requestOptions?: MscalendarOauth.RequestOptions,
+    private async __authorizeZoom(
+        request: Klavis.AuthorizeZoomRequest,
+        requestOptions?: ZoomOauth.RequestOptions,
     ): Promise<core.WithRawResponse<unknown>> {
         const { instance_id: instanceId, client_id: clientId, scope, redirect_url: redirectUrl } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
@@ -84,7 +84,7 @@ export class MscalendarOauth {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "oauth/mscalendar/authorize",
+                "oauth/zoom/authorize",
             ),
             method: "GET",
             headers: mergeHeaders(
@@ -125,7 +125,7 @@ export class MscalendarOauth {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/mscalendar/authorize.");
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling GET /oauth/zoom/authorize.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
@@ -135,28 +135,28 @@ export class MscalendarOauth {
     }
 
     /**
-     * @param {Klavis.RefreshTokenOauthMscalendarRefreshTokenPostRequest} request
-     * @param {MscalendarOauth.RequestOptions} requestOptions - Request-specific configuration.
+     * @param {Klavis.RefreshTokenOauthZoomRefreshTokenPostRequest} request
+     * @param {ZoomOauth.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.BadRequestError}
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.mscalendarOauth.refreshToken({
+     *     await client.zoomOauth.refreshToken({
      *         instance_id: "instance_id"
      *     })
      */
     public refreshToken(
-        request: Klavis.RefreshTokenOauthMscalendarRefreshTokenPostRequest,
-        requestOptions?: MscalendarOauth.RequestOptions,
-    ): core.HttpResponsePromise<Klavis.AzureAdoAuthSuccessResponse> {
+        request: Klavis.RefreshTokenOauthZoomRefreshTokenPostRequest,
+        requestOptions?: ZoomOauth.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.ZoomOAuthSuccessResponse> {
         return core.HttpResponsePromise.fromPromise(this.__refreshToken(request, requestOptions));
     }
 
     private async __refreshToken(
-        request: Klavis.RefreshTokenOauthMscalendarRefreshTokenPostRequest,
-        requestOptions?: MscalendarOauth.RequestOptions,
-    ): Promise<core.WithRawResponse<Klavis.AzureAdoAuthSuccessResponse>> {
+        request: Klavis.RefreshTokenOauthZoomRefreshTokenPostRequest,
+        requestOptions?: ZoomOauth.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.ZoomOAuthSuccessResponse>> {
         const { instance_id: instanceId } = request;
         const _queryParams: Record<string, string | string[] | object | object[] | null> = {};
         _queryParams["instance_id"] = instanceId;
@@ -165,7 +165,7 @@ export class MscalendarOauth {
                 (await core.Supplier.get(this._options.baseUrl)) ??
                     (await core.Supplier.get(this._options.environment)) ??
                     environments.KlavisEnvironment.Default,
-                "oauth/mscalendar/refresh_token",
+                "oauth/zoom/refresh_token",
             ),
             method: "POST",
             headers: mergeHeaders(
@@ -179,7 +179,7 @@ export class MscalendarOauth {
             abortSignal: requestOptions?.abortSignal,
         });
         if (_response.ok) {
-            return { data: _response.body as Klavis.AzureAdoAuthSuccessResponse, rawResponse: _response.rawResponse };
+            return { data: _response.body as Klavis.ZoomOAuthSuccessResponse, rawResponse: _response.rawResponse };
         }
 
         if (_response.error.reason === "status-code") {
@@ -208,9 +208,7 @@ export class MscalendarOauth {
                     rawResponse: _response.rawResponse,
                 });
             case "timeout":
-                throw new errors.KlavisTimeoutError(
-                    "Timeout exceeded when calling POST /oauth/mscalendar/refresh_token.",
-                );
+                throw new errors.KlavisTimeoutError("Timeout exceeded when calling POST /oauth/zoom/refresh_token.");
             case "unknown":
                 throw new errors.KlavisError({
                     message: _response.error.errorMessage,
