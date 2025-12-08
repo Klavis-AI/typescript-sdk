@@ -42,6 +42,7 @@ export type OAuthServerName =
     | "QuickBooks"
     | "Salesforce"
     | "Slack"
+    | "Snowflake"
     | "Stripe"
     | "Supabase"
     | "Vercel"
@@ -88,6 +89,7 @@ export const OAuthServerName = {
     QuickBooks: "QuickBooks",
     Salesforce: "Salesforce",
     Slack: "Slack",
+    Snowflake: "Snowflake",
     Stripe: "Stripe",
     Supabase: "Supabase",
     Vercel: "Vercel",
