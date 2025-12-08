@@ -38,6 +38,7 @@ export type McpServerName =
     | "Google Drive"
     | "Google Jobs"
     | "Google Sheets"
+    | "Google Forms"
     | "Hacker News"
     | "Heygen"
     | "HubSpot"
@@ -115,6 +116,7 @@ export const McpServerName = {
     GoogleDrive: "Google Drive",
     GoogleJobs: "Google Jobs",
     GoogleSheets: "Google Sheets",
+    GoogleForms: "Google Forms",
     HackerNews: "Hacker News",
     Heygen: "Heygen",
     Hubspot: "HubSpot",

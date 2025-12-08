@@ -562,6 +562,29 @@ describe("McpServer", () => {
         });
     });
 
+    test("listRawActions", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = { instanceId: "instanceId", serverName: "serverName", result: { key: "value" } };
+        server
+            .mockEndpoint()
+            .get("/mcp-server/instance/instanceId/raw-actions")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.mcpServer.listRawActions("instanceId");
+        expect(response).toEqual({
+            instanceId: "instanceId",
+            serverName: "serverName",
+            result: {
+                key: "value",
+            },
+        });
+    });
+
     test("get_oauth_url", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });

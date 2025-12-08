@@ -24,6 +24,7 @@ export type OAuthServerName =
     | "Google Docs"
     | "Google Drive"
     | "Google Sheets"
+    | "Google Forms"
     | "HubSpot"
     | "Jira"
     | "Klaviyo"
@@ -69,6 +70,7 @@ export const OAuthServerName = {
     GoogleDocs: "Google Docs",
     GoogleDrive: "Google Drive",
     GoogleSheets: "Google Sheets",
+    GoogleForms: "Google Forms",
     HubSpot: "HubSpot",
     Jira: "Jira",
     Klaviyo: "Klaviyo",

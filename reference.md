@@ -1310,6 +1310,71 @@ await client.mcpServer.setInstanceAuth({
 </dl>
 </details>
 
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">listRawActions</a>(instanceId) -> Klavis.RawActionsResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Fetch raw actions (all underlying actions) for a specific integration instance.
+
+This endpoint takes an instance ID, and then fetches the raw actions with categories.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.listRawActions("instanceId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string` — The instance ID for the server connection
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getOauthUrl</a>() -> void</code></summary>
 <dl>
 <dd>
@@ -5023,6 +5088,158 @@ await client.oauth.authorizeShopify();
 </dl>
 </details>
 
+## GoogleCloudOauth
+
+<details><summary><code>client.googleCloudOauth.<a href="/src/api/resources/googleCloudOauth/client/Client.ts">authorizeGoogleCloud</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Google Cloud OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.googleCloudOauth.authorizeGoogleCloud({
+    instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeGoogleCloudRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleCloudOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## GoogleFormsOauth
+
+<details><summary><code>client.googleFormsOauth.<a href="/src/api/resources/googleFormsOauth/client/Client.ts">authorizeGoogleForms</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Google Forms OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.googleFormsOauth.authorizeGoogleForms({
+    instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeGoogleFormsRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `GoogleFormsOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## OnedriveOauth
 
 <details><summary><code>client.onedriveOauth.<a href="/src/api/resources/onedriveOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.AzureAdoAuthSuccessResponse</code></summary>
@@ -5379,6 +5596,523 @@ await client.zoomOauth.refreshToken({
 <dd>
 
 **requestOptions:** `ZoomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## SharesightOauth
+
+<details><summary><code>client.sharesightOauth.<a href="/src/api/resources/sharesightOauth/client/Client.ts">authorizeSharesight</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sharesightOauth.authorizeSharesight({
+    instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeSharesightRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SharesightOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sharesightOauth.<a href="/src/api/resources/sharesightOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.SharesightOAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sharesightOauth.refreshToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshTokenOauthSharesightRefreshTokenPostRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SharesightOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## Sandbox
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">createSandbox</a>(serverName) -> Klavis.CreateSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Acquire an idle sandbox instance for a specific MCP server. The sandbox will be marked as 'occupied'.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.createSandbox("jira");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverName:** `Klavis.SandboxMcpServer` — The MCP server name
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">getSandbox</a>(serverName, sandboxId) -> Klavis.SandboxInfo</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Retrieve detailed information about a specific sandbox instance.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.getSandbox("jira", "sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverName:** `Klavis.SandboxMcpServer` — The MCP server name
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">deleteSandbox</a>(serverName, sandboxId) -> Klavis.ReleaseSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Release an occupied sandbox back to idle state and marks the sandbox as available for reuse.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.deleteSandbox("jira", "sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverName:** `Klavis.SandboxMcpServer` — The MCP server name
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">resetSandbox</a>(serverName, sandboxId) -> Klavis.ResetSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Reset the sandbox to its initial empty state, clearing all data while maintaining the sandbox instance.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.resetSandbox("jira", "sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**serverName:** `Klavis.SandboxMcpServer` — The MCP server name
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with snowflake-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.SnowflakeData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseSnowflakeData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
 
 </dd>
 </dl>

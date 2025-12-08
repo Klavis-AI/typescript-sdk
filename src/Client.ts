@@ -9,11 +9,15 @@ import { McpServer } from "./api/resources/mcpServer/client/Client.js";
 import { WhiteLabeling } from "./api/resources/whiteLabeling/client/Client.js";
 import { User } from "./api/resources/user/client/Client.js";
 import { Oauth } from "./api/resources/oauth/client/Client.js";
+import { GoogleCloudOauth } from "./api/resources/googleCloudOauth/client/Client.js";
+import { GoogleFormsOauth } from "./api/resources/googleFormsOauth/client/Client.js";
 import { OnedriveOauth } from "./api/resources/onedriveOauth/client/Client.js";
 import { OutlookOauth } from "./api/resources/outlookOauth/client/Client.js";
 import { MscalendarOauth } from "./api/resources/mscalendarOauth/client/Client.js";
 import { TeamsOauth } from "./api/resources/teamsOauth/client/Client.js";
 import { ZoomOauth } from "./api/resources/zoomOauth/client/Client.js";
+import { SharesightOauth } from "./api/resources/sharesightOauth/client/Client.js";
+import { Sandbox } from "./api/resources/sandbox/client/Client.js";
 
 export declare namespace KlavisClient {
     export interface Options {
@@ -44,11 +48,15 @@ export class KlavisClient {
     protected _whiteLabeling: WhiteLabeling | undefined;
     protected _user: User | undefined;
     protected _oauth: Oauth | undefined;
+    protected _googleCloudOauth: GoogleCloudOauth | undefined;
+    protected _googleFormsOauth: GoogleFormsOauth | undefined;
     protected _onedriveOauth: OnedriveOauth | undefined;
     protected _outlookOauth: OutlookOauth | undefined;
     protected _mscalendarOauth: MscalendarOauth | undefined;
     protected _teamsOauth: TeamsOauth | undefined;
     protected _zoomOauth: ZoomOauth | undefined;
+    protected _sharesightOauth: SharesightOauth | undefined;
+    protected _sandbox: Sandbox | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
         this._options = {
@@ -57,8 +65,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "2.13.2",
-                    "User-Agent": "klavis/2.13.2",
+                    "X-Fern-SDK-Version": "2.14.0",
+                    "User-Agent": "klavis/2.14.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -83,6 +91,14 @@ export class KlavisClient {
         return (this._oauth ??= new Oauth(this._options));
     }
 
+    public get googleCloudOauth(): GoogleCloudOauth {
+        return (this._googleCloudOauth ??= new GoogleCloudOauth(this._options));
+    }
+
+    public get googleFormsOauth(): GoogleFormsOauth {
+        return (this._googleFormsOauth ??= new GoogleFormsOauth(this._options));
+    }
+
     public get onedriveOauth(): OnedriveOauth {
         return (this._onedriveOauth ??= new OnedriveOauth(this._options));
     }
@@ -101,5 +117,13 @@ export class KlavisClient {
 
     public get zoomOauth(): ZoomOauth {
         return (this._zoomOauth ??= new ZoomOauth(this._options));
+    }
+
+    public get sharesightOauth(): SharesightOauth {
+        return (this._sharesightOauth ??= new SharesightOauth(this._options));
+    }
+
+    public get sandbox(): Sandbox {
+        return (this._sandbox ??= new Sandbox(this._options));
     }
 }
