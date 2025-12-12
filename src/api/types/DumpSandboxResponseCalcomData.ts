@@ -12,5 +12,5 @@ export interface DumpSandboxResponseCalcomData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.CalcomData;
+    data: Klavis.CalcomDataOutput;
 }

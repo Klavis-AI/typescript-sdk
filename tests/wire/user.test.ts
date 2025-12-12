@@ -10,7 +10,7 @@ describe("User", () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
-        const rawResponseBody = { integrations: ["Affinity"] };
+        const rawResponseBody = { integrations: [{ name: "Affinity", is_authenticated: true }] };
         server
             .mockEndpoint()
             .get("/user/userId/integrations")
@@ -21,7 +21,12 @@ describe("User", () => {
 
         const response = await client.user.getUserIntegrations("userId");
         expect(response).toEqual({
-            integrations: ["Affinity"],
+            integrations: [
+                {
+                    name: "Affinity",
+                    is_authenticated: true,
+                },
+            ],
         });
     });
 

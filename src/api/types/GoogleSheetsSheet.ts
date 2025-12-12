@@ -11,5 +11,5 @@ export interface GoogleSheetsSheet {
     /** Sheet properties (required) */
     properties: Klavis.GoogleSheetsSheetProperties;
     /** Grid data for the sheet */
-    data?: Klavis.GoogleSheetsGridData[];
+    data?: Klavis.GoogleSheetsGridDataOutput[];
 }

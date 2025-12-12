@@ -16,7 +16,17 @@ import { OutlookOauth } from "./api/resources/outlookOauth/client/Client.js";
 import { MscalendarOauth } from "./api/resources/mscalendarOauth/client/Client.js";
 import { TeamsOauth } from "./api/resources/teamsOauth/client/Client.js";
 import { ZoomOauth } from "./api/resources/zoomOauth/client/Client.js";
+import { ZohoMailOauth } from "./api/resources/zohoMailOauth/client/Client.js";
 import { SharesightOauth } from "./api/resources/sharesightOauth/client/Client.js";
+import { IntercomOauth } from "./api/resources/intercomOauth/client/Client.js";
+import { PaypalOauth } from "./api/resources/paypalOauth/client/Client.js";
+import { SentryOauth } from "./api/resources/sentryOauth/client/Client.js";
+import { NetlifyOauth } from "./api/resources/netlifyOauth/client/Client.js";
+import { HuggingfaceOauth } from "./api/resources/huggingfaceOauth/client/Client.js";
+import { SquareOauth } from "./api/resources/squareOauth/client/Client.js";
+import { ClockwiseOauth } from "./api/resources/clockwiseOauth/client/Client.js";
+import { JotformOauth } from "./api/resources/jotformOauth/client/Client.js";
+import { HoneycombOauth } from "./api/resources/honeycombOauth/client/Client.js";
 import { Sandbox } from "./api/resources/sandbox/client/Client.js";
 
 export declare namespace KlavisClient {
@@ -55,7 +65,17 @@ export class KlavisClient {
     protected _mscalendarOauth: MscalendarOauth | undefined;
     protected _teamsOauth: TeamsOauth | undefined;
     protected _zoomOauth: ZoomOauth | undefined;
+    protected _zohoMailOauth: ZohoMailOauth | undefined;
     protected _sharesightOauth: SharesightOauth | undefined;
+    protected _intercomOauth: IntercomOauth | undefined;
+    protected _paypalOauth: PaypalOauth | undefined;
+    protected _sentryOauth: SentryOauth | undefined;
+    protected _netlifyOauth: NetlifyOauth | undefined;
+    protected _huggingfaceOauth: HuggingfaceOauth | undefined;
+    protected _squareOauth: SquareOauth | undefined;
+    protected _clockwiseOauth: ClockwiseOauth | undefined;
+    protected _jotformOauth: JotformOauth | undefined;
+    protected _honeycombOauth: HoneycombOauth | undefined;
     protected _sandbox: Sandbox | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
@@ -65,8 +85,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "2.15.0",
-                    "User-Agent": "klavis/2.15.0",
+                    "X-Fern-SDK-Version": "2.18.0",
+                    "User-Agent": "klavis/2.18.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -119,8 +139,48 @@ export class KlavisClient {
         return (this._zoomOauth ??= new ZoomOauth(this._options));
     }
 
+    public get zohoMailOauth(): ZohoMailOauth {
+        return (this._zohoMailOauth ??= new ZohoMailOauth(this._options));
+    }
+
     public get sharesightOauth(): SharesightOauth {
         return (this._sharesightOauth ??= new SharesightOauth(this._options));
+    }
+
+    public get intercomOauth(): IntercomOauth {
+        return (this._intercomOauth ??= new IntercomOauth(this._options));
+    }
+
+    public get paypalOauth(): PaypalOauth {
+        return (this._paypalOauth ??= new PaypalOauth(this._options));
+    }
+
+    public get sentryOauth(): SentryOauth {
+        return (this._sentryOauth ??= new SentryOauth(this._options));
+    }
+
+    public get netlifyOauth(): NetlifyOauth {
+        return (this._netlifyOauth ??= new NetlifyOauth(this._options));
+    }
+
+    public get huggingfaceOauth(): HuggingfaceOauth {
+        return (this._huggingfaceOauth ??= new HuggingfaceOauth(this._options));
+    }
+
+    public get squareOauth(): SquareOauth {
+        return (this._squareOauth ??= new SquareOauth(this._options));
+    }
+
+    public get clockwiseOauth(): ClockwiseOauth {
+        return (this._clockwiseOauth ??= new ClockwiseOauth(this._options));
+    }
+
+    public get jotformOauth(): JotformOauth {
+        return (this._jotformOauth ??= new JotformOauth(this._options));
+    }
+
+    public get honeycombOauth(): HoneycombOauth {
+        return (this._honeycombOauth ??= new HoneycombOauth(this._options));
     }
 
     public get sandbox(): Sandbox {

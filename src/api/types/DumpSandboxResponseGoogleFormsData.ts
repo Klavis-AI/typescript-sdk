@@ -12,5 +12,5 @@ export interface DumpSandboxResponseGoogleFormsData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.GoogleFormsData;
+    data: Klavis.GoogleFormsDataOutput;
 }

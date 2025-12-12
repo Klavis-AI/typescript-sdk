@@ -359,28 +359,5323 @@ export class Sandbox {
     }
 
     /**
-     * Initialize the sandbox with snowflake-specific data following the defined schema.
+     * Initialize the sandbox with jira-specific data following the defined schema.
      *
      * @param {string} sandboxId - The unique sandbox identifier
-     * @param {Klavis.SnowflakeData} request
+     * @param {Klavis.JiraDataInput} request
      * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.sandbox.initializeSandbox("sandbox_id")
+     *     await client.sandbox.initializeJiraSandbox("sandbox_id")
      */
-    public initializeSandbox(
+    public initializeJiraSandbox(
         sandboxId: string,
-        request: Klavis.SnowflakeData = {},
+        request: Klavis.JiraDataInput = {},
         requestOptions?: Sandbox.RequestOptions,
     ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__initializeSandbox(sandboxId, request, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__initializeJiraSandbox(sandboxId, request, requestOptions));
     }
 
-    private async __initializeSandbox(
+    private async __initializeJiraSandbox(
         sandboxId: string,
-        request: Klavis.SnowflakeData = {},
+        request: Klavis.JiraDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/jira/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/jira/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpJiraSandbox("sandbox_id")
+     */
+    public dumpJiraSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseJiraData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpJiraSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpJiraSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseJiraData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/jira/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseJiraData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/jira/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with google_calendar-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GoogleCalendarDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGoogleCalendarSandbox("sandbox_id")
+     */
+    public initializeGoogleCalendarSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleCalendarDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeGoogleCalendarSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeGoogleCalendarSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleCalendarDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_calendar/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/google_calendar/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGoogleCalendarSandbox("sandbox_id")
+     */
+    public dumpGoogleCalendarSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGoogleCalendarData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGoogleCalendarSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGoogleCalendarSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGoogleCalendarData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_calendar/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseGoogleCalendarData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/google_calendar/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with gmail-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GmailData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGmailSandbox("sandbox_id", {})
+     */
+    public initializeGmailSandbox(
+        sandboxId: string,
+        request: Klavis.GmailData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeGmailSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeGmailSandbox(
+        sandboxId: string,
+        request: Klavis.GmailData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/gmail/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/gmail/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGmailSandbox("sandbox_id")
+     */
+    public dumpGmailSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGmailData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGmailSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGmailSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGmailData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/gmail/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseGmailData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/gmail/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with google_docs-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GoogleDocsData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGoogleDocsSandbox("sandbox_id", {})
+     */
+    public initializeGoogleDocsSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleDocsData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeGoogleDocsSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeGoogleDocsSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleDocsData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_docs/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/google_docs/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGoogleDocsSandbox("sandbox_id")
+     */
+    public dumpGoogleDocsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGoogleDocsData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGoogleDocsSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGoogleDocsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGoogleDocsData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_docs/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseGoogleDocsData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/google_docs/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with google_drive-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GoogleDriveData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGoogleDriveSandbox("sandbox_id", {})
+     */
+    public initializeGoogleDriveSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleDriveData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeGoogleDriveSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeGoogleDriveSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleDriveData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_drive/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/google_drive/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGoogleDriveSandbox("sandbox_id")
+     */
+    public dumpGoogleDriveSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGoogleDriveData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGoogleDriveSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGoogleDriveSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGoogleDriveData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_drive/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseGoogleDriveData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/google_drive/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with google_forms-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GoogleFormsDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGoogleFormsSandbox("sandbox_id")
+     */
+    public initializeGoogleFormsSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleFormsDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeGoogleFormsSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeGoogleFormsSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleFormsDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_forms/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/google_forms/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGoogleFormsSandbox("sandbox_id")
+     */
+    public dumpGoogleFormsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGoogleFormsData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGoogleFormsSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGoogleFormsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGoogleFormsData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_forms/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseGoogleFormsData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/google_forms/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with google_sheets-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GoogleSheetsDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGoogleSheetsSandbox("sandbox_id")
+     */
+    public initializeGoogleSheetsSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleSheetsDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeGoogleSheetsSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeGoogleSheetsSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleSheetsDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_sheets/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/google_sheets/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGoogleSheetsSandbox("sandbox_id")
+     */
+    public dumpGoogleSheetsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGoogleSheetsData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGoogleSheetsSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGoogleSheetsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGoogleSheetsData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_sheets/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseGoogleSheetsData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/google_sheets/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with salesforce-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.SalesforceData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeSalesforceSandbox("sandbox_id", {})
+     */
+    public initializeSalesforceSandbox(
+        sandboxId: string,
+        request: Klavis.SalesforceData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeSalesforceSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeSalesforceSandbox(
+        sandboxId: string,
+        request: Klavis.SalesforceData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/salesforce/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/salesforce/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpSalesforceSandbox("sandbox_id")
+     */
+    public dumpSalesforceSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseSalesforceData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpSalesforceSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpSalesforceSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseSalesforceData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/salesforce/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseSalesforceData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/salesforce/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with onedrive-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.OneDriveDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeOnedriveSandbox("sandbox_id", {
+     *         root: {
+     *             name: "name"
+     *         }
+     *     })
+     */
+    public initializeOnedriveSandbox(
+        sandboxId: string,
+        request: Klavis.OneDriveDataInput,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeOnedriveSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeOnedriveSandbox(
+        sandboxId: string,
+        request: Klavis.OneDriveDataInput,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/onedrive/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/onedrive/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpOnedriveSandbox("sandbox_id")
+     */
+    public dumpOnedriveSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseOneDriveData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpOnedriveSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpOnedriveSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseOneDriveData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/onedrive/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseOneDriveData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/onedrive/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with microsoft_teams-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.MsTeamsDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeMicrosoftTeamsSandbox("sandbox_id")
+     */
+    public initializeMicrosoftTeamsSandbox(
+        sandboxId: string,
+        request: Klavis.MsTeamsDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeMicrosoftTeamsSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeMicrosoftTeamsSandbox(
+        sandboxId: string,
+        request: Klavis.MsTeamsDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/microsoft_teams/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/microsoft_teams/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpMicrosoftTeamsSandbox("sandbox_id")
+     */
+    public dumpMicrosoftTeamsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseMsTeamsData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpMicrosoftTeamsSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpMicrosoftTeamsSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseMsTeamsData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/microsoft_teams/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseMsTeamsData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/microsoft_teams/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with outlook_mail-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.OutlookMailData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeOutlookMailSandbox("sandbox_id", {})
+     */
+    public initializeOutlookMailSandbox(
+        sandboxId: string,
+        request: Klavis.OutlookMailData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeOutlookMailSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeOutlookMailSandbox(
+        sandboxId: string,
+        request: Klavis.OutlookMailData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/outlook_mail/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/outlook_mail/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpOutlookMailSandbox("sandbox_id")
+     */
+    public dumpOutlookMailSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseOutlookMailData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpOutlookMailSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpOutlookMailSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseOutlookMailData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/outlook_mail/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseOutlookMailData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/outlook_mail/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with Cal.com-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.CalcomDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeCalcomSandbox("sandbox_id")
+     */
+    public initializeCalcomSandbox(
+        sandboxId: string,
+        request: Klavis.CalcomDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeCalcomSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeCalcomSandbox(
+        sandboxId: string,
+        request: Klavis.CalcomDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/Cal.com/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/Cal.com/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpCalcomSandbox("sandbox_id")
+     */
+    public dumpCalcomSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseCalcomData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpCalcomSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpCalcomSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseCalcomData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/Cal.com/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseCalcomData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/Cal.com/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with hubspot-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.HubSpotDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeHubspotSandbox("sandbox_id")
+     */
+    public initializeHubspotSandbox(
+        sandboxId: string,
+        request: Klavis.HubSpotDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeHubspotSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeHubspotSandbox(
+        sandboxId: string,
+        request: Klavis.HubSpotDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/hubspot/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/hubspot/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpHubspotSandbox("sandbox_id")
+     */
+    public dumpHubspotSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseHubSpotData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpHubspotSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpHubspotSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseHubSpotData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/hubspot/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseHubSpotData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/hubspot/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with quickbooks-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.QuickBooksData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeQuickbooksSandbox("sandbox_id", {})
+     */
+    public initializeQuickbooksSandbox(
+        sandboxId: string,
+        request: Klavis.QuickBooksData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeQuickbooksSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeQuickbooksSandbox(
+        sandboxId: string,
+        request: Klavis.QuickBooksData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/quickbooks/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/quickbooks/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpQuickbooksSandbox("sandbox_id")
+     */
+    public dumpQuickbooksSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseQuickBooksData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpQuickbooksSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpQuickbooksSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseQuickBooksData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/quickbooks/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseQuickBooksData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/quickbooks/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with moneybird-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.MoneybirdDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeMoneybirdSandbox("sandbox_id")
+     */
+    public initializeMoneybirdSandbox(
+        sandboxId: string,
+        request: Klavis.MoneybirdDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeMoneybirdSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeMoneybirdSandbox(
+        sandboxId: string,
+        request: Klavis.MoneybirdDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/moneybird/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/moneybird/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpMoneybirdSandbox("sandbox_id")
+     */
+    public dumpMoneybirdSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseMoneybirdData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpMoneybirdSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpMoneybirdSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseMoneybirdData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/moneybird/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseMoneybirdData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/moneybird/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with dropbox-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.DropboxData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeDropboxSandbox("sandbox_id", {})
+     */
+    public initializeDropboxSandbox(
+        sandboxId: string,
+        request: Klavis.DropboxData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeDropboxSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeDropboxSandbox(
+        sandboxId: string,
+        request: Klavis.DropboxData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/dropbox/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/dropbox/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpDropboxSandbox("sandbox_id")
+     */
+    public dumpDropboxSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseDropboxData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpDropboxSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpDropboxSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseDropboxData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/dropbox/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseDropboxData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/dropbox/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with shopify-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.ShopifyDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeShopifySandbox("sandbox_id")
+     */
+    public initializeShopifySandbox(
+        sandboxId: string,
+        request: Klavis.ShopifyDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeShopifySandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeShopifySandbox(
+        sandboxId: string,
+        request: Klavis.ShopifyDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/shopify/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/shopify/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpShopifySandbox("sandbox_id")
+     */
+    public dumpShopifySandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseShopifyData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpShopifySandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpShopifySandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseShopifyData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/shopify/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseShopifyData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/shopify/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with outlook_calendar-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.OutlookCalendarData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeOutlookCalendarSandbox("sandbox_id", {})
+     */
+    public initializeOutlookCalendarSandbox(
+        sandboxId: string,
+        request: Klavis.OutlookCalendarData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeOutlookCalendarSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeOutlookCalendarSandbox(
+        sandboxId: string,
+        request: Klavis.OutlookCalendarData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/outlook_calendar/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/outlook_calendar/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpOutlookCalendarSandbox("sandbox_id")
+     */
+    public dumpOutlookCalendarSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseOutlookCalendarData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpOutlookCalendarSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpOutlookCalendarSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseOutlookCalendarData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/outlook_calendar/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseOutlookCalendarData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/outlook_calendar/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with clickup-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.ClickUpDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeClickupSandbox("sandbox_id")
+     */
+    public initializeClickupSandbox(
+        sandboxId: string,
+        request: Klavis.ClickUpDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeClickupSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeClickupSandbox(
+        sandboxId: string,
+        request: Klavis.ClickUpDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/clickup/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/clickup/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpClickupSandbox("sandbox_id")
+     */
+    public dumpClickupSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseClickUpData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpClickupSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpClickupSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseClickUpData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/clickup/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseClickUpData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/clickup/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with close-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.CloseDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeCloseSandbox("sandbox_id")
+     */
+    public initializeCloseSandbox(
+        sandboxId: string,
+        request: Klavis.CloseDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeCloseSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeCloseSandbox(
+        sandboxId: string,
+        request: Klavis.CloseDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/close/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/close/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpCloseSandbox("sandbox_id")
+     */
+    public dumpCloseSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseCloseData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpCloseSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpCloseSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseCloseData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/close/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseCloseData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/close/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with resend-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.ResendDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeResendSandbox("sandbox_id")
+     */
+    public initializeResendSandbox(
+        sandboxId: string,
+        request: Klavis.ResendDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeResendSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeResendSandbox(
+        sandboxId: string,
+        request: Klavis.ResendDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/resend/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/resend/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpResendSandbox("sandbox_id")
+     */
+    public dumpResendSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseResendData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpResendSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpResendSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseResendData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/resend/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseResendData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/resend/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with wordpress-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.WordPressData} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeWordpressSandbox("sandbox_id", {})
+     */
+    public initializeWordpressSandbox(
+        sandboxId: string,
+        request: Klavis.WordPressData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeWordpressSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeWordpressSandbox(
+        sandboxId: string,
+        request: Klavis.WordPressData,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/wordpress/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/wordpress/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpWordpressSandbox("sandbox_id")
+     */
+    public dumpWordpressSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseWordPressData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpWordpressSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpWordpressSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseWordPressData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/wordpress/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseWordPressData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/wordpress/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with asana-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.AsanaDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeAsanaSandbox("sandbox_id")
+     */
+    public initializeAsanaSandbox(
+        sandboxId: string,
+        request: Klavis.AsanaDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeAsanaSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeAsanaSandbox(
+        sandboxId: string,
+        request: Klavis.AsanaDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/asana/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/asana/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpAsanaSandbox("sandbox_id")
+     */
+    public dumpAsanaSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseAsanaData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpAsanaSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpAsanaSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseAsanaData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/asana/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseAsanaData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/asana/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with mem0-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.Mem0DataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeMem0Sandbox("sandbox_id")
+     */
+    public initializeMem0Sandbox(
+        sandboxId: string,
+        request: Klavis.Mem0DataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeMem0Sandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeMem0Sandbox(
+        sandboxId: string,
+        request: Klavis.Mem0DataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/mem0/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/mem0/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpMem0Sandbox("sandbox_id")
+     */
+    public dumpMem0Sandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseMem0Data> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpMem0Sandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpMem0Sandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseMem0Data>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/mem0/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseMem0Data, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/mem0/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with supabase-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.SupabaseDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeSupabaseSandbox("sandbox_id")
+     */
+    public initializeSupabaseSandbox(
+        sandboxId: string,
+        request: Klavis.SupabaseDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeSupabaseSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeSupabaseSandbox(
+        sandboxId: string,
+        request: Klavis.SupabaseDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/supabase/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/supabase/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpSupabaseSandbox("sandbox_id")
+     */
+    public dumpSupabaseSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseSupabaseData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpSupabaseSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpSupabaseSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseSupabaseData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/supabase/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseSupabaseData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/supabase/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with github-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GitHubDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGithubSandbox("sandbox_id")
+     */
+    public initializeGithubSandbox(
+        sandboxId: string,
+        request: Klavis.GitHubDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeGithubSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeGithubSandbox(
+        sandboxId: string,
+        request: Klavis.GitHubDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/github/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/github/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGithubSandbox("sandbox_id")
+     */
+    public dumpGithubSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGitHubData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGithubSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGithubSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGitHubData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/github/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseGitHubData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/github/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with linear-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.LinearDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeLinearSandbox("sandbox_id")
+     */
+    public initializeLinearSandbox(
+        sandboxId: string,
+        request: Klavis.LinearDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeLinearSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeLinearSandbox(
+        sandboxId: string,
+        request: Klavis.LinearDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/linear/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/linear/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpLinearSandbox("sandbox_id")
+     */
+    public dumpLinearSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseLinearData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpLinearSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpLinearSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseLinearData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/linear/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseLinearData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/linear/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with notion-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.NotionDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeNotionSandbox("sandbox_id")
+     */
+    public initializeNotionSandbox(
+        sandboxId: string,
+        request: Klavis.NotionDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeNotionSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeNotionSandbox(
+        sandboxId: string,
+        request: Klavis.NotionDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/notion/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/notion/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpNotionSandbox("sandbox_id")
+     */
+    public dumpNotionSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseNotionData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpNotionSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpNotionSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseNotionData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/notion/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseNotionData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/notion/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with slack-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.SlackDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeSlackSandbox("sandbox_id")
+     */
+    public initializeSlackSandbox(
+        sandboxId: string,
+        request: Klavis.SlackDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeSlackSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeSlackSandbox(
+        sandboxId: string,
+        request: Klavis.SlackDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/slack/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/slack/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpSlackSandbox("sandbox_id")
+     */
+    public dumpSlackSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseSlackData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpSlackSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpSlackSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseSlackData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/slack/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseSlackData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/slack/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with confluence-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.ConfluenceDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeConfluenceSandbox("sandbox_id")
+     */
+    public initializeConfluenceSandbox(
+        sandboxId: string,
+        request: Klavis.ConfluenceDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeConfluenceSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeConfluenceSandbox(
+        sandboxId: string,
+        request: Klavis.ConfluenceDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/confluence/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/confluence/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpConfluenceSandbox("sandbox_id")
+     */
+    public dumpConfluenceSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseConfluenceData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpConfluenceSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpConfluenceSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseConfluenceData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/confluence/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseConfluenceData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/confluence/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with discord-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.DiscordDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeDiscordSandbox("sandbox_id")
+     */
+    public initializeDiscordSandbox(
+        sandboxId: string,
+        request: Klavis.DiscordDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeDiscordSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeDiscordSandbox(
+        sandboxId: string,
+        request: Klavis.DiscordDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/discord/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/discord/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpDiscordSandbox("sandbox_id")
+     */
+    public dumpDiscordSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseDiscordData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpDiscordSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpDiscordSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseDiscordData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/discord/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseDiscordData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/discord/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with airtable-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.AirtableDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeAirtableSandbox("sandbox_id")
+     */
+    public initializeAirtableSandbox(
+        sandboxId: string,
+        request: Klavis.AirtableDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeAirtableSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeAirtableSandbox(
+        sandboxId: string,
+        request: Klavis.AirtableDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/airtable/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/airtable/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpAirtableSandbox("sandbox_id")
+     */
+    public dumpAirtableSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseAirtableData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpAirtableSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpAirtableSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseAirtableData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/airtable/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseAirtableData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/airtable/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with snowflake-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.SnowflakeDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeSnowflakeSandbox("sandbox_id")
+     */
+    public initializeSnowflakeSandbox(
+        sandboxId: string,
+        request: Klavis.SnowflakeDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeSnowflakeSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeSnowflakeSandbox(
+        sandboxId: string,
+        request: Klavis.SnowflakeDataInput = {},
         requestOptions?: Sandbox.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -451,16 +5746,16 @@ export class Sandbox {
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.sandbox.dumpSandbox("sandbox_id")
+     *     await client.sandbox.dumpSnowflakeSandbox("sandbox_id")
      */
-    public dumpSandbox(
+    public dumpSnowflakeSandbox(
         sandboxId: string,
         requestOptions?: Sandbox.RequestOptions,
     ): core.HttpResponsePromise<Klavis.DumpSandboxResponseSnowflakeData> {
-        return core.HttpResponsePromise.fromPromise(this.__dumpSandbox(sandboxId, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__dumpSnowflakeSandbox(sandboxId, requestOptions));
     }
 
-    private async __dumpSandbox(
+    private async __dumpSnowflakeSandbox(
         sandboxId: string,
         requestOptions?: Sandbox.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseSnowflakeData>> {
@@ -514,6 +5809,497 @@ export class Sandbox {
             case "timeout":
                 throw new errors.KlavisTimeoutError(
                     "Timeout exceeded when calling GET /sandbox/snowflake/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with google_cloud-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.GoogleCloudDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeGoogleCloudSandbox("sandbox_id")
+     */
+    public initializeGoogleCloudSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleCloudDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(
+            this.__initializeGoogleCloudSandbox(sandboxId, request, requestOptions),
+        );
+    }
+
+    private async __initializeGoogleCloudSandbox(
+        sandboxId: string,
+        request: Klavis.GoogleCloudDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_cloud/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/google_cloud/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpGoogleCloudSandbox("sandbox_id")
+     */
+    public dumpGoogleCloudSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseGoogleCloudData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpGoogleCloudSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpGoogleCloudSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseGoogleCloudData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/google_cloud/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return {
+                data: _response.body as Klavis.DumpSandboxResponseGoogleCloudData,
+                rawResponse: _response.rawResponse,
+            };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/google_cloud/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with monday-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.MondayDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeMondaySandbox("sandbox_id")
+     */
+    public initializeMondaySandbox(
+        sandboxId: string,
+        request: Klavis.MondayDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeMondaySandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeMondaySandbox(
+        sandboxId: string,
+        request: Klavis.MondayDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/monday/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/monday/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpMondaySandbox("sandbox_id")
+     */
+    public dumpMondaySandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseMondayData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpMondaySandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpMondaySandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseMondayData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/monday/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseMondayData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/monday/{sandbox_id}/dump.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Initialize the sandbox with motion-specific data following the defined schema.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Klavis.MotionDataInput} request
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.initializeMotionSandbox("sandbox_id")
+     */
+    public initializeMotionSandbox(
+        sandboxId: string,
+        request: Klavis.MotionDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__initializeMotionSandbox(sandboxId, request, requestOptions));
+    }
+
+    private async __initializeMotionSandbox(
+        sandboxId: string,
+        request: Klavis.MotionDataInput = {},
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/motion/${encodeURIComponent(sandboxId)}/initialize`,
+            ),
+            method: "POST",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.InitializeSandboxResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling POST /sandbox/motion/{sandbox_id}/initialize.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
+     * Export all data from the sandbox in the same format used for initialization.
+     *
+     * @param {string} sandboxId - The unique sandbox identifier
+     * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.sandbox.dumpMotionSandbox("sandbox_id")
+     */
+    public dumpMotionSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.DumpSandboxResponseMotionData> {
+        return core.HttpResponsePromise.fromPromise(this.__dumpMotionSandbox(sandboxId, requestOptions));
+    }
+
+    private async __dumpMotionSandbox(
+        sandboxId: string,
+        requestOptions?: Sandbox.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.DumpSandboxResponseMotionData>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `sandbox/motion/${encodeURIComponent(sandboxId)}/dump`,
+            ),
+            method: "GET",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.DumpSandboxResponseMotionData, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling GET /sandbox/motion/{sandbox_id}/dump.",
                 );
             case "unknown":
                 throw new errors.KlavisError({

@@ -12,5 +12,5 @@ export interface DumpSandboxResponseOneDriveData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.OneDriveData;
+    data: Klavis.OneDriveDataOutput;
 }

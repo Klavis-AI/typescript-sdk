@@ -5,5 +5,5 @@
 import * as Klavis from "../index.js";
 
 export interface GetUserIntegrationsResponse {
-    integrations: Klavis.McpServerName[];
+    integrations: Klavis.IntegrationItem[];
 }

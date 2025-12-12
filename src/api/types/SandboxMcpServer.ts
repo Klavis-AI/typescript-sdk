@@ -23,6 +23,7 @@ export type SandboxMcpServer =
     | "clickup"
     | "close"
     | "monday"
+    | "motion"
     | "onedrive"
     | "microsoft_teams"
     | "outlook_mail"
@@ -39,7 +40,8 @@ export type SandboxMcpServer =
     | "slack"
     | "confluence"
     | "discord"
-    | "snowflake";
+    | "snowflake"
+    | "google_cloud";
 export const SandboxMcpServer = {
     Jira: "jira",
     Github: "github",
@@ -58,6 +60,7 @@ export const SandboxMcpServer = {
     Clickup: "clickup",
     Close: "close",
     Monday: "monday",
+    Motion: "motion",
     Onedrive: "onedrive",
     MicrosoftTeams: "microsoft_teams",
     OutlookMail: "outlook_mail",
@@ -75,4 +78,5 @@ export const SandboxMcpServer = {
     Confluence: "confluence",
     Discord: "discord",
     Snowflake: "snowflake",
+    GoogleCloud: "google_cloud",
 } as const;

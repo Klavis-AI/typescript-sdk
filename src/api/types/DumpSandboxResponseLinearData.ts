@@ -12,5 +12,5 @@ export interface DumpSandboxResponseLinearData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.LinearData;
+    data: Klavis.LinearDataOutput;
 }

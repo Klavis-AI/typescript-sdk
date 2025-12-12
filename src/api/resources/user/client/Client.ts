@@ -41,7 +41,7 @@ export class User {
 
     /**
      * Get all available integrations (MCP server names) by user ID.
-     * Returns a list of integration names as McpServerName types.
+     * Returns a list of integration names and their authentication status.
      *
      * @param {string} userId - The external user ID
      * @param {User.RequestOptions} requestOptions - Request-specific configuration.

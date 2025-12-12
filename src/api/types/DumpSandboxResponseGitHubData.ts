@@ -12,5 +12,5 @@ export interface DumpSandboxResponseGitHubData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.GitHubData;
+    data: Klavis.GitHubDataOutput;
 }

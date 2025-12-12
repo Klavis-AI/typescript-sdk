@@ -79,7 +79,7 @@ describe("McpServer", () => {
             strataServerUrl: "strataServerUrl",
             strataId: "strataId",
             addedServers: ["addedServers"],
-            addedExternalServers: [{ name: "name", url: "url", headers: {} }],
+            addedExternalServers: [{ name: "name", url: "url" }],
             oauthUrls: { key: "value" },
             apiKeyUrls: { key: "value" },
         };
@@ -103,7 +103,6 @@ describe("McpServer", () => {
                 {
                     name: "name",
                     url: "url",
-                    headers: {},
                 },
             ],
             oauthUrls: {
@@ -121,7 +120,7 @@ describe("McpServer", () => {
         const rawRequestBody = { strataId: "strataId" };
         const rawResponseBody = {
             addedServers: ["addedServers"],
-            addedExternalServers: [{ name: "name", url: "url", headers: {} }],
+            addedExternalServers: [{ name: "name", url: "url" }],
             oauthUrls: { key: "value" },
             apiKeyUrls: { key: "value" },
         };
@@ -143,7 +142,6 @@ describe("McpServer", () => {
                 {
                     name: "name",
                     url: "url",
-                    headers: {},
                 },
             ],
             oauthUrls: {
@@ -188,7 +186,7 @@ describe("McpServer", () => {
             strataServerUrl: "strataServerUrl",
             strataId: "strataId",
             connectedServers: ["connectedServers"],
-            connectedExternalServers: [{ name: "name", url: "url", headers: {} }],
+            connectedExternalServers: [{ name: "name", url: "url" }],
             oauthUrls: { key: "value" },
             apiKeyUrls: { key: "value" },
         };
@@ -209,7 +207,6 @@ describe("McpServer", () => {
                 {
                     name: "name",
                     url: "url",
-                    headers: {},
                 },
             ],
             oauthUrls: {

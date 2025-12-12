@@ -4,6 +4,7 @@
 
 import { mockServerPool } from "../mock-server/MockServerPool.js";
 import { KlavisClient } from "../../src/Client";
+import * as Klavis from "../../src/api/index";
 
 describe("Sandbox", () => {
     test("createSandbox", async () => {
@@ -100,7 +101,2142 @@ describe("Sandbox", () => {
         });
     });
 
-    test("initializeSandbox", async () => {
+    test("initialize_jira_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/jira/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeJiraSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_jira_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/jira/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpJiraSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_google_calendar_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/google_calendar/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGoogleCalendarSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_google_calendar_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { events: [{ summary: "summary", start: {}, end: {} }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/google_calendar/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGoogleCalendarSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                events: [
+                    {
+                        summary: "summary",
+                        start: {},
+                        end: {},
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_gmail_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/gmail/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGmailSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_gmail_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                messages: [{ subject: "subject", to: "to", body: "body" }],
+                drafts: [{ subject: "subject", to: "to", body: "body" }],
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/gmail/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGmailSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                messages: [
+                    {
+                        subject: "subject",
+                        to: "to",
+                        body: "body",
+                    },
+                ],
+                drafts: [
+                    {
+                        subject: "subject",
+                        to: "to",
+                        body: "body",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_google_docs_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/google_docs/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGoogleDocsSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_google_docs_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { documents: [{ title: "title" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/google_docs/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGoogleDocsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                documents: [
+                    {
+                        title: "title",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_google_drive_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/google_drive/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGoogleDriveSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_google_drive_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { files: [{ name: "name", mimeType: "mimeType" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/google_drive/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGoogleDriveSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                files: [
+                    {
+                        name: "name",
+                        mimeType: "mimeType",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_google_forms_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/google_forms/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGoogleFormsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_google_forms_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { forms: [{ info: { title: "title" } }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/google_forms/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGoogleFormsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                forms: [
+                    {
+                        info: {
+                            title: "title",
+                        },
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_google_sheets_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/google_sheets/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGoogleSheetsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_google_sheets_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { spreadsheets: [{ properties: { title: "title" } }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/google_sheets/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGoogleSheetsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                spreadsheets: [
+                    {
+                        properties: {
+                            title: "title",
+                        },
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_salesforce_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/salesforce/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeSalesforceSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_salesforce_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                accounts: [{ Name: "Name" }],
+                contacts: [{ LastName: "LastName" }],
+                opportunities: [{ Name: "Name", StageName: "StageName", CloseDate: "CloseDate" }],
+                leads: [{ LastName: "LastName", Company: "Company" }],
+                cases: [{ Subject: "Subject" }],
+                campaigns: [{ Name: "Name" }],
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/salesforce/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpSalesforceSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                accounts: [
+                    {
+                        Name: "Name",
+                    },
+                ],
+                contacts: [
+                    {
+                        LastName: "LastName",
+                    },
+                ],
+                opportunities: [
+                    {
+                        Name: "Name",
+                        StageName: "StageName",
+                        CloseDate: "CloseDate",
+                    },
+                ],
+                leads: [
+                    {
+                        LastName: "LastName",
+                        Company: "Company",
+                    },
+                ],
+                cases: [
+                    {
+                        Subject: "Subject",
+                    },
+                ],
+                campaigns: [
+                    {
+                        Name: "Name",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_onedrive_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = { root: { name: "name" } };
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/onedrive/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeOnedriveSandbox("sandbox_id", {
+            root: {
+                name: "name",
+            },
+        });
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_onedrive_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { root: { id: "id", name: "name", files: [{ name: "name" }] } },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/onedrive/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpOnedriveSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                root: {
+                    id: "id",
+                    name: "name",
+                    files: [
+                        {
+                            name: "name",
+                        },
+                    ],
+                },
+            },
+        });
+    });
+
+    test("initialize_microsoft_teams_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/microsoft_teams/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeMicrosoftTeamsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_microsoft_teams_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { channels: [{ displayName: "displayName" }], chats: [{}] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/microsoft_teams/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpMicrosoftTeamsSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                channels: [
+                    {
+                        displayName: "displayName",
+                    },
+                ],
+                chats: [{}],
+            },
+        });
+    });
+
+    test("initialize_outlook_mail_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/outlook_mail/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeOutlookMailSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_outlook_mail_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { messages: [{ subject: "subject" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/outlook_mail/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpOutlookMailSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                messages: [
+                    {
+                        subject: "subject",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_calcom_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/Cal.com/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeCalcomSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_calcom_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { schedules: [{ name: "name", timeZone: "timeZone" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/Cal.com/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpCalcomSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                schedules: [
+                    {
+                        name: "name",
+                        timeZone: "timeZone",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_hubspot_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/hubspot/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeHubspotSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_hubspot_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/hubspot/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpHubspotSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_quickbooks_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/quickbooks/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeQuickbooksSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_quickbooks_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                accounts: [{ key: "value" }],
+                customers: [{ key: "value" }],
+                vendors: [{ key: "value" }],
+                invoices: [{ key: "value" }],
+                payments: [{ key: "value" }],
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/quickbooks/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpQuickbooksSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                accounts: [
+                    {
+                        key: "value",
+                    },
+                ],
+                customers: [
+                    {
+                        key: "value",
+                    },
+                ],
+                vendors: [
+                    {
+                        key: "value",
+                    },
+                ],
+                invoices: [
+                    {
+                        key: "value",
+                    },
+                ],
+                payments: [
+                    {
+                        key: "value",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_moneybird_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/moneybird/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeMoneybirdSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_moneybird_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                ledger_accounts: [{ name: "name", account_type: "account_type" }],
+                contacts: [{}],
+                products: [
+                    {
+                        description: "description",
+                        title: "title",
+                        price: "price",
+                        currency: "currency",
+                        identifier: "identifier",
+                    },
+                ],
+                projects: [{ name: "name" }],
+                time_entries: [{ description: "description", hours: 1.1 }],
+                sales_invoices: [
+                    {
+                        reference: "reference",
+                        details: [{ description: "description", price: "price", amount: "amount" }],
+                    },
+                ],
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/moneybird/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpMoneybirdSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                ledger_accounts: [
+                    {
+                        name: "name",
+                        account_type: "account_type",
+                    },
+                ],
+                contacts: [{}],
+                products: [
+                    {
+                        description: "description",
+                        title: "title",
+                        price: "price",
+                        currency: "currency",
+                        identifier: "identifier",
+                    },
+                ],
+                projects: [
+                    {
+                        name: "name",
+                    },
+                ],
+                time_entries: [
+                    {
+                        description: "description",
+                        hours: 1.1,
+                    },
+                ],
+                sales_invoices: [
+                    {
+                        reference: "reference",
+                        details: [
+                            {
+                                description: "description",
+                                price: "price",
+                                amount: "amount",
+                            },
+                        ],
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_dropbox_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/dropbox/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeDropboxSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_dropbox_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { folders: ["folders"], files: [{ path: "path", content: "content" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/dropbox/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpDropboxSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                folders: ["folders"],
+                files: [
+                    {
+                        path: "path",
+                        content: "content",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_shopify_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/shopify/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeShopifySandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_shopify_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                products: [
+                    {
+                        title: "title",
+                        vendor: "vendor",
+                        product_type: "product_type",
+                        variants: [{ price: "price", sku: "sku", inventory_quantity: 1 }],
+                    },
+                ],
+                customers: [{}],
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/shopify/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpShopifySandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                products: [
+                    {
+                        title: "title",
+                        vendor: "vendor",
+                        product_type: "product_type",
+                        variants: [
+                            {
+                                price: "price",
+                                sku: "sku",
+                                inventory_quantity: 1,
+                            },
+                        ],
+                    },
+                ],
+                customers: [{}],
+            },
+        });
+    });
+
+    test("initialize_outlook_calendar_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/outlook_calendar/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeOutlookCalendarSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_outlook_calendar_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { events: [{ subject: "subject" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/outlook_calendar/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpOutlookCalendarSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                events: [
+                    {
+                        subject: "subject",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_clickup_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/clickup/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeClickupSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_clickup_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/clickup/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpClickupSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_close_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/close/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeCloseSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_close_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/close/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpCloseSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_resend_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/resend/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeResendSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_resend_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/resend/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpResendSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_wordpress_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/wordpress/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeWordpressSandbox("sandbox_id", {});
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_wordpress_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { posts: [{ title: "title", content: "content" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/wordpress/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpWordpressSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                posts: [
+                    {
+                        title: "title",
+                        content: "content",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_asana_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/asana/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeAsanaSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_asana_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/asana/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpAsanaSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_mem0_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/mem0/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeMem0Sandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_mem0_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { memories: [{}] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/mem0/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpMem0Sandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                memories: [{}],
+            },
+        });
+    });
+
+    test("initialize_supabase_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/supabase/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeSupabaseSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_supabase_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { projects: [{ name: "name" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/supabase/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpSupabaseSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                projects: [
+                    {
+                        name: "name",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_github_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/github/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGithubSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_github_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { repos: [{ name: "name" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/github/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGithubSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                repos: [
+                    {
+                        name: "name",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_linear_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/linear/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeLinearSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_linear_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { projects: [{ name: "name" }] },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/linear/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpLinearSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                projects: [
+                    {
+                        name: "name",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_notion_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/notion/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeNotionSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_notion_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/notion/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpNotionSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_slack_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/slack/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeSlackSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_slack_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/slack/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpSlackSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_confluence_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/confluence/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeConfluenceSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_confluence_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/confluence/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpConfluenceSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_discord_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/discord/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeDiscordSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_discord_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/discord/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpDiscordSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_airtable_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/airtable/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeAirtableSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_airtable_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/airtable/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpAirtableSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_snowflake_sandbox", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
         const rawRequestBody = {};
@@ -119,7 +2255,7 @@ describe("Sandbox", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.sandbox.initializeSandbox("sandbox_id");
+        const response = await client.sandbox.initializeSnowflakeSandbox("sandbox_id");
         expect(response).toEqual({
             sandbox_id: "sandbox_id",
             status: "idle",
@@ -130,7 +2266,7 @@ describe("Sandbox", () => {
         });
     });
 
-    test("dumpSandbox", async () => {
+    test("dump_snowflake_sandbox", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
 
@@ -148,7 +2284,239 @@ describe("Sandbox", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.sandbox.dumpSandbox("sandbox_id");
+        const response = await client.sandbox.dumpSnowflakeSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_google_cloud_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/google_cloud/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeGoogleCloudSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_google_cloud_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                datasets: [{ datasetReference: { datasetId: "datasetId" } }],
+                tables: [{ tableReference: { datasetId: "datasetId", tableId: "tableId" } }],
+                buckets: [{ name: "name" }],
+                objects: [{ name: "name", bucket: "bucket" }],
+                logEntries: [{ logName: "logName" }],
+                logSinks: [{ name: "name" }],
+                logBuckets: [{ name: "name" }],
+                instances: [{ name: "name", zone: "zone" }],
+            },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/google_cloud/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpGoogleCloudSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                datasets: [
+                    {
+                        datasetReference: {
+                            datasetId: "datasetId",
+                        },
+                    },
+                ],
+                tables: [
+                    {
+                        tableReference: {
+                            datasetId: "datasetId",
+                            tableId: "tableId",
+                        },
+                    },
+                ],
+                buckets: [
+                    {
+                        name: "name",
+                    },
+                ],
+                objects: [
+                    {
+                        name: "name",
+                        bucket: "bucket",
+                    },
+                ],
+                logEntries: [
+                    {
+                        logName: "logName",
+                    },
+                ],
+                logSinks: [
+                    {
+                        name: "name",
+                    },
+                ],
+                logBuckets: [
+                    {
+                        name: "name",
+                    },
+                ],
+                instances: [
+                    {
+                        name: "name",
+                        zone: "zone",
+                    },
+                ],
+            },
+        });
+    });
+
+    test("initialize_monday_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/monday/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeMondaySandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_monday_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/monday/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpMondaySandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: {
+                key: "value",
+            },
+        });
+    });
+
+    test("initialize_motion_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+        const rawRequestBody = {};
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: { key: 1 },
+        };
+        server
+            .mockEndpoint()
+            .post("/sandbox/motion/sandbox_id/initialize")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.initializeMotionSandbox("sandbox_id");
+        expect(response).toEqual({
+            sandbox_id: "sandbox_id",
+            status: "idle",
+            message: "message",
+            records_created: {
+                key: 1,
+            },
+        });
+    });
+
+    test("dump_motion_sandbox", async () => {
+        const server = mockServerPool.createServer();
+        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
+
+        const rawResponseBody = {
+            sandbox_id: "sandbox_id",
+            server_name: "jira",
+            dumped_at: "2024-01-15T09:30:00Z",
+            data: { key: "value" },
+        };
+        server
+            .mockEndpoint()
+            .get("/sandbox/motion/sandbox_id/dump")
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
+
+        const response = await client.sandbox.dumpMotionSandbox("sandbox_id");
         expect(response).toEqual({
             sandbox_id: "sandbox_id",
             server_name: "jira",

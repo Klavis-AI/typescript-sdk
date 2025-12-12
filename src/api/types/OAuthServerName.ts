@@ -25,6 +25,7 @@ export type OAuthServerName =
     | "Google Drive"
     | "Google Sheets"
     | "Google Forms"
+    | "Google Cloud"
     | "HubSpot"
     | "Jira"
     | "Klaviyo"
@@ -42,13 +43,21 @@ export type OAuthServerName =
     | "QuickBooks"
     | "Salesforce"
     | "Slack"
-    | "Snowflake"
     | "Stripe"
     | "Supabase"
     | "Vercel"
     | "WordPress"
     | "Xero"
-    | "Zendesk";
+    | "Zendesk"
+    | "PayPal"
+    | "Sentry"
+    | "Netlify"
+    | "Hugging Face"
+    | "Square"
+    | "Clockwise"
+    | "Jotform"
+    | "Honeycomb"
+    | "Zoho Mail";
 export const OAuthServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
@@ -72,6 +81,7 @@ export const OAuthServerName = {
     GoogleDrive: "Google Drive",
     GoogleSheets: "Google Sheets",
     GoogleForms: "Google Forms",
+    GoogleCloud: "Google Cloud",
     HubSpot: "HubSpot",
     Jira: "Jira",
     Klaviyo: "Klaviyo",
@@ -89,11 +99,19 @@ export const OAuthServerName = {
     QuickBooks: "QuickBooks",
     Salesforce: "Salesforce",
     Slack: "Slack",
-    Snowflake: "Snowflake",
     Stripe: "Stripe",
     Supabase: "Supabase",
     Vercel: "Vercel",
     WordPress: "WordPress",
     Xero: "Xero",
     Zendesk: "Zendesk",
+    PayPal: "PayPal",
+    Sentry: "Sentry",
+    Netlify: "Netlify",
+    HuggingFace: "Hugging Face",
+    Square: "Square",
+    Clockwise: "Clockwise",
+    Jotform: "Jotform",
+    Honeycomb: "Honeycomb",
+    ZohoMail: "Zoho Mail",
 } as const;

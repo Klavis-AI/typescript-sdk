@@ -24,6 +24,7 @@ export type McpServerName =
     | "ElevenLabs"
     | "Exa"
     | "Fathom"
+    | "Fetch URL"
     | "Figma"
     | "Fireflies"
     | "Firecrawl Deep Research"
@@ -39,9 +40,11 @@ export type McpServerName =
     | "Google Jobs"
     | "Google Sheets"
     | "Google Forms"
+    | "Google Cloud"
     | "Hacker News"
     | "Heygen"
     | "HubSpot"
+    | "Intercom"
     | "Jira"
     | "Klaviyo"
     | "Klavis ReportGen"
@@ -71,6 +74,7 @@ export type McpServerName =
     | "SendGrid"
     | "Shopify"
     | "Slack"
+    | "Snowflake"
     | "Stripe"
     | "Supabase"
     | "Tavily"
@@ -79,7 +83,16 @@ export type McpServerName =
     | "WordPress"
     | "YouTube"
     | "Zendesk"
-    | "ServiceNow";
+    | "ServiceNow"
+    | "PayPal"
+    | "Sentry"
+    | "Netlify"
+    | "Hugging Face"
+    | "Square"
+    | "Clockwise"
+    | "Jotform"
+    | "Honeycomb"
+    | "Zoho Mail";
 export const McpServerName = {
     Affinity: "Affinity",
     Airtable: "Airtable",
@@ -102,6 +115,7 @@ export const McpServerName = {
     ElevenLabs: "ElevenLabs",
     Exa: "Exa",
     Fathom: "Fathom",
+    FetchUrl: "Fetch URL",
     Figma: "Figma",
     Fireflies: "Fireflies",
     FirecrawlDeepResearch: "Firecrawl Deep Research",
@@ -117,9 +131,11 @@ export const McpServerName = {
     GoogleJobs: "Google Jobs",
     GoogleSheets: "Google Sheets",
     GoogleForms: "Google Forms",
+    GoogleCloud: "Google Cloud",
     HackerNews: "Hacker News",
     Heygen: "Heygen",
     Hubspot: "HubSpot",
+    Intercom: "Intercom",
     Jira: "Jira",
     Klaviyo: "Klaviyo",
     KlavisReportGen: "Klavis ReportGen",
@@ -149,6 +165,7 @@ export const McpServerName = {
     Sendgrid: "SendGrid",
     Shopify: "Shopify",
     Slack: "Slack",
+    Snowflake: "Snowflake",
     Stripe: "Stripe",
     Supabase: "Supabase",
     Tavily: "Tavily",
@@ -158,4 +175,13 @@ export const McpServerName = {
     Youtube: "YouTube",
     Zendesk: "Zendesk",
     ServiceNow: "ServiceNow",
+    PayPal: "PayPal",
+    Sentry: "Sentry",
+    Netlify: "Netlify",
+    HuggingFace: "Hugging Face",
+    Square: "Square",
+    Clockwise: "Clockwise",
+    Jotform: "Jotform",
+    Honeycomb: "Honeycomb",
+    ZohoMail: "Zoho Mail",
 } as const;

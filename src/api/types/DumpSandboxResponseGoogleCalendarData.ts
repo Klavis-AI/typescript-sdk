@@ -12,5 +12,5 @@ export interface DumpSandboxResponseGoogleCalendarData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.GoogleCalendarData;
+    data: Klavis.GoogleCalendarDataOutput;
 }

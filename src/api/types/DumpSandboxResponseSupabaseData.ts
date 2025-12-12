@@ -12,5 +12,5 @@ export interface DumpSandboxResponseSupabaseData {
     /** Timestamp of dump */
     dumped_at: string;
     /** Dumped sandbox data in server-specific format */
-    data: Klavis.SupabaseData;
+    data: Klavis.SupabaseDataOutput;
 }

@@ -1562,7 +1562,7 @@ await client.whiteLabeling.getWhiteLabelingByClientId("client_id");
 <dd>
 
 Get all available integrations (MCP server names) by user ID.
-Returns a list of integration names as McpServerName types.
+Returns a list of integration names and their authentication status.
 
 </dd>
 </dl>
@@ -5606,6 +5606,82 @@ await client.zoomOauth.refreshToken({
 </dl>
 </details>
 
+## ZohoMailOauth
+
+<details><summary><code>client.zohoMailOauth.<a href="/src/api/resources/zohoMailOauth/client/Client.ts">authorizeZohoMail</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start Zoho Mail OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.zohoMailOauth.authorizeZohoMail({
+    instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeZohoMailRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ZohoMailOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 ## SharesightOauth
 
 <details><summary><code>client.sharesightOauth.<a href="/src/api/resources/sharesightOauth/client/Client.ts">authorizeSharesight</a>({ ...params }) -> unknown</code></summary>
@@ -5701,6 +5777,1239 @@ await client.sharesightOauth.refreshToken({
 <dd>
 
 **requestOptions:** `SharesightOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## IntercomOauth
+
+<details><summary><code>client.intercomOauth.<a href="/src/api/resources/intercomOauth/client/Client.ts">authorizeintercomOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.intercomOauth.authorizeintercomOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeintercomOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `IntercomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.intercomOauth.<a href="/src/api/resources/intercomOauth/client/Client.ts">refreshIntercomOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.intercomOauth.refreshIntercomOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshIntercomOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `IntercomOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## PaypalOauth
+
+<details><summary><code>client.paypalOauth.<a href="/src/api/resources/paypalOauth/client/Client.ts">authorizepaypalOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.paypalOauth.authorizepaypalOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizepaypalOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PaypalOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.paypalOauth.<a href="/src/api/resources/paypalOauth/client/Client.ts">refreshPaypalOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.paypalOauth.refreshPaypalOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshPaypalOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `PaypalOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## SentryOauth
+
+<details><summary><code>client.sentryOauth.<a href="/src/api/resources/sentryOauth/client/Client.ts">authorizesentryOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sentryOauth.authorizesentryOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizesentryOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SentryOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sentryOauth.<a href="/src/api/resources/sentryOauth/client/Client.ts">refreshSentryOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sentryOauth.refreshSentryOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshSentryOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SentryOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## NetlifyOauth
+
+<details><summary><code>client.netlifyOauth.<a href="/src/api/resources/netlifyOauth/client/Client.ts">authorizenetlifyOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.netlifyOauth.authorizenetlifyOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizenetlifyOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `NetlifyOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.netlifyOauth.<a href="/src/api/resources/netlifyOauth/client/Client.ts">refreshNetlifyOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.netlifyOauth.refreshNetlifyOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshNetlifyOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `NetlifyOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## HuggingfaceOauth
+
+<details><summary><code>client.huggingfaceOauth.<a href="/src/api/resources/huggingfaceOauth/client/Client.ts">authorizehuggingfaceOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.huggingfaceOauth.authorizehuggingfaceOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizehuggingfaceOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HuggingfaceOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.huggingfaceOauth.<a href="/src/api/resources/huggingfaceOauth/client/Client.ts">refreshHuggingfaceOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.huggingfaceOauth.refreshHuggingfaceOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshHuggingfaceOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HuggingfaceOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## SquareOauth
+
+<details><summary><code>client.squareOauth.<a href="/src/api/resources/squareOauth/client/Client.ts">authorizesquareOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.squareOauth.authorizesquareOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizesquareOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SquareOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.squareOauth.<a href="/src/api/resources/squareOauth/client/Client.ts">refreshSquareOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.squareOauth.refreshSquareOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshSquareOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `SquareOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## ClockwiseOauth
+
+<details><summary><code>client.clockwiseOauth.<a href="/src/api/resources/clockwiseOauth/client/Client.ts">authorizeclockwiseOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.clockwiseOauth.authorizeclockwiseOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeclockwiseOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ClockwiseOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.clockwiseOauth.<a href="/src/api/resources/clockwiseOauth/client/Client.ts">refreshClockwiseOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.clockwiseOauth.refreshClockwiseOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshClockwiseOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `ClockwiseOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## JotformOauth
+
+<details><summary><code>client.jotformOauth.<a href="/src/api/resources/jotformOauth/client/Client.ts">authorizejotformOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.jotformOauth.authorizejotformOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizejotformOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `JotformOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.jotformOauth.<a href="/src/api/resources/jotformOauth/client/Client.ts">refreshJotformOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.jotformOauth.refreshJotformOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshJotformOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `JotformOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## HoneycombOauth
+
+<details><summary><code>client.honeycombOauth.<a href="/src/api/resources/honeycombOauth/client/Client.ts">authorizehoneycombOauth</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start OAuth flow and redirect to authorization page.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.honeycombOauth.authorizehoneycombOauth({
+    instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizehoneycombOauthRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HoneycombOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.honeycombOauth.<a href="/src/api/resources/honeycombOauth/client/Client.ts">refreshHoneycombOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Refresh OAuth token for an MCP connection.
+
+This endpoint triggers a token refresh by making a list_tools request to the MCP server.
+The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.honeycombOauth.refreshHoneycombOauthToken({
+    instance_id: "instance_id",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.RefreshHoneycombOauthTokenRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `HoneycombOauth.RequestOptions`
 
 </dd>
 </dl>
@@ -5989,7 +7298,7 @@ await client.sandbox.resetSandbox("jira", "sandbox_id");
 </dl>
 </details>
 
-<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeJiraSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
 <dl>
 <dd>
 
@@ -6001,7 +7310,7 @@ await client.sandbox.resetSandbox("jira", "sandbox_id");
 <dl>
 <dd>
 
-Initialize the sandbox with snowflake-specific data following the defined schema.
+Initialize the sandbox with jira-specific data following the defined schema.
 
 </dd>
 </dl>
@@ -6017,7 +7326,7 @@ Initialize the sandbox with snowflake-specific data following the defined schema
 <dd>
 
 ```typescript
-await client.sandbox.initializeSandbox("sandbox_id");
+await client.sandbox.initializeJiraSandbox("sandbox_id");
 ```
 
 </dd>
@@ -6041,7 +7350,7 @@ await client.sandbox.initializeSandbox("sandbox_id");
 <dl>
 <dd>
 
-**request:** `Klavis.SnowflakeData`
+**request:** `Klavis.JiraDataInput`
 
 </dd>
 </dl>
@@ -6060,7 +7369,7 @@ await client.sandbox.initializeSandbox("sandbox_id");
 </dl>
 </details>
 
-<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseSnowflakeData</code></summary>
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpJiraSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseJiraData</code></summary>
 <dl>
 <dd>
 
@@ -6088,7 +7397,4701 @@ Export all data from the sandbox in the same format used for initialization.
 <dd>
 
 ```typescript
-await client.sandbox.dumpSandbox("sandbox_id");
+await client.sandbox.dumpJiraSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGoogleCalendarSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with google_calendar-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGoogleCalendarSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GoogleCalendarDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGoogleCalendarSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGoogleCalendarData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGoogleCalendarSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGmailSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with gmail-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGmailSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GmailData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGmailSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGmailData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGmailSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGoogleDocsSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with google_docs-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGoogleDocsSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GoogleDocsData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGoogleDocsSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGoogleDocsData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGoogleDocsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGoogleDriveSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with google_drive-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGoogleDriveSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GoogleDriveData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGoogleDriveSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGoogleDriveData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGoogleDriveSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGoogleFormsSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with google_forms-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGoogleFormsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GoogleFormsDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGoogleFormsSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGoogleFormsData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGoogleFormsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGoogleSheetsSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with google_sheets-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGoogleSheetsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GoogleSheetsDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGoogleSheetsSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGoogleSheetsData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGoogleSheetsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeSalesforceSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with salesforce-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeSalesforceSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.SalesforceData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpSalesforceSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseSalesforceData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpSalesforceSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeOnedriveSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with onedrive-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeOnedriveSandbox("sandbox_id", {
+    root: {
+        name: "name",
+    },
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.OneDriveDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpOnedriveSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseOneDriveData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpOnedriveSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeMicrosoftTeamsSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with microsoft_teams-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeMicrosoftTeamsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.MsTeamsDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpMicrosoftTeamsSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseMsTeamsData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpMicrosoftTeamsSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeOutlookMailSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with outlook_mail-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeOutlookMailSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.OutlookMailData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpOutlookMailSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseOutlookMailData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpOutlookMailSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeCalcomSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with Cal.com-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeCalcomSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.CalcomDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpCalcomSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseCalcomData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpCalcomSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeHubspotSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with hubspot-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeHubspotSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.HubSpotDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpHubspotSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseHubSpotData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpHubspotSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeQuickbooksSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with quickbooks-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeQuickbooksSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.QuickBooksData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpQuickbooksSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseQuickBooksData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpQuickbooksSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeMoneybirdSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with moneybird-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeMoneybirdSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.MoneybirdDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpMoneybirdSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseMoneybirdData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpMoneybirdSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeDropboxSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with dropbox-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeDropboxSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.DropboxData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpDropboxSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseDropboxData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpDropboxSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeShopifySandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with shopify-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeShopifySandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.ShopifyDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpShopifySandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseShopifyData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpShopifySandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeOutlookCalendarSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with outlook_calendar-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeOutlookCalendarSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.OutlookCalendarData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpOutlookCalendarSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseOutlookCalendarData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpOutlookCalendarSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeClickupSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with clickup-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeClickupSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.ClickUpDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpClickupSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseClickUpData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpClickupSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeCloseSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with close-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeCloseSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.CloseDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpCloseSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseCloseData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpCloseSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeResendSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with resend-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeResendSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.ResendDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpResendSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseResendData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpResendSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeWordpressSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with wordpress-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeWordpressSandbox("sandbox_id", {});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.WordPressData`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpWordpressSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseWordPressData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpWordpressSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeAsanaSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with asana-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeAsanaSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AsanaDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpAsanaSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseAsanaData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpAsanaSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeMem0Sandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with mem0-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeMem0Sandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.Mem0DataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpMem0Sandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseMem0Data</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpMem0Sandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeSupabaseSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with supabase-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeSupabaseSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.SupabaseDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpSupabaseSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseSupabaseData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpSupabaseSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGithubSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with github-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGithubSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GitHubDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGithubSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGitHubData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGithubSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeLinearSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with linear-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeLinearSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.LinearDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpLinearSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseLinearData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpLinearSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeNotionSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with notion-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeNotionSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.NotionDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpNotionSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseNotionData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpNotionSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeSlackSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with slack-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeSlackSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.SlackDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpSlackSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseSlackData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpSlackSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeConfluenceSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with confluence-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeConfluenceSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.ConfluenceDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpConfluenceSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseConfluenceData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpConfluenceSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeDiscordSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with discord-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeDiscordSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.DiscordDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpDiscordSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseDiscordData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpDiscordSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeAirtableSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with airtable-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeAirtableSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AirtableDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpAirtableSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseAirtableData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpAirtableSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeSnowflakeSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with snowflake-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeSnowflakeSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.SnowflakeDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpSnowflakeSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseSnowflakeData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpSnowflakeSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeGoogleCloudSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with google_cloud-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeGoogleCloudSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.GoogleCloudDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpGoogleCloudSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseGoogleCloudData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpGoogleCloudSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeMondaySandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with monday-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeMondaySandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.MondayDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpMondaySandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseMondayData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpMondaySandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">initializeMotionSandbox</a>(sandboxId, { ...params }) -> Klavis.InitializeSandboxResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Initialize the sandbox with motion-specific data following the defined schema.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.initializeMotionSandbox("sandbox_id");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**sandboxId:** `string` — The unique sandbox identifier
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.MotionDataInput`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `Sandbox.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">dumpMotionSandbox</a>(sandboxId) -> Klavis.DumpSandboxResponseMotionData</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Export all data from the sandbox in the same format used for initialization.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.sandbox.dumpMotionSandbox("sandbox_id");
 ```
 
 </dd>
