@@ -9,5 +9,5 @@ import * as Klavis from "../index.js";
  */
 export interface Mem0DataOutput {
     /** List of memories */
-    memories?: Klavis.Mem0Memory[];
+    memory_list?: Klavis.Mem0Memory[];
 }

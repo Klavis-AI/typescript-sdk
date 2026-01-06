@@ -12,18 +12,18 @@ export interface AsanaTask {
     gid?: string;
     /** Task name */
     name: string;
-    /** Task notes/description */
-    notes?: string;
+    /** Task description */
+    description?: string;
     /** Whether task is completed */
     completed?: boolean;
     /** User GID assigned to task */
     assignee?: string;
     /** Due date (YYYY-MM-DD) */
-    due_on?: string;
+    due_date?: string;
     /** Due datetime (ISO 8601) */
-    due_at?: string;
+    due_datetime?: string;
     /** Start date (YYYY-MM-DD) */
-    start_on?: string;
+    start_date?: string;
     /** Stories (comments) on this task */
     stories?: Klavis.AsanaStory[];
 }

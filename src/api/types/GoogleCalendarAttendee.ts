@@ -8,6 +8,10 @@
 export interface GoogleCalendarAttendee {
     /** Attendee email address (required) */
     email: string;
+    /** Attendee display name */
+    name?: string;
     /** Whether attendance is optional */
-    optional?: boolean;
+    isOptional?: boolean;
+    /** Attendee's response comment */
+    comment?: string;
 }

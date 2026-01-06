@@ -3,7 +3,7 @@
  */
 
 /**
- * Compute Engine instance - matches API format
+ * Compute Engine instance
  */
 export interface ComputeInstance {
     /** Instance name */
@@ -11,17 +11,13 @@ export interface ComputeInstance {
     /** Instance zone */
     zone: string;
     /** Machine type */
-    machineType?: string;
+    machine_type?: string;
     /** Instance status */
     status?: string;
-    /** Creation timestamp */
-    creationTimestamp?: string;
-    /** Instance ID */
-    id?: string;
-    /** Self link URL */
-    selfLink?: string;
     /** Instance description */
     description?: string;
     /** Instance labels */
     labels?: Record<string, string | undefined>;
+    /** Creation timestamp */
+    created_at?: string;
 }

@@ -10,7 +10,7 @@ describe("Sandbox", () => {
     test("createSandbox", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
+        const rawRequestBody = {};
         const rawResponseBody = {
             sandbox_id: "sandbox_id",
             server_url: "server_url",
@@ -18,7 +18,14 @@ describe("Sandbox", () => {
             status: "idle",
             message: "message",
         };
-        server.mockEndpoint().post("/sandbox/jira").respondWith().statusCode(200).jsonBody(rawResponseBody).build();
+        server
+            .mockEndpoint()
+            .post("/sandbox/jira")
+            .jsonBody(rawRequestBody)
+            .respondWith()
+            .statusCode(200)
+            .jsonBody(rawResponseBody)
+            .build();
 
         const response = await client.sandbox.createSandbox("jira");
         expect(response).toEqual({
@@ -198,7 +205,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { events: [{ summary: "summary", start: {}, end: {} }] },
+            data: { events: [{ title: "title" }] },
         };
         server
             .mockEndpoint()
@@ -216,9 +223,7 @@ describe("Sandbox", () => {
             data: {
                 events: [
                     {
-                        summary: "summary",
-                        start: {},
-                        end: {},
+                        title: "title",
                     },
                 ],
             },
@@ -465,7 +470,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { forms: [{ info: { title: "title" } }] },
+            data: { forms: [{ title: "title" }] },
         };
         server
             .mockEndpoint()
@@ -483,9 +488,7 @@ describe("Sandbox", () => {
             data: {
                 forms: [
                     {
-                        info: {
-                            title: "title",
-                        },
+                        title: "title",
                     },
                 ],
             },
@@ -530,7 +533,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { spreadsheets: [{ properties: { title: "title" } }] },
+            data: { spreadsheets: [{ title: "title" }] },
         };
         server
             .mockEndpoint()
@@ -548,9 +551,7 @@ describe("Sandbox", () => {
             data: {
                 spreadsheets: [
                     {
-                        properties: {
-                            title: "title",
-                        },
+                        title: "title",
                     },
                 ],
             },
@@ -576,7 +577,7 @@ describe("Sandbox", () => {
             .jsonBody(rawResponseBody)
             .build();
 
-        const response = await client.sandbox.initializeSalesforceSandbox("sandbox_id", {});
+        const response = await client.sandbox.initializeSalesforceSandbox("sandbox_id");
         expect(response).toEqual({
             sandbox_id: "sandbox_id",
             status: "idle",
@@ -596,12 +597,12 @@ describe("Sandbox", () => {
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
             data: {
-                accounts: [{ Name: "Name" }],
-                contacts: [{ LastName: "LastName" }],
-                opportunities: [{ Name: "Name", StageName: "StageName", CloseDate: "CloseDate" }],
-                leads: [{ LastName: "LastName", Company: "Company" }],
-                cases: [{ Subject: "Subject" }],
-                campaigns: [{ Name: "Name" }],
+                accounts: [{ name: "name" }],
+                contacts: [{ last_name: "last_name" }],
+                opportunities: [{ name: "name", stage: "stage", close_date: "close_date" }],
+                leads: [{ last_name: "last_name", company: "company" }],
+                cases: [{ subject: "subject" }],
+                campaigns: [{ name: "name" }],
             },
         };
         server
@@ -620,35 +621,35 @@ describe("Sandbox", () => {
             data: {
                 accounts: [
                     {
-                        Name: "Name",
+                        name: "name",
                     },
                 ],
                 contacts: [
                     {
-                        LastName: "LastName",
+                        last_name: "last_name",
                     },
                 ],
                 opportunities: [
                     {
-                        Name: "Name",
-                        StageName: "StageName",
-                        CloseDate: "CloseDate",
+                        name: "name",
+                        stage: "stage",
+                        close_date: "close_date",
                     },
                 ],
                 leads: [
                     {
-                        LastName: "LastName",
-                        Company: "Company",
+                        last_name: "last_name",
+                        company: "company",
                     },
                 ],
                 cases: [
                     {
-                        Subject: "Subject",
+                        subject: "subject",
                     },
                 ],
                 campaigns: [
                     {
-                        Name: "Name",
+                        name: "name",
                     },
                 ],
             },
@@ -658,7 +659,7 @@ describe("Sandbox", () => {
     test("initialize_onedrive_sandbox", async () => {
         const server = mockServerPool.createServer();
         const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-        const rawRequestBody = { root: { name: "name" } };
+        const rawRequestBody = { root: [{ name: "name" }] };
         const rawResponseBody = {
             sandbox_id: "sandbox_id",
             status: "idle",
@@ -675,9 +676,11 @@ describe("Sandbox", () => {
             .build();
 
         const response = await client.sandbox.initializeOnedriveSandbox("sandbox_id", {
-            root: {
-                name: "name",
-            },
+            root: [
+                {
+                    name: "name",
+                },
+            ],
         });
         expect(response).toEqual({
             sandbox_id: "sandbox_id",
@@ -697,7 +700,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { root: { id: "id", name: "name", files: [{ name: "name" }] } },
+            data: { root: [{ name: "name" }] },
         };
         server
             .mockEndpoint()
@@ -713,15 +716,11 @@ describe("Sandbox", () => {
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
             data: {
-                root: {
-                    id: "id",
-                    name: "name",
-                    files: [
-                        {
-                            name: "name",
-                        },
-                    ],
-                },
+                root: [
+                    {
+                        name: "name",
+                    },
+                ],
             },
         });
     });
@@ -764,7 +763,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { channels: [{ displayName: "displayName" }], chats: [{}] },
+            data: { team_channels: [{ name: "name" }], team_chats: [{}] },
         };
         server
             .mockEndpoint()
@@ -780,12 +779,12 @@ describe("Sandbox", () => {
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
             data: {
-                channels: [
+                team_channels: [
                     {
-                        displayName: "displayName",
+                        name: "name",
                     },
                 ],
-                chats: [{}],
+                team_chats: [{}],
             },
         });
     });
@@ -828,7 +827,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { messages: [{ subject: "subject" }] },
+            data: { messages: [{ title: "title" }] },
         };
         server
             .mockEndpoint()
@@ -846,7 +845,7 @@ describe("Sandbox", () => {
             data: {
                 messages: [
                     {
-                        subject: "subject",
+                        title: "title",
                     },
                 ],
             },
@@ -1368,7 +1367,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { events: [{ subject: "subject" }] },
+            data: { calendar_events: [{ title: "title" }] },
         };
         server
             .mockEndpoint()
@@ -1384,9 +1383,9 @@ describe("Sandbox", () => {
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
             data: {
-                events: [
+                calendar_events: [
                     {
-                        subject: "subject",
+                        title: "title",
                     },
                 ],
             },
@@ -1731,7 +1730,7 @@ describe("Sandbox", () => {
             sandbox_id: "sandbox_id",
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
-            data: { memories: [{}] },
+            data: { memory_list: [{}] },
         };
         server
             .mockEndpoint()
@@ -1747,7 +1746,7 @@ describe("Sandbox", () => {
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
             data: {
-                memories: [{}],
+                memory_list: [{}],
             },
         });
     });
@@ -2334,13 +2333,13 @@ describe("Sandbox", () => {
             server_name: "jira",
             dumped_at: "2024-01-15T09:30:00Z",
             data: {
-                datasets: [{ datasetReference: { datasetId: "datasetId" } }],
-                tables: [{ tableReference: { datasetId: "datasetId", tableId: "tableId" } }],
+                datasets: [{ id: "id" }],
+                tables: [{ dataset_id: "dataset_id", id: "id" }],
                 buckets: [{ name: "name" }],
-                objects: [{ name: "name", bucket: "bucket" }],
-                logEntries: [{ logName: "logName" }],
-                logSinks: [{ name: "name" }],
-                logBuckets: [{ name: "name" }],
+                objects: [{ bucket: "bucket", name: "name" }],
+                log_entries: [{ log_name: "log_name" }],
+                log_sinks: [{ name: "name" }],
+                log_buckets: [{ name: "name" }],
                 instances: [{ name: "name", zone: "zone" }],
             },
         };
@@ -2360,17 +2359,13 @@ describe("Sandbox", () => {
             data: {
                 datasets: [
                     {
-                        datasetReference: {
-                            datasetId: "datasetId",
-                        },
+                        id: "id",
                     },
                 ],
                 tables: [
                     {
-                        tableReference: {
-                            datasetId: "datasetId",
-                            tableId: "tableId",
-                        },
+                        dataset_id: "dataset_id",
+                        id: "id",
                     },
                 ],
                 buckets: [
@@ -2380,21 +2375,21 @@ describe("Sandbox", () => {
                 ],
                 objects: [
                     {
-                        name: "name",
                         bucket: "bucket",
+                        name: "name",
                     },
                 ],
-                logEntries: [
+                log_entries: [
                     {
-                        logName: "logName",
+                        log_name: "log_name",
                     },
                 ],
-                logSinks: [
+                log_sinks: [
                     {
                         name: "name",
                     },
                 ],
-                logBuckets: [
+                log_buckets: [
                     {
                         name: "name",
                     },

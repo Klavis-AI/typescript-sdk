@@ -10,7 +10,7 @@ import * as Klavis from "../../../../index.js";
  */
 export interface MsTeamsDataInput {
     /** List of team channels */
-    channels?: Klavis.TeamsChannel[];
+    team_channels?: Klavis.TeamsChannel[];
     /** List of one-on-one chats */
-    chats?: Klavis.TeamsChat[];
+    team_chats?: Klavis.TeamsChat[];
 }

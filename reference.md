@@ -983,6 +983,78 @@ await client.mcpServer.deleteServerInstance("instanceId");
 </dl>
 </details>
 
+<details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">updateServerInstance</a>(instanceId, { ...params }) -> Klavis.UpdateServerInstanceResponse</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Updates the settings of a specific server connection instance.
+Currently supports updating the read-only status of the connection.
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.mcpServer.updateServerInstance("instanceId");
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**instanceId:** `string` — The ID of the connection integration instance to update.
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.UpdateServerInstanceRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `McpServer.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
 <details><summary><code>client.mcpServer.<a href="/src/api/resources/mcpServer/client/Client.ts">getInstanceAuthData</a>(instanceId) -> Klavis.GetAuthDataResponse</code></summary>
 <dl>
 <dd>
@@ -5556,56 +5628,6 @@ await client.zoomOauth.authorizeZoom({
 </dl>
 </details>
 
-<details><summary><code>client.zoomOauth.<a href="/src/api/resources/zoomOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.ZoomOAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.zoomOauth.refreshToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshTokenOauthZoomRefreshTokenPostRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ZoomOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## ZohoMailOauth
 
 <details><summary><code>client.zohoMailOauth.<a href="/src/api/resources/zohoMailOauth/client/Client.ts">authorizeZohoMail</a>({ ...params }) -> unknown</code></summary>
@@ -5737,7 +5759,9 @@ await client.sharesightOauth.authorizeSharesight({
 </dl>
 </details>
 
-<details><summary><code>client.sharesightOauth.<a href="/src/api/resources/sharesightOauth/client/Client.ts">refreshToken</a>({ ...params }) -> Klavis.SharesightOAuthSuccessResponse</code></summary>
+## InstagramOauth
+
+<details><summary><code>client.instagramOauth.<a href="/src/api/resources/instagramOauth/client/Client.ts">authorizeInstagram</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -5750,8 +5774,11 @@ await client.sharesightOauth.authorizeSharesight({
 <dd>
 
 ```typescript
-await client.sharesightOauth.refreshToken({
+await client.instagramOauth.authorizeInstagram({
     instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
 });
 ```
 
@@ -5768,7 +5795,7 @@ await client.sharesightOauth.refreshToken({
 <dl>
 <dd>
 
-**request:** `Klavis.RefreshTokenOauthSharesightRefreshTokenPostRequest`
+**request:** `Klavis.AuthorizeInstagramRequest`
 
 </dd>
 </dl>
@@ -5776,7 +5803,83 @@ await client.sharesightOauth.refreshToken({
 <dl>
 <dd>
 
-**requestOptions:** `SharesightOauth.RequestOptions`
+**requestOptions:** `InstagramOauth.RequestOptions`
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+</dd>
+</dl>
+</details>
+
+## YoutubeOauth
+
+<details><summary><code>client.youtubeOauth.<a href="/src/api/resources/youtubeOauth/client/Client.ts">authorizeYouTube</a>({ ...params }) -> unknown</code></summary>
+<dl>
+<dd>
+
+#### 📝 Description
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+Start YouTube OAuth flow
+
+Parameters:
+
+- instance_id: Identifier for the instance requesting authorization
+- client_id: Optional client ID for white labeling
+- scope: Optional scopes to request (comma-separated)
+- redirect_url: Optional URL to redirect to after authorization completes
+  </dd>
+  </dl>
+  </dd>
+  </dl>
+
+#### 🔌 Usage
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+```typescript
+await client.youtubeOauth.authorizeYouTube({
+    instance_id: "instance_id",
+    client_id: "client_id",
+    scope: "scope",
+    redirect_url: "redirect_url",
+});
+```
+
+</dd>
+</dl>
+</dd>
+</dl>
+
+#### ⚙️ Parameters
+
+<dl>
+<dd>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AuthorizeYouTubeRequest`
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**requestOptions:** `YoutubeOauth.RequestOptions`
 
 </dd>
 </dl>
@@ -5838,74 +5941,6 @@ await client.intercomOauth.authorizeintercomOauth({
 <dd>
 
 **request:** `Klavis.AuthorizeintercomOauthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `IntercomOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.intercomOauth.<a href="/src/api/resources/intercomOauth/client/Client.ts">refreshIntercomOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.intercomOauth.refreshIntercomOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshIntercomOauthTokenRequest`
 
 </dd>
 </dl>
@@ -5993,74 +6028,6 @@ await client.paypalOauth.authorizepaypalOauth({
 </dl>
 </details>
 
-<details><summary><code>client.paypalOauth.<a href="/src/api/resources/paypalOauth/client/Client.ts">refreshPaypalOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.paypalOauth.refreshPaypalOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshPaypalOauthTokenRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `PaypalOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## SentryOauth
 
 <details><summary><code>client.sentryOauth.<a href="/src/api/resources/sentryOauth/client/Client.ts">authorizesentryOauth</a>({ ...params }) -> unknown</code></summary>
@@ -6112,74 +6079,6 @@ await client.sentryOauth.authorizesentryOauth({
 <dd>
 
 **request:** `Klavis.AuthorizesentryOauthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SentryOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.sentryOauth.<a href="/src/api/resources/sentryOauth/client/Client.ts">refreshSentryOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.sentryOauth.refreshSentryOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshSentryOauthTokenRequest`
 
 </dd>
 </dl>
@@ -6267,74 +6166,6 @@ await client.netlifyOauth.authorizenetlifyOauth({
 </dl>
 </details>
 
-<details><summary><code>client.netlifyOauth.<a href="/src/api/resources/netlifyOauth/client/Client.ts">refreshNetlifyOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.netlifyOauth.refreshNetlifyOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshNetlifyOauthTokenRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `NetlifyOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## HuggingfaceOauth
 
 <details><summary><code>client.huggingfaceOauth.<a href="/src/api/resources/huggingfaceOauth/client/Client.ts">authorizehuggingfaceOauth</a>({ ...params }) -> unknown</code></summary>
@@ -6386,74 +6217,6 @@ await client.huggingfaceOauth.authorizehuggingfaceOauth({
 <dd>
 
 **request:** `Klavis.AuthorizehuggingfaceOauthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `HuggingfaceOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.huggingfaceOauth.<a href="/src/api/resources/huggingfaceOauth/client/Client.ts">refreshHuggingfaceOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.huggingfaceOauth.refreshHuggingfaceOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshHuggingfaceOauthTokenRequest`
 
 </dd>
 </dl>
@@ -6541,74 +6304,6 @@ await client.squareOauth.authorizesquareOauth({
 </dl>
 </details>
 
-<details><summary><code>client.squareOauth.<a href="/src/api/resources/squareOauth/client/Client.ts">refreshSquareOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.squareOauth.refreshSquareOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshSquareOauthTokenRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `SquareOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## ClockwiseOauth
 
 <details><summary><code>client.clockwiseOauth.<a href="/src/api/resources/clockwiseOauth/client/Client.ts">authorizeclockwiseOauth</a>({ ...params }) -> unknown</code></summary>
@@ -6660,74 +6355,6 @@ await client.clockwiseOauth.authorizeclockwiseOauth({
 <dd>
 
 **request:** `Klavis.AuthorizeclockwiseOauthRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `ClockwiseOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
-<details><summary><code>client.clockwiseOauth.<a href="/src/api/resources/clockwiseOauth/client/Client.ts">refreshClockwiseOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.clockwiseOauth.refreshClockwiseOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshClockwiseOauthTokenRequest`
 
 </dd>
 </dl>
@@ -6815,74 +6442,6 @@ await client.jotformOauth.authorizejotformOauth({
 </dl>
 </details>
 
-<details><summary><code>client.jotformOauth.<a href="/src/api/resources/jotformOauth/client/Client.ts">refreshJotformOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
-<dl>
-<dd>
-
-#### 📝 Description
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### 🔌 Usage
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-```typescript
-await client.jotformOauth.refreshJotformOauthToken({
-    instance_id: "instance_id",
-});
-```
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-#### ⚙️ Parameters
-
-<dl>
-<dd>
-
-<dl>
-<dd>
-
-**request:** `Klavis.RefreshJotformOauthTokenRequest`
-
-</dd>
-</dl>
-
-<dl>
-<dd>
-
-**requestOptions:** `JotformOauth.RequestOptions`
-
-</dd>
-</dl>
-</dd>
-</dl>
-
-</dd>
-</dl>
-</details>
-
 ## HoneycombOauth
 
 <details><summary><code>client.honeycombOauth.<a href="/src/api/resources/honeycombOauth/client/Client.ts">authorizehoneycombOauth</a>({ ...params }) -> unknown</code></summary>
@@ -6952,7 +6511,9 @@ await client.honeycombOauth.authorizehoneycombOauth({
 </dl>
 </details>
 
-<details><summary><code>client.honeycombOauth.<a href="/src/api/resources/honeycombOauth/client/Client.ts">refreshHoneycombOauthToken</a>({ ...params }) -> Klavis.McpoAuthSuccessResponse</code></summary>
+## AmplitudeOauth
+
+<details><summary><code>client.amplitudeOauth.<a href="/src/api/resources/amplitudeOauth/client/Client.ts">authorizeamplitudeOauth</a>({ ...params }) -> unknown</code></summary>
 <dl>
 <dd>
 
@@ -6964,10 +6525,7 @@ await client.honeycombOauth.authorizehoneycombOauth({
 <dl>
 <dd>
 
-Refresh OAuth token for an MCP connection.
-
-This endpoint triggers a token refresh by making a list_tools request to the MCP server.
-The MCP SDK will automatically detect if the token is expired and refresh it if a refresh_token is available.
+Start OAuth flow and redirect to authorization page.
 
 </dd>
 </dl>
@@ -6983,8 +6541,10 @@ The MCP SDK will automatically detect if the token is expired and refresh it if 
 <dd>
 
 ```typescript
-await client.honeycombOauth.refreshHoneycombOauthToken({
+await client.amplitudeOauth.authorizeamplitudeOauth({
     instance_id: "instance_id",
+    redirect_url: "redirect_url",
+    force_refresh: true,
 });
 ```
 
@@ -7001,7 +6561,7 @@ await client.honeycombOauth.refreshHoneycombOauthToken({
 <dl>
 <dd>
 
-**request:** `Klavis.RefreshHoneycombOauthTokenRequest`
+**request:** `Klavis.AuthorizeamplitudeOauthRequest`
 
 </dd>
 </dl>
@@ -7009,7 +6569,7 @@ await client.honeycombOauth.refreshHoneycombOauthToken({
 <dl>
 <dd>
 
-**requestOptions:** `HoneycombOauth.RequestOptions`
+**requestOptions:** `AmplitudeOauth.RequestOptions`
 
 </dd>
 </dl>
@@ -7022,7 +6582,7 @@ await client.honeycombOauth.refreshHoneycombOauthToken({
 
 ## Sandbox
 
-<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">createSandbox</a>(serverName) -> Klavis.CreateSandboxResponse</code></summary>
+<details><summary><code>client.sandbox.<a href="/src/api/resources/sandbox/client/Client.ts">createSandbox</a>(serverName, { ...params }) -> Klavis.CreateSandboxResponse</code></summary>
 <dl>
 <dd>
 
@@ -7034,7 +6594,7 @@ await client.honeycombOauth.refreshHoneycombOauthToken({
 <dl>
 <dd>
 
-Acquire an idle sandbox instance for a specific MCP server. The sandbox will be marked as 'occupied'.
+Acquire an idle sandbox instance for a specific MCP server. The sandbox will be marked as 'occupied'. Optionally specify a test_account_email to acquire a specific test account.
 
 </dd>
 </dl>
@@ -7067,6 +6627,14 @@ await client.sandbox.createSandbox("jira");
 <dd>
 
 **serverName:** `Klavis.SandboxMcpServer` — The MCP server name
+
+</dd>
+</dl>
+
+<dl>
+<dd>
+
+**request:** `Klavis.AcquireSandboxRequest`
 
 </dd>
 </dl>
@@ -8264,7 +7832,7 @@ Initialize the sandbox with salesforce-specific data following the defined schem
 <dd>
 
 ```typescript
-await client.sandbox.initializeSalesforceSandbox("sandbox_id", {});
+await client.sandbox.initializeSalesforceSandbox("sandbox_id");
 ```
 
 </dd>
@@ -8288,7 +7856,7 @@ await client.sandbox.initializeSalesforceSandbox("sandbox_id", {});
 <dl>
 <dd>
 
-**request:** `Klavis.SalesforceData`
+**request:** `Klavis.SalesforceDataInput`
 
 </dd>
 </dl>
@@ -8399,9 +7967,11 @@ Initialize the sandbox with onedrive-specific data following the defined schema.
 
 ```typescript
 await client.sandbox.initializeOnedriveSandbox("sandbox_id", {
-    root: {
-        name: "name",
-    },
+    root: [
+        {
+            name: "name",
+        },
+    ],
 });
 ```
 

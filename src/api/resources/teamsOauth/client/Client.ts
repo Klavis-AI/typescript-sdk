@@ -90,7 +90,10 @@ export class TeamsOauth {
         if (_response.error.reason === "status-code") {
             switch (_response.error.statusCode) {
                 case 400:
-                    throw new Klavis.BadRequestError(_response.error.body as unknown, _response.rawResponse);
+                    throw new Klavis.BadRequestError(
+                        _response.error.body as Klavis.AzureAdoAuthErrorResponse,
+                        _response.rawResponse,
+                    );
                 case 422:
                     throw new Klavis.UnprocessableEntityError(
                         _response.error.body as Klavis.HttpValidationError,

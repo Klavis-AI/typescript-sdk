@@ -11,9 +11,9 @@ export interface Mem0Memory {
     /** Memory ID (read-only, set by Mem0) */
     id?: string;
     /** Memory content (returned from API) */
-    memory?: string;
+    content_text?: string;
     /** Array of message objects representing the content */
-    messages?: Klavis.Mem0Message[];
+    message_list?: Klavis.Mem0Message[];
     /** Agent ID */
     agent_id?: string;
     /** User ID */
@@ -25,33 +25,25 @@ export interface Mem0Memory {
     /** Additional metadata */
     metadata?: Record<string, unknown>;
     /** String to include specific preferences in the memory */
-    includes?: string;
+    include_preferences?: string;
     /** String to exclude specific preferences in the memory */
-    excludes?: string;
+    exclude_preferences?: string;
     /** Whether to infer memories or directly store messages */
-    infer?: boolean;
+    auto_infer?: boolean;
     /** Response format structure (v1.0 or v1.1) */
-    output_format?: string;
+    response_format?: string;
     /** List of custom categories with name and description */
-    custom_categories?: Record<string, string>[];
+    category_definitions?: Record<string, string>[];
     /** Project-specific guidelines for handling memories */
-    custom_instructions?: string;
+    processing_instructions?: string;
     /** Whether the memory is immutable */
-    immutable?: boolean;
+    read_only?: boolean;
     /** Whether to add memory asynchronously */
-    async_mode?: boolean;
+    background_processing?: boolean;
     /** Unix timestamp of the memory */
     timestamp?: number;
-    /** Expiration date (YYYY-MM-DD) */
-    expiration_date?: string;
-    /** Memory version (v1 deprecated, use v2) */
-    version?: string;
     /** Creation timestamp */
     created_at?: string;
     /** Last update timestamp */
     updated_at?: string;
-    /** Memory owner */
-    owner?: string;
-    /** Organization */
-    organization?: string;
 }

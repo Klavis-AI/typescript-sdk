@@ -5,11 +5,17 @@
 import * as Klavis from "../index.js";
 
 /**
- * A sheet within a Google Sheets spreadsheet
+ * A sheet within a spreadsheet
  */
 export interface GoogleSheetsSheet {
-    /** Sheet properties (required) */
-    properties: Klavis.GoogleSheetsSheetProperties;
-    /** Grid data for the sheet */
-    data?: Klavis.GoogleSheetsGridDataOutput[];
+    /** Sheet title */
+    title: string;
+    /** Sheet index position */
+    index?: number;
+    /** Number of rows in the sheet */
+    rowCount?: number;
+    /** Number of columns in the sheet */
+    columnCount?: number;
+    /** List of cells with data */
+    cells?: Klavis.GoogleSheetsCell[];
 }

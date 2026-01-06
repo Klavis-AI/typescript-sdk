@@ -7,12 +7,12 @@ import * as Klavis from "../../../../index.js";
 /**
  * @example
  *     {
- *         root: {
- *             name: "name"
- *         }
+ *         root: [{
+ *                 name: "name"
+ *             }]
  *     }
  */
 export interface OneDriveDataInput {
-    /** Root folder containing all subfolders and files */
-    root: Klavis.OneDriveFolder;
+    /** List containing root folder (should contain only one element) */
+    root: Klavis.OneDriveFolder[];
 }

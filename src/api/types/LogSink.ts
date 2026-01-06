@@ -3,17 +3,17 @@
  */
 
 /**
- * Cloud Logging sink - matches API format
+ * Cloud Logging sink
  */
 export interface LogSink {
     /** Sink name */
     name: string;
-    /** Log filter */
+    /** Log filter expression */
     filter?: string;
     /** Sink description */
     description?: string;
     /** Creation timestamp */
-    createTime?: string;
+    created_at?: string;
     /** Update timestamp */
-    updateTime?: string;
+    updated_at?: string;
 }

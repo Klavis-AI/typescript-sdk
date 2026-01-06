@@ -3,27 +3,23 @@
  */
 
 /**
- * Cloud Storage object (blob) - matches API format
+ * Cloud Storage object (blob)
  */
 export interface StorageObject {
-    /** Object name */
-    name: string;
     /** Bucket name */
     bucket: string;
+    /** Object name/path */
+    name: string;
+    /** Content type */
+    content_type?: string;
     /** Object size in bytes */
     size?: string;
-    /** Content type */
-    contentType?: string;
-    /** Creation timestamp */
-    timeCreated?: string;
-    /** Last update timestamp */
-    updated?: string;
-    /** Object generation */
-    generation?: string;
-    /** Metadata generation */
-    metageneration?: string;
-    /** MD5 hash */
-    md5Hash?: string;
-    /** Object content (text or base64 encoded) */
+    /** Object content (for initialization) */
     content?: string;
+    /** MD5 hash */
+    md5_hash?: string;
+    /** Creation timestamp */
+    created_at?: string;
+    /** Last update timestamp */
+    updated_at?: string;
 }

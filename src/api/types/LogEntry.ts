@@ -3,21 +3,21 @@
  */
 
 /**
- * Cloud Logging log entry - matches API format
+ * Cloud Logging log entry
  */
 export interface LogEntry {
     /** Log name */
-    logName: string;
-    /** Text payload */
-    textPayload?: string;
+    log_name: string;
+    /** Text message payload */
+    message?: string;
     /** JSON payload */
-    jsonPayload?: Record<string, unknown>;
+    json_data?: Record<string, unknown>;
     /** Log severity (DEBUG, INFO, WARNING, ERROR, CRITICAL) */
     severity?: string;
     /** Entry timestamp */
     timestamp?: string;
-    /** Unique insert ID */
-    insertId?: string;
-    /** Monitored resource */
-    resource?: Record<string, unknown>;
+    /** Resource type (e.g., gce_instance, cloud_function) */
+    resource_type?: string;
+    /** Resource labels */
+    resource_labels?: Record<string, string | undefined>;
 }

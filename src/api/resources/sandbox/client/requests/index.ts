@@ -1,7 +1,9 @@
+export { type AcquireSandboxRequest } from "./AcquireSandboxRequest.js";
 export { type JiraDataInput } from "./JiraDataInput.js";
 export { type GoogleCalendarDataInput } from "./GoogleCalendarDataInput.js";
 export { type GoogleFormsDataInput } from "./GoogleFormsDataInput.js";
 export { type GoogleSheetsDataInput } from "./GoogleSheetsDataInput.js";
+export { type SalesforceDataInput } from "./SalesforceDataInput.js";
 export { type OneDriveDataInput } from "./OneDriveDataInput.js";
 export { type MsTeamsDataInput } from "./MsTeamsDataInput.js";
 export { type CalcomDataInput } from "./CalcomDataInput.js";

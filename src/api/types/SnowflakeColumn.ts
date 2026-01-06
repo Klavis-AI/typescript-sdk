@@ -13,5 +13,5 @@ export interface SnowflakeColumn {
     /** Whether the column can be NULL */
     nullable?: boolean;
     /** Default value for the column */
-    default?: string;
+    default_value?: string;
 }

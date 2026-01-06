@@ -7,5 +7,6 @@ export { type ListStrataRawActionsMcpServerStrataStrataIdRawActionsGetRequest } 
 export { type StrataSetAuthRequest } from "./StrataSetAuthRequest.js";
 export { type CreateServerRequest } from "./CreateServerRequest.js";
 export { type CreateSelfHostedServerRequest } from "./CreateSelfHostedServerRequest.js";
+export { type UpdateServerInstanceRequest } from "./UpdateServerInstanceRequest.js";
 export { type McpServerGetToolsRequest } from "./McpServerGetToolsRequest.js";
 export { type SetAuthRequest } from "./SetAuthRequest.js";

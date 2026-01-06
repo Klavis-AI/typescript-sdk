@@ -7,11 +7,11 @@
  */
 export interface CloseTask {
     /** Task description */
-    text: string;
-    /** The date of a task represents the point in time of when the task is actionable and appears in the inbox */
+    description: string;
+    /** The date when the task is actionable */
     date?: string;
     /** Whether task is completed */
-    is_complete?: boolean;
+    completed?: boolean;
     /** User ID assigned to */
-    assigned_to?: string;
+    assignee_id?: string;
 }

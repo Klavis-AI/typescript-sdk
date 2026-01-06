@@ -10,8 +10,8 @@ import * as Klavis from "../index.js";
 export interface SnowflakeDatabase {
     /** Database name, cannot be 'SNOWFLAKE' or 'USER$...' since they are default databases */
     name: string;
-    /** Database comment/description */
-    comment?: string;
+    /** Database description */
+    description?: string;
     /** Schemas in this database */
     schemas?: Klavis.SnowflakeSchema[];
 }

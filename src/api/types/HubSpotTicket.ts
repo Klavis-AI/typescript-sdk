@@ -7,14 +7,14 @@
  * Can be associated with: Contacts, Companies.
  */
 export interface HubSpotTicket {
-    /** Ticket subject */
-    subject: string;
-    /** Ticket content/description */
-    content?: string;
+    /** Ticket title */
+    title: string;
+    /** Ticket description/details */
+    description?: string;
     /** Ticket pipeline */
     pipeline?: string;
-    /** Ticket pipeline stage */
-    pipeline_stage?: string;
+    /** Ticket workflow stage */
+    workflow_stage?: string;
     /** Ticket priority (HIGH, MEDIUM, LOW) */
-    priority?: string;
+    priority_level?: string;
 }

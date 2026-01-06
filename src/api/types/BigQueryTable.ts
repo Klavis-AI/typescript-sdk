@@ -5,17 +5,19 @@
 import * as Klavis from "../index.js";
 
 /**
- * BigQuery table object - matches API format
+ * BigQuery table
  */
 export interface BigQueryTable {
-    /** Table reference */
-    tableReference: Klavis.BigQueryTableReference;
-    /** Table schema */
-    schema?: Klavis.BigQueryTableSchema;
+    /** Parent dataset ID */
+    dataset_id: string;
+    /** Table ID */
+    id: string;
     /** Table description */
     description?: string;
+    /** Table schema fields */
+    fields?: Klavis.BigQueryField[];
     /** Number of rows */
-    numRows?: string;
+    row_count?: string;
     /** Creation timestamp */
-    creationTime?: string;
+    created_at?: string;
 }

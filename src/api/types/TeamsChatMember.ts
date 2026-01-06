@@ -7,9 +7,9 @@
  */
 export interface TeamsChatMember {
     /** Member ID (read-only, set by Teams) */
-    id?: string;
+    member_id?: string;
     /** Member display name */
-    displayName?: string;
+    member_name?: string;
     /** User email for creating chats */
-    email?: string;
+    member_email?: string;
 }

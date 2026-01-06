@@ -8,6 +8,6 @@ import * as Klavis from "../index.js";
  * Complete OneDrive sandbox data structure
  */
 export interface OneDriveDataOutput {
-    /** Root folder containing all subfolders and files */
-    root: Klavis.OneDriveFolder;
+    /** List containing root folder (should contain only one element) */
+    root: Klavis.OneDriveFolder[];
 }

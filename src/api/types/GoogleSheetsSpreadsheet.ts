@@ -8,8 +8,8 @@ import * as Klavis from "../index.js";
  * Google Sheets spreadsheet object
  */
 export interface GoogleSheetsSpreadsheet {
-    /** Spreadsheet properties including title (required) */
-    properties: Klavis.GoogleSheetsSpreadsheetProperties;
+    /** Spreadsheet title */
+    title: string;
     /** List of sheets in the spreadsheet */
     sheets?: Klavis.GoogleSheetsSheet[];
 }

@@ -5,13 +5,15 @@
 import * as Klavis from "../index.js";
 
 /**
- * Google Forms form object - matches API Form resource
+ * A Google Form with simplified structure
  */
 export interface GoogleFormsForm {
-    /** Required. The title and description of the form */
-    info: Klavis.GoogleFormsInfo;
-    /** The form's settings */
-    settings?: Klavis.GoogleFormsFormSettings;
-    /** A list of the form's items */
+    /** The form title visible to responders */
+    title: string;
+    /** The form description */
+    description?: string;
+    /** Whether this form is a quiz */
+    is_quiz?: boolean;
+    /** List of form items (questions and section headers) */
     items?: Klavis.GoogleFormsItem[];
 }

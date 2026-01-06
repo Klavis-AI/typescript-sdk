@@ -10,8 +10,8 @@ import * as Klavis from "../index.js";
 export interface ConfluencePage {
     /** Page title */
     title: string;
-    /** Page content (storage format) */
-    body: string;
+    /** Page content */
+    content: string;
     /** Child pages */
     children?: Klavis.ConfluencePage[];
     /** Comments on this page */

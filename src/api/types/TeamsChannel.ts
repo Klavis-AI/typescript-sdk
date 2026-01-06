@@ -9,11 +9,11 @@ import * as Klavis from "../index.js";
  */
 export interface TeamsChannel {
     /** Channel ID (read-only, set by Teams) */
-    id?: string;
+    channel_id?: string;
     /** Channel display name */
-    displayName: string;
+    name: string;
     /** Channel description */
-    description?: string;
+    channel_description?: string;
     /** List of messages in the channel */
-    messages?: Klavis.TeamsMessage[];
+    channel_messages?: Klavis.TeamsMessage[];
 }

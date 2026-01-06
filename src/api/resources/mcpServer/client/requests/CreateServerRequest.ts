@@ -22,4 +22,6 @@ export interface CreateServerRequest {
     connectionType?: Klavis.ConnectionType;
     /** Whether to use the legacy server. Default is False. */
     legacy?: boolean;
+    /** Whether the MCP server connection is read-only. When true, write operations will be restricted. Default is False. */
+    isReadOnly?: boolean;
 }

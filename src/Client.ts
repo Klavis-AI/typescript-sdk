@@ -18,6 +18,8 @@ import { TeamsOauth } from "./api/resources/teamsOauth/client/Client.js";
 import { ZoomOauth } from "./api/resources/zoomOauth/client/Client.js";
 import { ZohoMailOauth } from "./api/resources/zohoMailOauth/client/Client.js";
 import { SharesightOauth } from "./api/resources/sharesightOauth/client/Client.js";
+import { InstagramOauth } from "./api/resources/instagramOauth/client/Client.js";
+import { YoutubeOauth } from "./api/resources/youtubeOauth/client/Client.js";
 import { IntercomOauth } from "./api/resources/intercomOauth/client/Client.js";
 import { PaypalOauth } from "./api/resources/paypalOauth/client/Client.js";
 import { SentryOauth } from "./api/resources/sentryOauth/client/Client.js";
@@ -27,6 +29,7 @@ import { SquareOauth } from "./api/resources/squareOauth/client/Client.js";
 import { ClockwiseOauth } from "./api/resources/clockwiseOauth/client/Client.js";
 import { JotformOauth } from "./api/resources/jotformOauth/client/Client.js";
 import { HoneycombOauth } from "./api/resources/honeycombOauth/client/Client.js";
+import { AmplitudeOauth } from "./api/resources/amplitudeOauth/client/Client.js";
 import { Sandbox } from "./api/resources/sandbox/client/Client.js";
 
 export declare namespace KlavisClient {
@@ -67,6 +70,8 @@ export class KlavisClient {
     protected _zoomOauth: ZoomOauth | undefined;
     protected _zohoMailOauth: ZohoMailOauth | undefined;
     protected _sharesightOauth: SharesightOauth | undefined;
+    protected _instagramOauth: InstagramOauth | undefined;
+    protected _youtubeOauth: YoutubeOauth | undefined;
     protected _intercomOauth: IntercomOauth | undefined;
     protected _paypalOauth: PaypalOauth | undefined;
     protected _sentryOauth: SentryOauth | undefined;
@@ -76,6 +81,7 @@ export class KlavisClient {
     protected _clockwiseOauth: ClockwiseOauth | undefined;
     protected _jotformOauth: JotformOauth | undefined;
     protected _honeycombOauth: HoneycombOauth | undefined;
+    protected _amplitudeOauth: AmplitudeOauth | undefined;
     protected _sandbox: Sandbox | undefined;
 
     constructor(_options: KlavisClient.Options = {}) {
@@ -85,8 +91,8 @@ export class KlavisClient {
                 {
                     "X-Fern-Language": "JavaScript",
                     "X-Fern-SDK-Name": "klavis",
-                    "X-Fern-SDK-Version": "2.18.0",
-                    "User-Agent": "klavis/2.18.0",
+                    "X-Fern-SDK-Version": "2.19.0",
+                    "User-Agent": "klavis/2.19.0",
                     "X-Fern-Runtime": core.RUNTIME.type,
                     "X-Fern-Runtime-Version": core.RUNTIME.version,
                 },
@@ -147,6 +153,14 @@ export class KlavisClient {
         return (this._sharesightOauth ??= new SharesightOauth(this._options));
     }
 
+    public get instagramOauth(): InstagramOauth {
+        return (this._instagramOauth ??= new InstagramOauth(this._options));
+    }
+
+    public get youtubeOauth(): YoutubeOauth {
+        return (this._youtubeOauth ??= new YoutubeOauth(this._options));
+    }
+
     public get intercomOauth(): IntercomOauth {
         return (this._intercomOauth ??= new IntercomOauth(this._options));
     }
@@ -181,6 +195,10 @@ export class KlavisClient {
 
     public get honeycombOauth(): HoneycombOauth {
         return (this._honeycombOauth ??= new HoneycombOauth(this._options));
+    }
+
+    public get amplitudeOauth(): AmplitudeOauth {
+        return (this._amplitudeOauth ??= new AmplitudeOauth(this._options));
     }
 
     public get sandbox(): Sandbox {

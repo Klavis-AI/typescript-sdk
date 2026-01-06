@@ -18,11 +18,11 @@ export interface GoogleCloudDataInput {
     /** Cloud Storage objects */
     objects?: Klavis.StorageObject[];
     /** Log entries */
-    logEntries?: Klavis.LogEntry[];
+    log_entries?: Klavis.LogEntry[];
     /** Log sinks */
-    logSinks?: Klavis.LogSink[];
+    log_sinks?: Klavis.LogSink[];
     /** Log buckets */
-    logBuckets?: Klavis.LogBucket[];
+    log_buckets?: Klavis.LogBucket[];
     /** Compute Engine instances */
     instances?: Klavis.ComputeInstance[];
 }

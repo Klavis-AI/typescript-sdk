@@ -11,7 +11,7 @@ export interface CloseLead {
     /** Lead name/company name */
     name: string;
     /** Lead status */
-    status_label?: string;
+    status?: string;
     /** Contacts associated with this lead */
     contacts?: Klavis.CloseContact[];
     /** Opportunities associated with this lead */

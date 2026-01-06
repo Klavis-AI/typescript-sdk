@@ -9,9 +9,9 @@ import * as Klavis from "../index.js";
  */
 export interface TeamsChat {
     /** Chat ID (read-only, set by Teams) */
-    id?: string;
+    chat_id?: string;
     /** List of chat members */
-    members?: Klavis.TeamsChatMember[];
+    chat_members?: Klavis.TeamsChatMember[];
     /** List of messages in the chat */
-    messages?: Klavis.TeamsMessage[];
+    chat_messages?: Klavis.TeamsMessage[];
 }

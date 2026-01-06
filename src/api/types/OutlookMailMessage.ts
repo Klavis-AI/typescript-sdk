@@ -9,15 +9,15 @@ export interface OutlookMailMessage {
     /** Message ID (read-only, set by Outlook) */
     id?: string;
     /** Email subject */
-    subject: string;
+    title: string;
     /** Email body with content and contentType */
-    body?: Record<string, unknown>;
+    content?: Record<string, unknown>;
     /** From address with emailAddress object */
     from?: Record<string, unknown>;
     /** List of recipient email addresses */
-    to_recipients?: string[];
+    to_addresses?: string[];
     /** List of CC recipient email addresses */
-    cc_recipients?: string[];
+    cc_addresses?: string[];
     /** Whether the message has been read */
     is_read?: boolean;
     /** Date and time the message was received */

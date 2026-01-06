@@ -12,8 +12,8 @@ export interface AsanaProject {
     gid?: string;
     /** Project name */
     name: string;
-    /** Project notes/description */
-    notes?: string;
+    /** Project description */
+    description?: string;
     /** Tasks in this project */
     tasks?: Klavis.AsanaTask[];
 }

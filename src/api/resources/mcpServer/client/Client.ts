@@ -1240,6 +1240,91 @@ export class McpServer {
     }
 
     /**
+     * Updates the settings of a specific server connection instance.
+     * Currently supports updating the read-only status of the connection.
+     *
+     * @param {string} instanceId - The ID of the connection integration instance to update.
+     * @param {Klavis.UpdateServerInstanceRequest} request
+     * @param {McpServer.RequestOptions} requestOptions - Request-specific configuration.
+     *
+     * @throws {@link Klavis.UnprocessableEntityError}
+     *
+     * @example
+     *     await client.mcpServer.updateServerInstance("instanceId")
+     */
+    public updateServerInstance(
+        instanceId: string,
+        request: Klavis.UpdateServerInstanceRequest = {},
+        requestOptions?: McpServer.RequestOptions,
+    ): core.HttpResponsePromise<Klavis.UpdateServerInstanceResponse> {
+        return core.HttpResponsePromise.fromPromise(this.__updateServerInstance(instanceId, request, requestOptions));
+    }
+
+    private async __updateServerInstance(
+        instanceId: string,
+        request: Klavis.UpdateServerInstanceRequest = {},
+        requestOptions?: McpServer.RequestOptions,
+    ): Promise<core.WithRawResponse<Klavis.UpdateServerInstanceResponse>> {
+        const _response = await (this._options.fetcher ?? core.fetcher)({
+            url: urlJoin(
+                (await core.Supplier.get(this._options.baseUrl)) ??
+                    (await core.Supplier.get(this._options.environment)) ??
+                    environments.KlavisEnvironment.Default,
+                `mcp-server/instance/${encodeURIComponent(instanceId)}`,
+            ),
+            method: "PATCH",
+            headers: mergeHeaders(
+                this._options?.headers,
+                mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
+                requestOptions?.headers,
+            ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
+            timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
+            maxRetries: requestOptions?.maxRetries,
+            abortSignal: requestOptions?.abortSignal,
+        });
+        if (_response.ok) {
+            return { data: _response.body as Klavis.UpdateServerInstanceResponse, rawResponse: _response.rawResponse };
+        }
+
+        if (_response.error.reason === "status-code") {
+            switch (_response.error.statusCode) {
+                case 422:
+                    throw new Klavis.UnprocessableEntityError(
+                        _response.error.body as Klavis.HttpValidationError,
+                        _response.rawResponse,
+                    );
+                default:
+                    throw new errors.KlavisError({
+                        statusCode: _response.error.statusCode,
+                        body: _response.error.body,
+                        rawResponse: _response.rawResponse,
+                    });
+            }
+        }
+
+        switch (_response.error.reason) {
+            case "non-json":
+                throw new errors.KlavisError({
+                    statusCode: _response.error.statusCode,
+                    body: _response.error.rawBody,
+                    rawResponse: _response.rawResponse,
+                });
+            case "timeout":
+                throw new errors.KlavisTimeoutError(
+                    "Timeout exceeded when calling PATCH /mcp-server/instance/{instanceId}.",
+                );
+            case "unknown":
+                throw new errors.KlavisError({
+                    message: _response.error.errorMessage,
+                    rawResponse: _response.rawResponse,
+                });
+        }
+    }
+
+    /**
      * Retrieves the auth data for a specific integration instance that the API key owner controls.
      * Includes access token, refresh token, and other authentication data.
      *

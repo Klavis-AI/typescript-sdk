@@ -5,7 +5,7 @@
 import * as Klavis from "../index.js";
 
 /**
- * Cloud Storage bucket object - matches API format
+ * Cloud Storage bucket
  */
 export interface StorageBucket {
     /** Bucket name */
@@ -13,13 +13,13 @@ export interface StorageBucket {
     /** Bucket location */
     location?: string;
     /** Storage class */
-    storageClass?: string;
-    /** Versioning configuration */
-    versioning?: Klavis.StorageBucketVersioning;
-    /** Lifecycle configuration */
-    lifecycle?: Klavis.StorageBucketLifecycle;
+    storage_class?: string;
+    /** Whether versioning is enabled */
+    versioning_enabled?: boolean;
+    /** Lifecycle rules */
+    lifecycle_rules?: Klavis.LifecycleRule[];
     /** Creation timestamp */
-    timeCreated?: string;
+    created_at?: string;
     /** Last update timestamp */
-    updated?: string;
+    updated_at?: string;
 }

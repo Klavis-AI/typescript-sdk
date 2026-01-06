@@ -7,14 +7,14 @@
  * Can be associated with: Contacts, Companies, Deals, Tickets.
  */
 export interface HubSpotTask {
-    /** Task subject/title */
-    subject: string;
-    /** Task body/description */
-    body?: string;
+    /** Task title */
+    title: string;
+    /** Task description/details */
+    description?: string;
     /** Task status (NOT_STARTED, IN_PROGRESS, COMPLETED, WAITING, DEFERRED) */
-    status?: string;
+    task_status?: string;
     /** Task priority (HIGH, MEDIUM, LOW) */
-    priority?: string;
-    /** Task due date (ISO 8601 format) */
-    due_date?: string;
+    priority_level?: string;
+    /** Task deadline (ISO 8601 format) */
+    deadline?: string;
 }

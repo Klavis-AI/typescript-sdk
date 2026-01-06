@@ -8,8 +8,8 @@ import * as Klavis from "../index.js";
  * Confluence Space object
  */
 export interface ConfluenceSpace {
-    /** Space key (e.g., DS) */
-    key: string;
+    /** Space identifier */
+    identifier: string;
     /** Space name */
     name: string;
     /** Space description */

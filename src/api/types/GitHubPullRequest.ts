@@ -9,15 +9,15 @@ export interface GitHubPullRequest {
     /** PR ID (read-only, set by GitHub) */
     id?: number;
     /** Pull request title */
-    title: string;
+    pr_title: string;
     /** Pull request description/body */
-    body?: string;
+    description?: string;
     /** PR state: open, closed, or merged */
-    state?: string;
+    status?: string;
     /** Head branch name */
-    head: string;
+    source_branch: string;
     /** Base branch name */
-    base?: string;
+    target_branch?: string;
     /** List of label names */
     labels?: string[];
 }

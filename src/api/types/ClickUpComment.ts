@@ -6,6 +6,6 @@
  * ClickUp Comment object
  */
 export interface ClickUpComment {
-    /** Comment text content */
-    comment_text: string;
+    /** Comment body content */
+    body: string;
 }

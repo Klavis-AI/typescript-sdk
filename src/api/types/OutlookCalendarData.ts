@@ -9,5 +9,5 @@ import * as Klavis from "../index.js";
  */
 export interface OutlookCalendarData {
     /** List of calendar events */
-    events?: Klavis.OutlookCalendarEvent[];
+    calendar_events?: Klavis.OutlookCalendarEvent[];
 }

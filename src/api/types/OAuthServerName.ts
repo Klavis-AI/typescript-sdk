@@ -57,7 +57,9 @@ export type OAuthServerName =
     | "Clockwise"
     | "Jotform"
     | "Honeycomb"
-    | "Zoho Mail";
+    | "Zoho Mail"
+    | "Sharesight"
+    | "Instagram";
 export const OAuthServerName = {
     Airtable: "Airtable",
     Asana: "Asana",
@@ -114,4 +116,6 @@ export const OAuthServerName = {
     Jotform: "Jotform",
     Honeycomb: "Honeycomb",
     ZohoMail: "Zoho Mail",
+    Sharesight: "Sharesight",
+    Instagram: "Instagram",
 } as const;

@@ -3,7 +3,7 @@
  */
 
 /**
- * Cloud Logging bucket - matches API format
+ * Cloud Logging bucket
  */
 export interface LogBucket {
     /** Bucket name/ID */
@@ -11,11 +11,11 @@ export interface LogBucket {
     /** Bucket location */
     location?: string;
     /** Retention period in days */
-    retentionDays?: number;
+    retention_days?: number;
     /** Bucket description */
     description?: string;
     /** Creation timestamp */
-    createTime?: string;
+    created_at?: string;
     /** Update timestamp */
-    updateTime?: string;
+    updated_at?: string;
 }

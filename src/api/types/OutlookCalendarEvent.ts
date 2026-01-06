@@ -7,15 +7,15 @@
  */
 export interface OutlookCalendarEvent {
     /** Event ID (read-only, set by Outlook) */
-    id?: string;
+    event_id?: string;
     /** Event subject/title */
-    subject: string;
+    title: string;
     /** Start time with dateTime and timeZone */
-    start?: Record<string, unknown>;
+    start_time?: Record<string, unknown>;
     /** End time with dateTime and timeZone */
-    end?: Record<string, unknown>;
-    /** Location object with displayName */
-    location?: Record<string, unknown>;
+    end_time?: Record<string, unknown>;
+    /** Location name */
+    event_location?: string;
     /** List of attendee email addresses (e.g., ['user@example.com']) */
-    attendees?: string[];
+    event_attendees?: string[];
 }

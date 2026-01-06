@@ -8,13 +8,13 @@
  */
 export interface HubSpotContact {
     /** Contact first name */
-    firstname: string;
+    first_name: string;
     /** Contact last name */
-    lastname: string;
+    last_name: string;
     /** Contact email address */
-    email: string;
+    email_address: string;
     /** Contact phone number */
-    phone?: string;
+    phone_number?: string;
     /** Contact job title */
     job_title?: string;
 }

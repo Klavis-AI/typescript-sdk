@@ -5,6 +5,7 @@
 export type McpServerName =
     | "Affinity"
     | "Airtable"
+    | "Amplitude"
     | "Asana"
     | "Attio"
     | "Box"
@@ -92,10 +93,14 @@ export type McpServerName =
     | "Clockwise"
     | "Jotform"
     | "Honeycomb"
-    | "Zoho Mail";
+    | "Zoho Mail"
+    | "Sharesight"
+    | "Weights and Biases"
+    | "Instagram";
 export const McpServerName = {
     Affinity: "Affinity",
     Airtable: "Airtable",
+    Amplitude: "Amplitude",
     Asana: "Asana",
     Attio: "Attio",
     Box: "Box",
@@ -184,4 +189,7 @@ export const McpServerName = {
     Jotform: "Jotform",
     Honeycomb: "Honeycomb",
     ZohoMail: "Zoho Mail",
+    Sharesight: "Sharesight",
+    WeightsAndBiases: "Weights and Biases",
+    Instagram: "Instagram",
 } as const;

@@ -28,26 +28,4 @@ describe("ClockwiseOauth", () => {
             key: "value",
         });
     });
-
-    test("refresh_clockwise_oauth_token", async () => {
-        const server = mockServerPool.createServer();
-        const client = new KlavisClient({ apiKey: "test", environment: server.baseUrl });
-
-        const rawResponseBody = { status: "status", message: "message" };
-        server
-            .mockEndpoint()
-            .post("/oauth/clockwise/refresh_token")
-            .respondWith()
-            .statusCode(200)
-            .jsonBody(rawResponseBody)
-            .build();
-
-        const response = await client.clockwiseOauth.refreshClockwiseOauthToken({
-            instance_id: "instance_id",
-        });
-        expect(response).toEqual({
-            status: "status",
-            message: "message",
-        });
-    });
 });

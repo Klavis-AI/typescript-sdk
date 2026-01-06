@@ -40,9 +40,10 @@ export class Sandbox {
     }
 
     /**
-     * Acquire an idle sandbox instance for a specific MCP server. The sandbox will be marked as 'occupied'.
+     * Acquire an idle sandbox instance for a specific MCP server. The sandbox will be marked as 'occupied'. Optionally specify a test_account_email to acquire a specific test account.
      *
      * @param {Klavis.SandboxMcpServer} serverName - The MCP server name
+     * @param {Klavis.AcquireSandboxRequest} request
      * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
@@ -52,13 +53,15 @@ export class Sandbox {
      */
     public createSandbox(
         serverName: Klavis.SandboxMcpServer,
+        request: Klavis.AcquireSandboxRequest = {},
         requestOptions?: Sandbox.RequestOptions,
     ): core.HttpResponsePromise<Klavis.CreateSandboxResponse> {
-        return core.HttpResponsePromise.fromPromise(this.__createSandbox(serverName, requestOptions));
+        return core.HttpResponsePromise.fromPromise(this.__createSandbox(serverName, request, requestOptions));
     }
 
     private async __createSandbox(
         serverName: Klavis.SandboxMcpServer,
+        request: Klavis.AcquireSandboxRequest = {},
         requestOptions?: Sandbox.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.CreateSandboxResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -74,6 +77,9 @@ export class Sandbox {
                 mergeOnlyDefinedHeaders({ Authorization: await this._getAuthorizationHeader() }),
                 requestOptions?.headers,
             ),
+            contentType: "application/json",
+            requestType: "json",
+            body: request,
             timeoutMs: requestOptions?.timeoutInSeconds != null ? requestOptions.timeoutInSeconds * 1000 : 60000,
             maxRetries: requestOptions?.maxRetries,
             abortSignal: requestOptions?.abortSignal,
@@ -1521,17 +1527,17 @@ export class Sandbox {
      * Initialize the sandbox with salesforce-specific data following the defined schema.
      *
      * @param {string} sandboxId - The unique sandbox identifier
-     * @param {Klavis.SalesforceData} request
+     * @param {Klavis.SalesforceDataInput} request
      * @param {Sandbox.RequestOptions} requestOptions - Request-specific configuration.
      *
      * @throws {@link Klavis.UnprocessableEntityError}
      *
      * @example
-     *     await client.sandbox.initializeSalesforceSandbox("sandbox_id", {})
+     *     await client.sandbox.initializeSalesforceSandbox("sandbox_id")
      */
     public initializeSalesforceSandbox(
         sandboxId: string,
-        request: Klavis.SalesforceData,
+        request: Klavis.SalesforceDataInput = {},
         requestOptions?: Sandbox.RequestOptions,
     ): core.HttpResponsePromise<Klavis.InitializeSandboxResponse> {
         return core.HttpResponsePromise.fromPromise(
@@ -1541,7 +1547,7 @@ export class Sandbox {
 
     private async __initializeSalesforceSandbox(
         sandboxId: string,
-        request: Klavis.SalesforceData,
+        request: Klavis.SalesforceDataInput = {},
         requestOptions?: Sandbox.RequestOptions,
     ): Promise<core.WithRawResponse<Klavis.InitializeSandboxResponse>> {
         const _response = await (this._options.fetcher ?? core.fetcher)({
@@ -1695,9 +1701,9 @@ export class Sandbox {
      *
      * @example
      *     await client.sandbox.initializeOnedriveSandbox("sandbox_id", {
-     *         root: {
-     *             name: "name"
-     *         }
+     *         root: [{
+     *                 name: "name"
+     *             }]
      *     })
      */
     public initializeOnedriveSandbox(

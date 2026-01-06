@@ -7,14 +7,14 @@
  * Can be associated with: Contacts, Companies.
  */
 export interface HubSpotDeal {
-    /** Deal name */
-    deal_name: string;
-    /** Deal amount */
-    amount?: string;
+    /** Deal title */
+    title: string;
+    /** Deal value/amount */
+    value?: string;
     /** Deal stage */
-    deal_stage?: string;
+    stage?: string;
     /** Deal pipeline */
     pipeline?: string;
     /** Expected close date */
-    close_date?: string;
+    expected_close_date?: string;
 }

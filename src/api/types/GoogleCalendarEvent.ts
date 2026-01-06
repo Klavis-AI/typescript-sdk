@@ -9,21 +9,25 @@ import * as Klavis from "../index.js";
  */
 export interface GoogleCalendarEvent {
     /** Event title/summary (required) */
-    summary: string;
-    /** Event start time (required) */
-    start: Klavis.GoogleCalendarEventDateTime;
-    /** Event end time (required) */
-    end: Klavis.GoogleCalendarEventDateTime;
+    title: string;
+    /** RFC3339 timestamp for timed events (e.g., 2025-12-01T09:00:00-07:00) */
+    startTime?: string;
+    /** RFC3339 timestamp for timed events */
+    endTime?: string;
+    /** All-day event start date in YYYY-MM-DD format */
+    startDate?: string;
+    /** All-day event end date in YYYY-MM-DD format */
+    endDate?: string;
+    /** IANA timezone (e.g., America/Los_Angeles) */
+    timezone?: string;
     /** Event description */
     description?: string;
     /** Event location */
     location?: string;
-    /** List of event attendees */
-    attendees?: Klavis.GoogleCalendarAttendee[];
-    /** Event color (1-11) */
-    colorId?: string;
     /** Visibility (default, public, private, confidential) */
     visibility?: string;
-    /** Transparency (opaque, transparent) */
-    transparency?: string;
+    /** Recurrence rules (RRULE format) */
+    recurrence?: string[];
+    /** List of event attendees */
+    attendees?: Klavis.GoogleCalendarAttendee[];
 }

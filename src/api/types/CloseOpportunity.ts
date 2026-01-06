@@ -12,6 +12,6 @@ export interface CloseOpportunity {
     value?: number;
     /** Confidence percentage (0-100) */
     confidence?: number;
-    /** Value period (e.g., 'one_time', 'monthly', 'annual') */
-    value_period?: string;
+    /** Billing period (e.g., 'one_time', 'monthly', 'annual') */
+    period?: string;
 }

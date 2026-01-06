@@ -9,11 +9,11 @@ export interface GitHubIssue {
     /** Issue ID (read-only, set by GitHub) */
     id?: number;
     /** Issue title */
-    title: string;
+    issue_title: string;
     /** Issue description/body */
-    body?: string;
+    description?: string;
     /** Issue state: open or closed */
-    state?: string;
+    status?: string;
     /** List of label names */
     labels?: string[];
 }

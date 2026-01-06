@@ -10,8 +10,8 @@ import * as Klavis from "../index.js";
 export interface ClickUpList {
     /** List name */
     name: string;
-    /** List description/content */
-    content?: string;
+    /** List description */
+    description?: string;
     /** Tasks in this list */
     tasks?: Klavis.ClickUpTask[];
 }

@@ -8,21 +8,21 @@
  */
 export interface HubSpotCompany {
     /** Company name */
-    name: string;
-    /** Company domain/website */
-    domain?: string;
+    company_name: string;
+    /** Company website domain */
+    website_domain?: string;
     /** Company industry */
     industry?: string;
     /** Company city */
     city?: string;
     /** Company state/region */
-    state?: string;
+    state_region?: string;
     /** Company country */
     country?: string;
     /** Company phone number */
-    phone?: string;
+    phone_number?: string;
     /** Number of employees */
-    number_of_employees?: string;
-    /** Annual revenue */
-    annual_revenue?: string;
+    employee_count?: string;
+    /** Yearly revenue */
+    yearly_revenue?: string;
 }

@@ -10,6 +10,6 @@ export interface GitHubFile {
     name: string;
     /** File path within the repository */
     path: string;
-    /** File content (base64 encoded for binary files) */
+    /** File content */
     content?: string;
 }

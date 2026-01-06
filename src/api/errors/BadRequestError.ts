@@ -3,10 +3,11 @@
  */
 
 import * as errors from "../../errors/index.js";
+import * as Klavis from "../index.js";
 import * as core from "../../core/index.js";
 
 export class BadRequestError extends errors.KlavisError {
-    constructor(body?: unknown, rawResponse?: core.RawResponse) {
+    constructor(body: Klavis.AzureAdoAuthErrorResponse, rawResponse?: core.RawResponse) {
         super({
             message: "BadRequestError",
             statusCode: 400,

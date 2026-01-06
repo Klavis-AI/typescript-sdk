@@ -7,7 +7,7 @@
  */
 export interface TeamsMessage {
     /** Message ID (read-only, set by Teams) */
-    id?: string;
+    message_id?: string;
     /** Message content */
-    body: string;
+    content: string;
 }

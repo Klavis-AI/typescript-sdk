@@ -6,6 +6,6 @@
  * Confluence Comment object
  */
 export interface ConfluenceComment {
-    /** Comment text content (storage format) */
-    body: string;
+    /** Comment text content */
+    content: string;
 }
